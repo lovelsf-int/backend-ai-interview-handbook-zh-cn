@@ -1,0 +1,9 @@
+{
+  "config": {
+    "default": false,
+    "MD009": true,
+    "MD010": true,
+    "MD012": { "maximum": 2 },
+    "MD047": true
+  }
+}

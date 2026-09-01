@@ -1,0 +1,35 @@
+:root {
+  --vp-c-brand-1: #3451b2;
+  --vp-c-brand-2: #3e63dd;
+  --vp-c-brand-3: #5b77d4;
+  --vp-c-brand-soft: rgba(62, 99, 221, 0.14);
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(120deg, #3451b2 15%, #8e4ec6 85%);
+  --vp-font-family-base: Inter, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --vp-font-family-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+}
+
+.VPDoc h1 {
+  letter-spacing: -0.025em;
+}
+
+.VPDoc h2 {
+  border-top: 0;
+  margin-top: 2.4rem;
+}
+
+.VPDoc table {
+  display: table;
+  width: 100%;
+}
+
+.VPDoc blockquote {
+  border-left-color: var(--vp-c-brand-2);
+  background: var(--vp-c-brand-soft);
+  border-radius: 0 8px 8px 0;
+  padding: 0.75rem 1rem;
+}
+
+.VPHome .VPHero .text {
+  max-width: 720px;
+}

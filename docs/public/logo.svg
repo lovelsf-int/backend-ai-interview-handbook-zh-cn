@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">后端与 AI 面试手册</title>
+  <desc id="desc">由六边形节点和书页组成的蓝紫色标志</desc>
+  <defs>
+    <linearGradient id="g" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3451b2"/>
+      <stop offset="1" stop-color="#8e4ec6"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#g)" d="M32 3 56 17v30L32 61 8 47V17L32 3Z"/>
+  <path fill="#fff" d="M18 20.5c5.9-1.5 10.4-.5 14 3v24c-3.6-3.5-8.1-4.5-14-3v-24Zm28 0c-5.9-1.5-10.4-.5-14 3v24c3.6-3.5 8.1-4.5 14-3v-24Z" opacity=".94"/>
+  <circle cx="32" cy="15" r="3" fill="#fff"/>
+</svg>
