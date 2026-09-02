@@ -17,6 +17,38 @@ const approvedSources = [
   '金余概_资深Java_AI-Agent开发_定制面试手册_v5.0_全球数据库容灾回切深挖版.docx'
 ]
 
+const incrementalSources = [
+  'Elasticsearch_P7_P8_完整面试手册_SOC_800到900万条_Primary150GB_事件告警分层版_v2.4.docx',
+  'Java虚拟线程生产实践指南_JDK21-25.docx',
+  'Elasticsearch_P7_P8_完整面试手册_SOC告警场景.docx',
+  '金余概_资深Java_AI-Agent开发_定制面试手册_v5.4_全量未答题补全版.docx',
+  '日本台湾双活订单系统架构图.png',
+  'mysql_07_08_000230.doc'
+]
+
+const incrementalTargets = [
+  'docs/elasticsearch/17-soc-event-alert-capacity.md',
+  'docs/elasticsearch/18-soc-pressure-interview.md',
+  'docs/java/virtual-threads-jdk21-25.md',
+  'docs/java/virtual-threads-production-patterns.md',
+  'docs/java/virtual-threads-observability-migration.md',
+  'docs/java/design-patterns-production-scenarios.md',
+  'docs/system-design/pressure-interview-playbook.md',
+  'docs/mysql/innodb-write-mvcc-transactions.md',
+  'docs/mysql/locks-deadlocks-production-runbook.md',
+  'docs/mysql/index-explain-pagination-replication.md'
+]
+
+const incrementalAssets = [
+  'docs/public/images/system-design/japan-taiwan-active-active-order.png'
+]
+
+const mysqlReviewedTargets = [
+  'docs/mysql/innodb-write-mvcc-transactions.md',
+  'docs/mysql/locks-deadlocks-production-runbook.md',
+  'docs/mysql/index-explain-pagination-replication.md'
+]
+
 const aiAgentTargets = [
   'docs/ai-agent/index.md',
   'docs/ai-agent/01-llm-agent-basics.md',
@@ -137,6 +169,28 @@ test('migration manifest lists every approved source exactly once', () => {
     const escaped = source.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
     const occurrences = manifest.match(new RegExp(escaped, 'g'))?.length ?? 0
     assert.equal(occurrences, 1, `expected one manifest entry for ${source}`)
+  }
+})
+
+test('incremental migration lists every new source exactly once', () => {
+  const manifest = readFileSync('docs/migration-manifest.md', 'utf8')
+
+  for (const source of incrementalSources) {
+    const escaped = source.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    const occurrences = manifest.match(new RegExp(escaped, 'g'))?.length ?? 0
+    assert.equal(occurrences, 1, `expected one incremental manifest entry for ${source}`)
+  }
+})
+
+test('incremental migration exposes every new page and owned asset', () => {
+  for (const target of [...incrementalTargets, ...incrementalAssets]) {
+    assert.equal(existsSync(target), true, `missing incremental target: ${target}`)
+  }
+})
+
+test('MySQL 8.4 review exposes all corrected canonical pages', () => {
+  for (const target of mysqlReviewedTargets) {
+    assert.equal(existsSync(target), true, `missing reviewed MySQL page: ${target}`)
   }
 })
 

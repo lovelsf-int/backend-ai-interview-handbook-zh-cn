@@ -30,6 +30,8 @@ source: Elasticsearch 深度原理、生产调优与面试题自有资料
 14. [Elasticsearch 高频面试题](./14-interview-question-bank.md)
 15. [Elasticsearch 生产命令与模板](./15-command-templates.md)
 16. [Elasticsearch 参考资料与延伸阅读](./16-references.md)
+17. [SOC 事件、告警分层与容量设计](./17-soc-event-alert-capacity.md)
+18. [SOC Elasticsearch P8 压力面试](./18-soc-pressure-interview.md)
 
 ## 使用原则
 

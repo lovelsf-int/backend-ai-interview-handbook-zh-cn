@@ -2,10 +2,10 @@
 title: 内容迁移清单
 description: 记录每份源资料的事实源角色、目标专题、去重策略和校准状态
 status: reviewing
-baseline: 2026-09-01 source inventory
-last_verified: 2026-09-01
+baseline: 2026-09-02 source inventory
+last_verified: 2026-09-02
 level: P7/P8
-source: 12 份自有源资料清单
+source: 16 份自有源资料与 1 张自有架构图清单
 ---
 
 # 内容迁移清单
@@ -25,7 +25,13 @@ source: 12 份自有源资料清单
 | 9 | `P8金融支付_SOLID设计模式_完整面试资料_Java版(2).docx` | canonical | `finance-payment-ddd/` | migrated |
 | 10 | `DDD支付订阅系统_高清架构评审版(1).docx` | 图示辅助 | `finance-payment-ddd/subscription-case/` | merged |
 | 11 | `DDD支付订阅系统_架构设计面试版_架构图版(1).docx` | 结构辅助 | `finance-payment-ddd/subscription-case/` | merged |
-| 12 | `金余概_资深Java_AI-Agent开发_定制面试手册_v5.0_全球数据库容灾回切深挖版.docx` | 后端与项目综合源 | `java/`、`jvm/`、`mysql/`、`system-design/` | migrated |
+| 12 | `金余概_资深Java_AI-Agent开发_定制面试手册_v5.0_全球数据库容灾回切深挖版.docx` | 后端与项目综合源 | `java/`、`jvm/`、`mysql/`、`system-design/` | superseded |
+| 13 | `Elasticsearch_P7_P8_完整面试手册_SOC_800到900万条_Primary150GB_事件告警分层版_v2.4.docx` | SOC 项目 canonical | `elasticsearch/17-soc-event-alert-capacity.md`、`18-soc-pressure-interview.md` | migrated |
+| 14 | `Java虚拟线程生产实践指南_JDK21-25.docx` | Java 虚拟线程 canonical | `java/virtual-threads-*.md` | migrated |
+| 15 | `Elasticsearch_P7_P8_完整面试手册_SOC告警场景.docx` | ES legacy 辅助 | ES 项目页中的通用检查清单 | legacy |
+| 16 | `金余概_资深Java_AI-Agent开发_定制面试手册_v5.4_全量未答题补全版.docx` | v5.4 增量源 | `java/design-patterns-production-scenarios.md`、`system-design/pressure-interview-playbook.md` | merged |
+| 17 | `日本台湾双活订单系统架构图.png` | 自有架构图 | `system-design/overseas-payment.md` | migrated |
+| 18 | `mysql_07_08_000230.doc` | MySQL 混合版本审计源（实际为 OOXML） | `mysql/` 三篇 MySQL 8.4 深入页 | migrated |
 
 ## 状态说明
 
@@ -33,11 +39,13 @@ source: 12 份自有源资料清单
 - `migrated`：独有知识点已经进入目标页面。
 - `merged`：内容已合并到 canonical 页面，重复正文不保留。
 - `legacy`：只在历史版本页面中保留。
+- `superseded`：内容已由新版本继承，旧版页面仍保留但不再继续扩写。
+- `in progress`：已完成来源审计，目标页面正在实施。
 
 ## 本轮结果
 
-12 份批准源资料均已完成迁移或合并。正文不链接 DOCX/PDF 源附件，不引用 Pandoc 导出的 `media/` 图片；重复主题改为 canonical 页面链接，旧版本材料单独标识为 `legacy`，需要继续核验的混合版本内容保持 `reviewing`。
+18 份来源均已完成迁移、合并或 legacy/superseded 归档。2026-09-02 的五份 Word 来源与一张自有架构图已完成增量合并；v5.4 未重复发布 v5.0 已覆盖正文，ES 旧 100 万条容量口径未进入当前项目主干，MySQL 混合版本内容统一按 8.4 官方语义校准。
 
 ## 校准原则
 
-Kafka 以强化版为主干；Redis 默认保持 `reviewing`；Elasticsearch 容量数字必须注明工作负载；支付领域先定义业务不变量，再讨论中间件和设计模式。
+Kafka 以强化版为主干；Redis 默认保持 `reviewing`；Elasticsearch 容量数字必须注明工作负载；虚拟线程区分 JDK 版本事实与项目实践；支付领域先定义业务不变量，再讨论中间件和设计模式。

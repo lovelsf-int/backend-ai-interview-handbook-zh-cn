@@ -66,7 +66,9 @@ const elasticsearchSidebar = [
   { text: '13 安全、备份与升级', link: '/elasticsearch/13-security-backup-upgrade.md' },
   { text: '14 面试题', link: '/elasticsearch/14-interview-question-bank.md' },
   { text: '15 命令与模板', link: '/elasticsearch/15-command-templates.md' },
-  { text: '16 参考资料', link: '/elasticsearch/16-references.md' }
+  { text: '16 参考资料', link: '/elasticsearch/16-references.md' },
+  { text: '17 SOC 事件告警容量', link: '/elasticsearch/17-soc-event-alert-capacity.md' },
+  { text: '18 SOC 压力面', link: '/elasticsearch/18-soc-pressure-interview.md' }
 ]
 
 const paymentSidebar = [
@@ -153,6 +155,10 @@ export default withMermaid(defineConfig({
       '/java/': [
         { text: 'Java 专题首页', link: '/java/' },
         { text: '并发与虚拟线程', link: '/java/concurrency-virtual-threads.md' },
+        { text: 'JDK 21–25 虚拟线程', link: '/java/virtual-threads-jdk21-25.md' },
+        { text: '虚拟线程生产模式', link: '/java/virtual-threads-production-patterns.md' },
+        { text: '虚拟线程观测与迁移', link: '/java/virtual-threads-observability-migration.md' },
+        { text: '设计模式生产场景', link: '/java/design-patterns-production-scenarios.md' },
         { text: 'Spring 事务与治理', link: '/java/spring-transactions-service-governance.md' }
       ],
       '/jvm/': [
@@ -161,7 +167,10 @@ export default withMermaid(defineConfig({
       ],
       '/mysql/': [
         { text: 'MySQL 专题首页', link: '/mysql/' },
-        { text: '事务、锁、索引与分片', link: '/mysql/transactions-locks-indexes.md' }
+        { text: '事务、锁、索引与分片', link: '/mysql/transactions-locks-indexes.md' },
+        { text: '写入、MVCC 与事务', link: '/mysql/innodb-write-mvcc-transactions.md' },
+        { text: '锁、死锁与排障', link: '/mysql/locks-deadlocks-production-runbook.md' },
+        { text: '索引、计划、分页与复制', link: '/mysql/index-explain-pagination-replication.md' }
       ],
       '/kafka/': kafkaSidebar,
       '/redis/': redisSidebar,
@@ -175,7 +184,8 @@ export default withMermaid(defineConfig({
         { text: '海外游戏支付', link: '/system-design/overseas-payment.md' },
         { text: '运输安全与 CBT-I', link: '/system-design/transport-safety.md' },
         { text: 'Spec-driven AI Coding', link: '/system-design/spec-driven-ai-coding.md' },
-        { text: '面试策略与评分', link: '/system-design/interview-strategy.md' }
+        { text: '面试策略与评分', link: '/system-design/interview-strategy.md' },
+        { text: 'P8 项目压力面', link: '/system-design/pressure-interview-playbook.md' }
       ]
     },
     outline: {

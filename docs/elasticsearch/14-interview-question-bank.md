@@ -14,6 +14,11 @@ source: Elasticsearch 深度原理、生产调优与面试题自有资料
 
 本章答案采用面试口述风格：先结论，再原理，再生产实践。实际面试中可根据业务经验展开。
 
+## SOC 专项题入口
+
+本题库保留通用 Elasticsearch 问答；800～900 万 Event + Alert、150GB Primary、分层索引和 AI 研判一致性的项目连续追问见
+[SOC Elasticsearch P8 压力面试](./18-soc-pressure-interview.md)。
+
 ### 14.1 基础原理题
 
 #### Q1. Elasticsearch 是什么？

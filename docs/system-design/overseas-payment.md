@@ -322,6 +322,25 @@ Q2：容量和错误率如何估算？
 
 ### 4.4 异地双活与容灾切换
 
+![日本—台湾双 Region 订单系统：全局流量入口、路由控制面、分片级单写、跨区复制、Outbox 与 Kafka](/images/system-design/japan-taiwan-active-active-order.png)
+
+> 图中“双活”是两个 Region 都可承载应用流量，不是同一业务分片同时双写。每个 `virtual_shard` 在任一 epoch 只有一个 `active_region`；数据库复制、Outbox/Kafka 和应用入口切换承担不同职责。
+
+#### 图的五个控制点
+
+1. **全局流量入口**：GSLB/Global DNS/Anycast 把用户就近导入台湾或日本；入口位置不直接决定数据库写主。
+2. **Route Control Plane**：以强一致存储维护 `home_region`、`active_region`、`epoch` 和状态；Router 缓存带版本的路由，但不能私自提升 epoch。
+3. **分片级单写**：应用写请求携带路由 epoch，只能写当前 Region 的本地主库。数据库或写代理拒绝旧 epoch，避免网络恢复后的旧主继续写。
+4. **数据与事件**：业务数据通过数据库复制形成远端 Replica；本地事务同时写 Outbox，由 Publisher 发本 Region Kafka。数据库复制不替代消息幂等，Kafka 也不替代数据库事实源。
+5. **接管与恢复**：故障切换先确认、再 fencing 旧主、提升副本、更新 `active_region + epoch`、刷新路由，最后灰度流量并对账；恢复时先把原主作为副本追平和校验，再计划回切。
+
+#### 为什么必须有 epoch/fencing
+
+只修改 DNS 或服务发现不能终止旧连接、旧进程和定时任务。若日本与控制面网络分区但仍能访问本地数据库，台湾又被提升为主，就可能两边写入。单调 epoch 让每次接管获得新写入代次，旧代次即使恢复网络也会被拒绝。
+
+具体的 GTID 检查、数据校验、Outbox 迁移、连接池刷新与七阶段回切见
+[全球订阅平台与跨区数据库容灾](./global-subscription.md#全球跨区数据库容灾-runbook)。图中 1024/2048 个虚拟分片、2～7 秒复制延迟等参数是设计示例，不能当作候选人已验证的生产事实。
+
 **Q 你们的“双活”到底是双写还是双站点接流量？**
 
 > **面试官意图：**澄清容易被滥用的架构名词。

@@ -13,9 +13,13 @@ source: 资深 Java / AI Agent 定制面试手册自有资料
 ## 专题入口
 
 1. [Java 并发与虚拟线程](./concurrency-virtual-threads.md)
-2. [Spring 事务与服务治理](./spring-transactions-service-governance.md)
-3. [JVM 诊断与 GC](../jvm/diagnostics-gc.md)
-4. [MySQL 事务、锁与索引](../mysql/transactions-locks-indexes.md)
+2. [JDK 21–25 虚拟线程版本演进](./virtual-threads-jdk21-25.md)
+3. [虚拟线程生产架构模式](./virtual-threads-production-patterns.md)
+4. [虚拟线程观测、压测与迁移](./virtual-threads-observability-migration.md)
+5. [Spring 事务与服务治理](./spring-transactions-service-governance.md)
+6. [JVM 诊断与 GC](../jvm/diagnostics-gc.md)
+7. [MySQL 事务、锁与索引](../mysql/transactions-locks-indexes.md)
+8. [Java 设计模式的生产场景与边界](./design-patterns-production-scenarios.md)
 
 ## 学习原则
 

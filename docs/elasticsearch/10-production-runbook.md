@@ -14,6 +14,11 @@ source: Elasticsearch 深度原理、生产调优与面试题自有资料
 
 本章按“现象 -\> 可能原因 -\> 排查命令 -\> 处理方案 -\> 预防措施”组织。线上事故要先止血，再定位根因，最后固化治理。
 
+## SOC 项目排障入口
+
+SOC 的热点租户、Merge、Bulk/429、AI 结果写入和五轮压力面集中在
+[SOC Elasticsearch P8 压力面试](./18-soc-pressure-interview.md)。本页继续作为通用 Runbook，不重复项目化答案。
+
 ### 10.1 集群 Red
 
 | **项**   | **内容**                                                                                                                                       |

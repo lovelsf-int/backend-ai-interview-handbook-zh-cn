@@ -14,6 +14,11 @@ source: Elasticsearch 深度原理、生产调优与面试题自有资料
 
 > 容量边界：分片大小、分片数、磁盘余量和副本数都是压测起点，不是脱离数据模型、查询复杂度、硬件和恢复目标的固定答案。
 
+## SOC 项目入口
+
+每日 800～900 万 Event + Alert、Primary 合计约 150GB 的项目推导见
+[SOC 事件、告警分层与容量设计](./17-soc-event-alert-capacity.md)。本页保留通用分片原理，项目页负责数据口径、逐流估算与 Rollover 验收，避免维护两套容量答案。
+
 ### 7.1 Shard 本质与代价
 
 一个 shard 是一个 Lucene index。Shard 是 ES 分布式并行的基础，但不是越多越好。每个 shard 都有文件句柄、segment、缓存、线程调度和 cluster state 开销。过多小 shard 是生产集群最常见的性能问题之一。

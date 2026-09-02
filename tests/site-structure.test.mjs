@@ -21,6 +21,19 @@ const domainRoutes = [
   '/system-design/'
 ]
 
+const incrementalSidebarRoutes = [
+  '/elasticsearch/17-soc-event-alert-capacity.md',
+  '/elasticsearch/18-soc-pressure-interview.md',
+  '/java/virtual-threads-jdk21-25.md',
+  '/java/virtual-threads-production-patterns.md',
+  '/java/virtual-threads-observability-migration.md',
+  '/java/design-patterns-production-scenarios.md',
+  '/mysql/innodb-write-mvcc-transactions.md',
+  '/mysql/locks-deadlocks-production-runbook.md',
+  '/mysql/index-explain-pagination-replication.md',
+  '/system-design/pressure-interview-playbook.md'
+]
+
 test('required site files exist', () => {
   for (const file of requiredFiles) {
     assert.equal(existsSync(file), true, `missing required file: ${file}`)
@@ -38,6 +51,13 @@ test('VitePress uses the repository Pages base path', () => {
 test('navigation exposes every handbook domain', () => {
   const config = readFileSync('docs/.vitepress/config.mts', 'utf8')
   for (const route of domainRoutes) {
+    assert.match(config, new RegExp(route.replaceAll('/', '\\/')))
+  }
+})
+
+test('sidebars expose every incremental P8 page', () => {
+  const config = readFileSync('docs/.vitepress/config.mts', 'utf8')
+  for (const route of incrementalSidebarRoutes) {
     assert.match(config, new RegExp(route.replaceAll('/', '\\/')))
   }
 })

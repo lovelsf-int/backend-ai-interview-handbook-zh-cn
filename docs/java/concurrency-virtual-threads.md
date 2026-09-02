@@ -10,6 +10,14 @@ source: 资深 Java / AI Agent 定制面试手册自有资料
 
 # Java 并发与虚拟线程
 
+## 虚拟线程深入路线
+
+这页保留并发总览与 SOC 场景题。版本机制、生产代码和上线门禁分别见：
+
+1. [JDK 21–25 虚拟线程版本演进](./virtual-threads-jdk21-25.md)
+2. [虚拟线程生产架构模式](./virtual-threads-production-patterns.md)
+3. [虚拟线程观测、压测与迁移](./virtual-threads-observability-migration.md)
+
 ## 并发知识地图
 
 | **主题**             | **必须回答到的深度**                   | **结合简历的场景**   |

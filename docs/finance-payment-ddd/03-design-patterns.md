@@ -10,6 +10,9 @@ source: 金融支付 canonical 第 4 章（状态机与事件专题分流）
 
 # 支付架构设计模式
 
+跨支付、Agent 与 RAG 的变化点选择和过度设计边界，见
+[Java 设计模式的生产场景与边界](../java/design-patterns-production-scenarios.md)。
+
 ## 模式选择地图
 
 | **变化或问题**       | **首选模式**              | **支付示例**               |

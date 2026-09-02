@@ -20,6 +20,7 @@ source: 资深 Java / AI Agent 定制面试手册自有资料
 4. [道路运输安全与 CBT-I 后端项目](./transport-safety.md)
 5. [Spec-driven AI Coding 生产实践](./spec-driven-ai-coding.md)
 6. [资深后端面试策略、证据与评分](./interview-strategy.md)
+7. [P8 项目压力面应答手册](./pressure-interview-playbook.md)
 
 ## 使用方式
 
