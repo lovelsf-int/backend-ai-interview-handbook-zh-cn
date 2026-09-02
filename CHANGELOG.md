@@ -2,6 +2,7 @@
 
 ## 2026-09-02
 
+- 新增 MySQL、Redis、Kafka 与 Elasticsearch 事务边界对比，校准回滚、原子可见性、乐观并发和批量部分失败语义。
 - 新增 Elasticsearch SOC Event/Alert 分层、800～900 万业务记录与 150GB Primary 容量推导，以及五轮生产压力面。
 - 新增 JDK 21–25 虚拟线程版本演进、生产架构模式、JFR/MXBean 观测、压测、灰度与回滚专题。
 - 从 v5.4 合并跨支付、Agent、RAG 的设计模式场景和 P8 项目压力面，重复题库改为 canonical 链接。

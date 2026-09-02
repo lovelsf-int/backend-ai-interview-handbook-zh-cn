@@ -157,7 +157,8 @@ const backendTargets = [
   'docs/system-design/overseas-payment.md',
   'docs/system-design/transport-safety.md',
   'docs/system-design/spec-driven-ai-coding.md',
-  'docs/system-design/interview-strategy.md'
+  'docs/system-design/interview-strategy.md',
+  'docs/system-design/storage-transaction-comparison.md'
 ]
 
 test('migration manifest lists every approved source exactly once', () => {

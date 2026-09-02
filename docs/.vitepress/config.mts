@@ -179,6 +179,7 @@ export default withMermaid(defineConfig({
       '/finance-payment-ddd/': paymentSidebar,
       '/system-design/': [
         { text: '专题首页', link: '/system-design/' },
+        { text: '四大存储事务机制对比', link: '/system-design/storage-transaction-comparison.md' },
         { text: 'SOC AI Agent', link: '/system-design/soc-agent.md' },
         { text: '全球订阅与跨区容灾', link: '/system-design/global-subscription.md' },
         { text: '海外游戏支付', link: '/system-design/overseas-payment.md' },

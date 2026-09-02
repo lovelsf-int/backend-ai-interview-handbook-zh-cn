@@ -34,6 +34,9 @@ const incrementalSidebarRoutes = [
   '/system-design/pressure-interview-playbook.md'
 ]
 
+const transactionComparisonRoute =
+  '/system-design/storage-transaction-comparison.md'
+
 test('required site files exist', () => {
   for (const file of requiredFiles) {
     assert.equal(existsSync(file), true, `missing required file: ${file}`)
@@ -60,6 +63,20 @@ test('sidebars expose every incremental P8 page', () => {
   for (const route of incrementalSidebarRoutes) {
     assert.match(config, new RegExp(route.replaceAll('/', '\\/')))
   }
+})
+
+test('transaction comparison is reachable from system-design navigation', () => {
+  const config = readFileSync('docs/.vitepress/config.mts', 'utf8')
+  const systemDesignIndex = readFileSync('docs/system-design/index.md', 'utf8')
+  const escapedRoute = transactionComparisonRoute.replaceAll('/', '\\/')
+
+  assert.equal(
+    existsSync(`docs${transactionComparisonRoute}`),
+    true,
+    `missing comparison page: docs${transactionComparisonRoute}`
+  )
+  assert.match(config, new RegExp(escapedRoute))
+  assert.match(systemDesignIndex, /\.\/storage-transaction-comparison\.md/)
 })
 
 test('GitHub Pages workflow validates, builds, and deploys the site', () => {
