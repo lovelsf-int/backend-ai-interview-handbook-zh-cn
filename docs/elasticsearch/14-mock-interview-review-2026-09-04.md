@@ -1,3 +1,13 @@
+---
+title: Elasticsearch 正式面试复盘 2026-09-04
+description: SOC 场景下分片、Refresh、Translog、Kafka 到 ES 背压与 Offset 提交的正式面试复盘
+status: reviewing
+baseline: 2026-09-04 mock interview
+last_verified: 2026-09-04
+level: P7/P8
+source: 2026-09-04 正式模拟面试复盘
+---
+
 # Elasticsearch 正式面试复盘：2026-09-04
 
 > 场景：SOC AI Agent 智能研判平台，日安全事件约 800～900 万条。本文记录本轮正式面试已经暴露出的 ES / Kafka→ES 链路薄弱点，并给出面试可直接使用的回答框架。
