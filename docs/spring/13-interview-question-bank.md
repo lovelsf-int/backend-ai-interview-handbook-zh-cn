@@ -1,6 +1,6 @@
 ---
 title: Spring 100 道核心面试题
-description: 覆盖 IoC、Bean、AOP、事务、MVC、Boot、异步与生产排障的速记题库
+description: 覆盖 IoC、Bean 创建、AOP、事务、MVC、Boot、异步与生产排障的速记题库
 status: reviewing
 baseline: Spring Framework core architecture and Spring Boot application model
 last_verified: 2026-09-04
@@ -30,7 +30,7 @@ source: Spring 官方参考文档、核心源码与资深 Java 面试整理
 
 #### Q4. BeanDefinition 是什么？
 
-**答案：**Bean 的元数据配方，描述类型、作用域、依赖、初始化和销毁等信息，不是实例本身。
+**答案：**Bean 的元数据配方，描述类型、作用域、依赖、初始化、销毁、工厂方法和 Supplier 等信息，不是实例本身。
 
 #### Q5. BeanFactory 的职责是什么？
 
@@ -84,11 +84,11 @@ source: Spring 官方参考文档、核心源码与资深 Java 面试整理
 
 #### Q17. Bean 名称默认怎么产生？
 
-**答案：**组件扫描通常由名称生成器产生，Bean 方法默认使用方法名，也可显式指定。
+**答案：**组件扫描通常由名称生成器产生，`@Bean` 方法默认使用方法名，也可显式指定。
 
-#### Q18. Component 和 Bean 有何区别？
+#### Q18. Spring 中有哪些方式注册 Bean？
 
-**答案：**Component 让类被扫描；Bean 方法显式提供对象，适合第三方类和自定义构造。
+**答案：**常见入口包括组件扫描、`@Bean`、`@Import`/ImportSelector/Registrar、XML、编程式 BeanDefinitionRegistry、Registry 后置处理器和 Boot 自动配置；复杂产品对象还常用 `FactoryBean`。这些入口最终大多形成 BeanDefinition。底层实例化再分构造器、静态/实例工厂方法、Supplier 和 FactoryBean 产品对象。
 
 #### Q19. FactoryBean 与 BeanFactory 有何区别？
 
