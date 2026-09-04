@@ -33,6 +33,7 @@ source: 两份 AI Agent 自有面试资料的 canonical 合并
 1. [生产工程、可靠性与成本](./09-production-reliability-cost.md)
 2. [Evaluation 与 Observability](./10-evaluation-observability.md)
 3. [Security、Guardrail 与治理](./11-security-guardrails-governance.md)
+4. [2026-09-04 正式面试复盘：LLM 平台治理与多租户稳定性](./13-mock-interview-review-2026-09-04.md)
 
 ## 系统设计与题库
 
