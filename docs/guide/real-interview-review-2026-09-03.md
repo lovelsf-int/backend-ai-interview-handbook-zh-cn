@@ -2,8 +2,10 @@
 title: 2026-09-03 真实面试复盘与补强路线
 description: 基于 54 分 23 秒真实面试记录，按 Java 并发、线上排障、MySQL、分布式事务、Spring、SOC Agent 与 AI Coding 逐题复盘
 status: verified
+baseline: 2026-09-03 真实面试完整转写与本站 P7/P8 专题体系
 last_verified: 2026-09-04
 level: P7/P8
+source: 用户提供的 54 分 23 秒真实面试记录与本站已验证专题内容
 ---
 
 # 2026-09-03 真实面试复盘与补强路线
