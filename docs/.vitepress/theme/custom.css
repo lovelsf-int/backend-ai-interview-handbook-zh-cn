@@ -33,3 +33,23 @@
 .VPHome .VPHero .text {
   max-width: 720px;
 }
+
+/* Long interview-question headings need to expose the actual topic in the outline. */
+.VPDocAsideOutline .outline-link {
+  display: -webkit-box;
+  overflow: hidden;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-overflow: clip;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-height: 1.45;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.VPDocAsideOutline .outline-link:hover,
+.VPDocAsideOutline .outline-link:focus-visible {
+  display: block;
+  overflow: visible;
+}
