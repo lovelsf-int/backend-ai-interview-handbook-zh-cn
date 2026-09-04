@@ -8,6 +8,7 @@
 - 增加 Spring 模块验收测试，验证完整页面集合、导航可达性、兼容链接和题库数量。
 - 修复 Spring 专题仅存在于功能分支、未触发主分支 Pages 发布而导致的 `/spring/` 404，并校准专题首页与百题题库验收规则。
 - 补充 Bean 创建专项：区分注册入口与底层实例化方式，覆盖组件扫描、`@Bean`、`@Import`、FactoryBean、Registry、Supplier、工厂方法和源码分支。
+- 将 Java、JVM、Spring、MySQL、Kafka、Redis、Elasticsearch、AI Agent、金融支付与系统设计的面试内容按类别重组，左侧导航新增可折叠二级分组，并同步专题首页分类。
 
 ## 2026-09-03
 
