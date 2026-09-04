@@ -66,3 +66,43 @@ test('Spring quick-review bank contains at least 80 numbered questions', () => {
     `expected at least 80 Spring questions, found ${questions.length}`
   )
 })
+
+test('Bean creation content distinguishes registration from instantiation', () => {
+  const ioc = readFileSync('docs/spring/02-ioc-di-container.md', 'utf8')
+  const source = readFileSync('docs/spring/11-source-code-flows.md', 'utf8')
+  const bank = readFileSync('docs/spring/13-interview-question-bank.md', 'utf8')
+
+  for (const keyword of [
+    '注册 Bean 的常见方式',
+    '@Component',
+    '@Bean',
+    '@Import',
+    'FactoryBean',
+    'BeanDefinitionRegistry',
+    'BeanDefinitionRegistryPostProcessor',
+    'Spring Boot 自动配置'
+  ]) {
+    assert.match(ioc, new RegExp(keyword))
+  }
+
+  for (const keyword of [
+    '底层实例化 Bean 的方式',
+    '构造器实例化',
+    '静态工厂方法',
+    '实例工厂方法',
+    'Supplier'
+  ]) {
+    assert.match(ioc, new RegExp(keyword))
+  }
+
+  for (const keyword of [
+    'createBeanInstance',
+    'obtainFromSupplier',
+    'instantiateUsingFactoryMethod',
+    'getObjectFromFactoryBean'
+  ]) {
+    assert.match(source, new RegExp(keyword))
+  }
+
+  assert.match(bank, /Spring 中有哪些方式注册 Bean/)
+})
