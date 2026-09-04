@@ -464,7 +464,8 @@ export default withMermaid(defineConfig({
     sidebar: {
       '/guide/': [
         { text: '使用指南', link: '/guide/' },
-        { text: '学习路线', link: '/guide/learning-path.md' }
+        { text: '学习路线', link: '/guide/learning-path.md' },
+        { text: '真实面试复盘', link: '/guide/real-interview-review-2026-09-03.md' }
       ],
       '/java/': javaSidebar,
       '/jvm/': jvmSidebar,
