@@ -48,9 +48,9 @@ source: OpenJDK JEP / Oracle JDK release notes
 | 25 | Scoped Values 正式、Module Import 正式、Compact Source Files 正式、Flexible Constructor Bodies 正式、Compact Object Headers 正式、AOT/JFR 增强 | ★★★★★ |
 | 26 | HTTP/3 Client、G1 吞吐优化、AOT Object Caching、Lazy Constants 二预览、Structured Concurrency 六预览、Applet API 移除 | ★★★★☆ |
 
-# JDK 8：现代 Java 的起点
+## JDK 8：现代 Java 的起点
 
-## 核心特性
+### 核心特性
 
 - Lambda Expressions；
 - Stream API；
@@ -62,15 +62,15 @@ source: OpenJDK JEP / Oracle JDK release notes
 - Metaspace 替代 PermGen；
 - Nashorn JavaScript Engine（后续版本被移除）。
 
-## 高频追问
+### 高频追问
 
 **Q：JDK 8 最大的变化是什么？**
 
 > 编程模型从偏命令式走向函数式组合，Lambda + Stream 提升集合处理表达力；`CompletableFuture` 让异步编排进入标准库；JVM 层 PermGen 被 Metaspace 替代。
 
-# JDK 9：模块化
+## JDK 9：模块化
 
-## 核心特性
+### 核心特性
 
 - JPMS / Project Jigsaw：`module-info.java`；
 - JShell；
@@ -80,13 +80,13 @@ source: OpenJDK JEP / Oracle JDK release notes
 - G1 成为默认 GC；
 - JDK 内部 API 强封装开始推进。
 
-## 高频追问
+### 高频追问
 
 **Q：模块系统解决什么？**
 
 > 解决大型应用/平台的可靠配置和强封装问题，显式声明依赖和导出边界，但企业业务系统并不一定需要主动模块化。
 
-# JDK 10：`var`
+## JDK 10：`var`
 
 - 局部变量类型推断 `var`；
 - AppCDS 改进；
@@ -95,9 +95,9 @@ source: OpenJDK JEP / Oracle JDK release notes
 
 > `var` 不是动态类型，类型仍在编译期确定。
 
-# JDK 11：企业 LTS
+## JDK 11：企业 LTS
 
-## 核心特性
+### 核心特性
 
 - `java.net.http.HttpClient` 正式；
 - Lambda 参数允许 `var`；
@@ -108,13 +108,13 @@ source: OpenJDK JEP / Oracle JDK release notes
 - 单文件源码运行：`java Hello.java`；
 - 移除 Java EE / CORBA 模块。
 
-## 高频追问
+### 高频追问
 
 **Q：为什么很多公司从 JDK 8 直接迁到 11/17？**
 
 > LTS 生命周期、框架生态成熟、GC/JFR/标准库增强明显，同时避开每个半年版本逐个升级的维护成本。
 
-# JDK 12
+## JDK 12
 
 - Switch Expressions Preview；
 - Shenandoah GC（实验/特定构建）；
@@ -122,14 +122,14 @@ source: OpenJDK JEP / Oracle JDK release notes
 - JVM Constants API；
 - G1 GC 改进。
 
-# JDK 13
+## JDK 13
 
 - Text Blocks Preview；
 - Switch Expressions 第二次 Preview；
 - Dynamic CDS Archives；
 - ZGC 归还未使用内存能力改进。
 
-# JDK 14
+## JDK 14
 
 - Switch Expressions 正式；
 - Records Preview；
@@ -138,7 +138,7 @@ source: OpenJDK JEP / Oracle JDK release notes
 - JFR Event Streaming；
 - Foreign-Memory Access API 孵化。
 
-# JDK 15
+## JDK 15
 
 - Text Blocks 正式；
 - Sealed Classes Preview；
@@ -147,7 +147,7 @@ source: OpenJDK JEP / Oracle JDK release notes
 - ZGC / Shenandoah 从实验走向生产支持；
 - EdDSA。
 
-# JDK 16
+## JDK 16
 
 - Records 正式；
 - Pattern Matching for `instanceof` 正式；
@@ -156,13 +156,13 @@ source: OpenJDK JEP / Oracle JDK release notes
 - Sealed Classes 第二次 Preview；
 - Unix-Domain Socket Channels。
 
-## Record 面试口径
+### Record 面试口径
 
 > Record 是面向透明数据载体的特殊类，自动生成组件访问器、`equals/hashCode/toString` 等，但并不是“万能 DTO”；它仍然可以有方法和校验逻辑，核心约束是状态由 record components 定义。
 
-# JDK 17：LTS
+## JDK 17：LTS
 
-## 核心特性
+### 核心特性
 
 - Sealed Classes 正式；
 - Pattern Matching for `switch` Preview；
@@ -172,7 +172,7 @@ source: OpenJDK JEP / Oracle JDK release notes
 - macOS/AArch64 支持；
 - JDK 内部 API 强封装继续收紧。
 
-## Sealed 高频题
+### Sealed 高频题
 
 ```java
 public sealed interface Payment permits CardPayment, WalletPayment {}
@@ -180,14 +180,14 @@ public sealed interface Payment permits CardPayment, WalletPayment {}
 
 > Sealed 类型显式限制允许的子类型，适合状态机、领域模型和模式匹配，增强封闭层次结构的可推理性。
 
-# JDK 18
+## JDK 18
 
 - UTF-8 成为默认 Charset；
 - Simple Web Server：`jwebserver`；
 - Javadoc Code Snippets；
 - Internet-Address Resolution SPI。
 
-# JDK 19：Loom 进入主舞台
+## JDK 19：Loom 进入主舞台
 
 - Virtual Threads Preview；
 - Structured Concurrency Incubator；
@@ -195,11 +195,11 @@ public sealed interface Payment permits CardPayment, WalletPayment {}
 - Pattern Matching for switch 继续 Preview；
 - Foreign Function & Memory API Preview。
 
-## 面试重点
+### 面试重点
 
 > 从 JDK 19 开始要建立 Loom 演进时间线：19 预览 → 20 二预览 → 21 Virtual Threads 正式。
 
-# JDK 20
+## JDK 20
 
 - Virtual Threads 第二次 Preview；
 - Scoped Values Incubator；
@@ -207,9 +207,9 @@ public sealed interface Payment permits CardPayment, WalletPayment {}
 - Record Patterns 第二次 Preview；
 - FFM API 第二次 Preview。
 
-# JDK 21：现代 Java 高并发分水岭
+## JDK 21：现代 Java 高并发分水岭
 
-## 正式特性
+### 正式特性
 
 - Virtual Threads 正式；
 - Record Patterns 正式；
@@ -218,7 +218,7 @@ public sealed interface Payment permits CardPayment, WalletPayment {}
 - Generational ZGC；
 - Key Encapsulation Mechanism API。
 
-## Preview
+### Preview
 
 - Scoped Values；
 - Structured Concurrency；
@@ -226,13 +226,13 @@ public sealed interface Payment permits CardPayment, WalletPayment {}
 - Unnamed Patterns / Variables；
 - Foreign Function & Memory API 第三次 Preview。
 
-## Virtual Threads 90 秒回答
+### Virtual Threads 90 秒回答
 
 > 虚拟线程降低的是阻塞 IO 场景的线程承载成本，不提高 CPU 算力和下游容量。它适合 LLM、HTTP、DB 等高等待任务，但仍需要 RateLimiter、Semaphore、连接池和舱壁限制真正稀缺资源。
 
 对应深挖：[JDK 21–25 虚拟线程](./virtual-threads-jdk21-25.md)。
 
-# JDK 22
+## JDK 22
 
 - Foreign Function & Memory API 正式；
 - Unnamed Variables & Patterns 正式；
@@ -244,11 +244,11 @@ public sealed interface Payment permits CardPayment, WalletPayment {}
 - G1 Region Pinning；
 - Multi-File Source-Code Programs。
 
-## FFM 高频题
+### FFM 高频题
 
 > FFM 提供 Java 与 native code / native memory 的标准互操作方式，目标是逐步降低 JNI 的复杂度、危险性和维护成本，但迁移仍需评估 native 生命周期、ABI 和性能边界。
 
-# JDK 23
+## JDK 23
 
 - Markdown Documentation Comments；
 - Generational ZGC 成为默认 ZGC 模式；
@@ -260,9 +260,9 @@ public sealed interface Payment permits CardPayment, WalletPayment {}
 - Scoped Values 第三次 Preview；
 - Flexible Constructor Bodies 第二次 Preview。
 
-# JDK 24
+## JDK 24
 
-## 正式/重要特性
+### 正式/重要特性
 
 - Class-File API 正式；
 - Stream Gatherers 正式；
@@ -275,15 +275,15 @@ public sealed interface Payment permits CardPayment, WalletPayment {}
 - Quantum-Resistant ML-KEM / ML-DSA；
 - Compact Object Headers Experimental。
 
-## 高频追问：JDK 24 对虚拟线程最重要的变化？
+### 高频追问：JDK 24 对虚拟线程最重要的变化？
 
 > JEP 491 让虚拟线程在持有 `synchronized` monitor 时不再因为传统 monitor 机制长期绑定 carrier thread，显著缓解此前常见的 pinning 风险。面试时仍应强调：native/foreign 等其他不可卸载路径仍要监控，且下游容量限制依旧存在。
 
-# JDK 25：LTS
+## JDK 25：LTS
 
 JDK 25 于 2025-09-16 GA，共包含 18 个 JEP。
 
-## 面试最值得记的特性
+### 面试最值得记的特性
 
 - Scoped Values 正式；
 - Module Import Declarations 正式；
@@ -300,15 +300,15 @@ JDK 25 于 2025-09-16 GA，共包含 18 个 JEP。
 - Primitive Types in Patterns 第三次 Preview；
 - Vector API 第十次 Incubator。
 
-## Scoped Values vs ThreadLocal
+### Scoped Values vs ThreadLocal
 
 > Scoped Values 适合在线程/任务作用域内只读传播上下文，尤其适配虚拟线程和结构化并发；ThreadLocal 更通用但生命周期管理更容易造成泄漏和隐藏耦合。不能简单说 Scoped Values “完全替代” ThreadLocal。
 
-# JDK 26：当前 GA Feature Release
+## JDK 26：当前 GA Feature Release
 
 JDK 26 于 **2026-03-17 GA**，包含 10 个 JEP。
 
-## 核心特性
+### 核心特性
 
 - HTTP/3 for the HTTP Client API；
 - G1 GC 通过减少同步提高吞吐；
@@ -321,37 +321,37 @@ JDK 26 于 **2026-03-17 GA**，包含 10 个 JEP。
 - Vector API 第十一次 Incubator；
 - Remove the Applet API。
 
-## 26 最值得 P7/P8 关注的三点
+### 26 最值得 P7/P8 关注的三点
 
 1. **HTTP/3**：标准 `HttpClient` 网络能力继续演进；
 2. **Leyden / AOT**：Java 正持续优化启动、Warmup 和云原生弹性；
 3. **Integrity by Default**：反射修改 final、JNI/Unsafe 等传统“后门式能力”持续收紧。
 
-# 五条演进主线
+## 五条演进主线
 
-## 1. 语言
+### 1. 语言
 
 Lambda → `var` → Switch Expression → Records → Sealed → Pattern Matching → Module Imports / Compact Source Files。
 
-## 2. 并发
+### 2. 并发
 
 CompletableFuture → Flow → Virtual Threads → Scoped Values → Structured Concurrency。
 
-## 3. JVM / GC
+### 3. JVM / GC
 
 PermGen→Metaspace → G1 默认 → ZGC/Shenandoah → Generational ZGC → Compact Object Headers → AOT / Leyden。
 
-## 4. Native / 性能
+### 4. Native / 性能
 
 JNI / Unsafe 逐步治理 → FFM 正式 → Vector API 持续孵化 → AOT Cache。
 
-## 5. 可观测性
+### 5. 可观测性
 
 JFR 开源 → Event Streaming → CPU-Time Profiling / Cooperative Sampling / Method Timing。
 
-# 面试：到底应该重点背哪些版本？
+## 面试：到底应该重点背哪些版本？
 
-## 第一优先级
+### 第一优先级
 
 - **8**：Lambda / Stream / CompletableFuture；
 - **11**：HTTP Client / JFR / ZGC；
@@ -360,7 +360,7 @@ JFR 开源 → Event Streaming → CPU-Time Profiling / Cooperative Sampling / M
 - **25**：Scoped Values / Compact Object Headers / AOT / JFR；
 - **26**：HTTP/3 / AOT Cache / G1 / Integrity。
 
-## 第二优先级
+### 第二优先级
 
 重点知道特性“在哪个版本预览、在哪个版本正式”：
 
@@ -374,11 +374,11 @@ JFR 开源 → Event Streaming → CPU-Time Profiling / Cooperative Sampling / M
 - Scoped Values：20 Incubator → 21–24 Preview → 25 Final；
 - Structured Concurrency：19 Incubator → 21 起 Preview → 26 仍为 Preview。
 
-# 30 秒标准答案
+## 30 秒标准答案
 
 > JDK 版本我一般不按流水账背，而是看几条演进主线。JDK 8 是 Lambda、Stream 和 CompletableFuture 的现代 Java 起点；9 模块化；11 是 HTTP Client、JFR 和新 GC 的企业 LTS；17 把 Records、Sealed、Pattern Matching 这类语言能力逐步落稳；21 最大变化是 Virtual Threads 正式；22 FFM 正式；24 解决了虚拟线程在 synchronized 下的重要 pinning 痛点；25 是新的 LTS，Scoped Values、Compact Object Headers 和 AOT/JFR 能力继续成熟；26 又增加 HTTP/3、AOT Object Cache 和 G1 吞吐优化。真正面试时我会结合项目说明这些特性解决了什么生产问题，而不是只背版本号。
 
-# 参考
+## 参考
 
 - OpenJDK JDK Projects / JEP Index
 - Oracle JDK Release Notes
