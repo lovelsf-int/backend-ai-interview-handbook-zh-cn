@@ -10,25 +10,37 @@ source: Spring 官方参考文档、核心源码与资深 Java 面试整理
 
 # Spring 核心原理与面试手册
 
-## 学习主线
+## 核心容器与 Bean
 
 1. [Spring 核心架构](./01-core-architecture.md)
 2. [IoC、DI 与容器](./02-ioc-di-container.md)
 3. [Bean 生命周期与扩展点](./03-bean-lifecycle-extension-points.md)
 4. [依赖注入与循环依赖](./04-dependency-injection-circular-reference.md)
-5. [AOP、代理与拦截器链](./05-aop-proxy-interceptor.md)
-6. [声明式事务原理](./06-transaction-principles.md)
-7. [Spring MVC 请求链路](./07-spring-mvc-request-flow.md)
-8. [Spring Boot 启动与自动配置](./08-spring-boot-startup-auto-configuration.md)
-9. [注解、事件、缓存与异步](./09-annotations-events-cache-async.md)
-10. [作用域与线程安全](./10-scope-thread-safety.md)
-11. [核心源码调用链](./11-source-code-flows.md)
-12. [生产故障排查](./12-production-troubleshooting.md)
-13. [100 道核心面试题](./13-interview-question-bank.md)
+
+## AOP、事务与 Web
+
+1. [AOP、代理与拦截器链](./05-aop-proxy-interceptor.md)
+2. [声明式事务原理](./06-transaction-principles.md)
+3. [Spring MVC 请求链路](./07-spring-mvc-request-flow.md)
+
+## Boot 与应用能力
+
+1. [Spring Boot 启动与自动配置](./08-spring-boot-startup-auto-configuration.md)
+2. [注解、事件、缓存与异步](./09-annotations-events-cache-async.md)
+3. [作用域与线程安全](./10-scope-thread-safety.md)
+
+## 源码与生产排障
+
+1. [核心源码调用链](./11-source-code-flows.md)
+2. [生产故障排查](./12-production-troubleshooting.md)
+
+## 分类题库
+
+- [100 道核心面试题](./13-interview-question-bank.md)
 
 ## 建议复习顺序
 
-先用第 1 章建立全局视图，再沿着“容器启动—Bean 创建—代理增强—事务与 Web”主线学习。源码题不要孤立背方法名，要说明入口、关键扩展点、最终产物和失败边界。最后用第 13 章做快速自测，并把答案替换成自己的项目事实。
+先用核心架构建立全局视图，再沿着“容器启动—Bean 创建—代理增强—事务与 Web”主线学习。源码题不要孤立背方法名，要说明入口、关键扩展点、最终产物和失败边界。最后用分类题库做快速自测，并把答案替换成自己的项目事实。
 
 ## P7/P8 答题框架
 

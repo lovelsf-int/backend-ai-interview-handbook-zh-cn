@@ -10,22 +10,31 @@ source: 资深 Java / AI Agent 定制面试手册自有资料
 
 # Java 工程与场景题
 
-## 专题入口
+## Java 基础与版本
 
-1. [JDK 8–26 版本特性与面试演进](./jdk-version-evolution.md)
-2. [Java 并发与虚拟线程](./concurrency-virtual-threads.md)
-3. [synchronized、CAS、AQS 与并发工具](./concurrency-locks-aqs-cas.md)
-4. [Java 线程池生产实践](./thread-pool-production-guide.md)
-5. [JMM、volatile 与 ThreadLocal](./jmm-volatile-threadlocal.md)
-6. [Java IO、NIO、Reactor 与 Netty 面试手册](./io-nio-netty-interview-guide.md)
-7. [JDK 21–25 虚拟线程版本演进](./virtual-threads-jdk21-25.md)
-8. [虚拟线程生产架构模式](./virtual-threads-production-patterns.md)
-9. [虚拟线程观测、压测与迁移](./virtual-threads-observability-migration.md)
-10. [Spring 核心原理与面试手册](../spring/)
-11. [Spring 事务与服务治理（兼容入口）](./spring-transactions-service-governance.md)
-12. [JVM 诊断与 GC](../jvm/diagnostics-gc.md)
-13. [MySQL 事务、锁与索引](../mysql/transactions-locks-indexes.md)
-14. [Java 设计模式的生产场景与边界](./design-patterns-production-scenarios.md)
+- [JDK 8–26 版本特性与面试演进](./jdk-version-evolution.md)
+- [Java IO、NIO、Reactor 与 Netty 面试手册](./io-nio-netty-interview-guide.md)
+
+## 并发基础
+
+- [Java 并发与虚拟线程总览](./concurrency-virtual-threads.md)
+- [synchronized、CAS、AQS 与并发工具](./concurrency-locks-aqs-cas.md)
+- [Java 线程池生产实践](./thread-pool-production-guide.md)
+- [JMM、volatile 与 ThreadLocal](./jmm-volatile-threadlocal.md)
+
+## 虚拟线程
+
+- [JDK 21–25 虚拟线程版本演进](./virtual-threads-jdk21-25.md)
+- [虚拟线程生产架构模式](./virtual-threads-production-patterns.md)
+- [虚拟线程观测、压测与迁移](./virtual-threads-observability-migration.md)
+
+## 设计模式与框架
+
+- [Java 设计模式的生产场景与边界](./design-patterns-production-scenarios.md)
+- [Spring 核心原理与面试手册](../spring/)
+- [Spring 事务与服务治理（兼容入口）](./spring-transactions-service-governance.md)
+- [JVM 诊断与 GC](../jvm/diagnostics-gc.md)
+- [MySQL 事务、锁与索引](../mysql/transactions-locks-indexes.md)
 
 ## JDK 版本复习建议
 
