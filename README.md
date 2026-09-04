@@ -24,12 +24,12 @@ npm run docs:build
 
 ## 内容范围
 
-- Java、JVM、Spring、MySQL 与系统设计
+- Java、JVM、独立 Spring 核心面试、MySQL 与系统设计
 - Kafka、Redis、Elasticsearch
 - AI Agent、RAG、Tool Calling、MCP、Memory 与评估
 - 金融支付、SOLID、设计模式、DDD、账务与一致性
 
-当前包含 12 份自有源资料迁移形成的 90 余个正文页面。各页 Front Matter 中的 `status`、`baseline` 与 `last_verified` 用于标识内容校准状态。
+当前包含 12 份自有源资料迁移与持续整理形成的 100 余个正文页面。各页 Front Matter 中的 `status`、`baseline` 与 `last_verified` 用于标识内容校准状态。
 
 网站正文位于 [`docs/`](docs/)，源 DOCX/PDF 不进入 Git 历史。完整迁移规则见 [`docs/migration-manifest.md`](docs/migration-manifest.md)。
 

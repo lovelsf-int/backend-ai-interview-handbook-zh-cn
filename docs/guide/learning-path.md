@@ -12,7 +12,7 @@ source: 12 份面试资料的结构化路线
 
 ## 第一阶段：建立回答骨架
 
-先掌握 Java 并发、JVM 排障、MySQL 事务与锁、Kafka 可靠性、Redis 缓存一致性和 Elasticsearch 读写链路。目标是能够在 90 秒内给出有边界的核心回答。
+先掌握 Java 并发、JVM 排障、Spring IoC/AOP/事务、MySQL 事务与锁、Kafka 可靠性、Redis 缓存一致性和 Elasticsearch 读写链路。目标是能够在 90 秒内给出有边界的核心回答。Spring 部分按 [核心架构与 IoC 主线](../spring/) 复习，再进入事务和生产排障。
 
 ## 第二阶段：进入生产工程
 

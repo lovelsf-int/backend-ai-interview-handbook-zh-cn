@@ -18,6 +18,23 @@ const aiAgentSidebar = [
   { text: '场景题库', link: '/ai-agent/appendix-scenario-question-bank.md' }
 ]
 
+const springSidebar = [
+  { text: '专题首页', link: '/spring/' },
+  { text: '01 核心架构', link: '/spring/01-core-architecture.md' },
+  { text: '02 IoC、DI 与容器', link: '/spring/02-ioc-di-container.md' },
+  { text: '03 Bean 生命周期', link: '/spring/03-bean-lifecycle-extension-points.md' },
+  { text: '04 注入与循环依赖', link: '/spring/04-dependency-injection-circular-reference.md' },
+  { text: '05 AOP 与代理', link: '/spring/05-aop-proxy-interceptor.md' },
+  { text: '06 声明式事务', link: '/spring/06-transaction-principles.md' },
+  { text: '07 Spring MVC', link: '/spring/07-spring-mvc-request-flow.md' },
+  { text: '08 Boot 与自动配置', link: '/spring/08-spring-boot-startup-auto-configuration.md' },
+  { text: '09 事件、缓存与异步', link: '/spring/09-annotations-events-cache-async.md' },
+  { text: '10 作用域与线程安全', link: '/spring/10-scope-thread-safety.md' },
+  { text: '11 核心源码链路', link: '/spring/11-source-code-flows.md' },
+  { text: '12 生产故障排查', link: '/spring/12-production-troubleshooting.md' },
+  { text: '13 100 道核心面试题', link: '/spring/13-interview-question-bank.md' }
+]
+
 const kafkaSidebar = [
   { text: '专题首页', link: '/kafka/' },
   { text: '01 核心模型与 KRaft', link: '/kafka/01-core-model-and-kraft.md' },
@@ -128,6 +145,7 @@ export default withMermaid(defineConfig({
         items: [
           { text: 'Java', link: '/java/' },
           { text: 'JVM', link: '/jvm/' },
+          { text: 'Spring', link: '/spring/' },
           { text: 'MySQL', link: '/mysql/' },
           { text: 'Kafka', link: '/kafka/' },
           { text: 'Redis', link: '/redis/' },
@@ -159,8 +177,10 @@ export default withMermaid(defineConfig({
         { text: '虚拟线程生产模式', link: '/java/virtual-threads-production-patterns.md' },
         { text: '虚拟线程观测与迁移', link: '/java/virtual-threads-observability-migration.md' },
         { text: '设计模式生产场景', link: '/java/design-patterns-production-scenarios.md' },
+        { text: 'Spring 核心面试', link: '/spring/' },
         { text: 'Spring 事务与治理', link: '/java/spring-transactions-service-governance.md' }
       ],
+      '/spring/': springSidebar,
       '/jvm/': [
         { text: 'JVM 专题首页', link: '/jvm/' },
         { text: '诊断、内存与 GC', link: '/jvm/diagnostics-gc.md' }

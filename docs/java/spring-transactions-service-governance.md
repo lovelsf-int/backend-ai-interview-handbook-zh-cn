@@ -10,6 +10,8 @@ source: 资深 Java / AI Agent 定制面试手册自有资料
 
 # Spring 事务与服务治理
 
+> 本页保留原有服务治理场景作为兼容入口。Spring 事务机制的 canonical 版本请阅读 [Spring 声明式事务原理](../spring/06-transaction-principles.md)，完整专题入口见 [Spring 核心面试手册](../spring/)。
+
 ## Spring、事务与服务治理
 
 **Q @Transactional 为什么会失效？**
