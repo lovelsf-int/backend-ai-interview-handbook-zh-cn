@@ -3,7 +3,7 @@ title: Elasticsearch 原理、生产与面试手册
 description: 从 Lucene、读写链路到容量规划、生产调优、案例和面试题
 status: reviewing
 baseline: Elasticsearch mixed-version source snapshot
-last_verified: 2026-09-01
+last_verified: 2026-09-04
 level: P7/P8
 source: Elasticsearch 深度原理、生产调优与面试题自有资料
 ---
@@ -32,6 +32,7 @@ source: Elasticsearch 深度原理、生产调优与面试题自有资料
 16. [Elasticsearch 参考资料与延伸阅读](./16-references.md)
 17. [SOC 事件、告警分层与容量设计](./17-soc-event-alert-capacity.md)
 18. [SOC Elasticsearch P8 压力面试](./18-soc-pressure-interview.md)
+19. [2026-09-04 正式面试复盘与薄弱点](./14-mock-interview-review-2026-09-04.md)
 
 ## 使用原则
 
