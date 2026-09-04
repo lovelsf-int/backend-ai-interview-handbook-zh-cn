@@ -43,6 +43,15 @@ const incrementalAssets = [
   'docs/public/images/system-design/japan-taiwan-active-active-order.png'
 ]
 
+const concurrencyInterviewSource =
+  'b3578300-1921-4593-afa0-074e9920360b.pdf'
+
+const concurrencyInterviewTargets = [
+  'docs/java/concurrency-locks-aqs-cas.md',
+  'docs/java/thread-pool-production-guide.md',
+  'docs/java/jmm-volatile-threadlocal.md'
+]
+
 const mysqlReviewedTargets = [
   'docs/mysql/innodb-write-mvcc-transactions.md',
   'docs/mysql/locks-deadlocks-production-runbook.md',
@@ -186,6 +195,43 @@ test('incremental migration lists every new source exactly once', () => {
 test('incremental migration exposes every new page and owned asset', () => {
   for (const target of [...incrementalTargets, ...incrementalAssets]) {
     assert.equal(existsSync(target), true, `missing incremental target: ${target}`)
+  }
+})
+
+test('concurrency interview source is recorded once and exposes three canonical pages', () => {
+  const manifest = readFileSync('docs/migration-manifest.md', 'utf8')
+  const escaped = concurrencyInterviewSource.replace(
+    /[.*+?^${}()|[\]\\]/g,
+    '\\$&'
+  )
+  const occurrences =
+    manifest.match(new RegExp(escaped, 'g'))?.length ?? 0
+
+  assert.equal(
+    occurrences,
+    1,
+    `expected one manifest entry for ${concurrencyInterviewSource}`
+  )
+  for (const target of concurrencyInterviewTargets) {
+    assert.equal(existsSync(target), true, `missing concurrency page: ${target}`)
+  }
+})
+
+test('concurrency migration preserves the source collection and queue families', () => {
+  const locksPage = readFileSync(
+    'docs/java/concurrency-locks-aqs-cas.md',
+    'utf8'
+  )
+
+  for (const topic of [
+    'ConcurrentHashMap',
+    'ConcurrentSkipListMap',
+    'CopyOnWriteArrayList',
+    'ArrayBlockingQueue',
+    'SynchronousQueue',
+    'PriorityBlockingQueue'
+  ]) {
+    assert.match(locksPage, new RegExp(topic), `missing source topic: ${topic}`)
   }
 })
 

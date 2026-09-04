@@ -10,13 +10,16 @@ source: 资深 Java / AI Agent 定制面试手册自有资料
 
 # Java 并发与虚拟线程
 
-## 虚拟线程深入路线
+## P8 并发深入路线
 
-这页保留并发总览与 SOC 场景题。版本机制、生产代码和上线门禁分别见：
+这页保留并发总览与 SOC 场景题。底层原语、线程池、内存模型、版本机制和上线门禁分别见：
 
-1. [JDK 21–25 虚拟线程版本演进](./virtual-threads-jdk21-25.md)
-2. [虚拟线程生产架构模式](./virtual-threads-production-patterns.md)
-3. [虚拟线程观测、压测与迁移](./virtual-threads-observability-migration.md)
+1. [synchronized、CAS、AQS 与并发工具](./concurrency-locks-aqs-cas.md)
+2. [Java 线程池生产实践](./thread-pool-production-guide.md)
+3. [JMM、volatile 与 ThreadLocal](./jmm-volatile-threadlocal.md)
+4. [JDK 21–25 虚拟线程版本演进](./virtual-threads-jdk21-25.md)
+5. [虚拟线程生产架构模式](./virtual-threads-production-patterns.md)
+6. [虚拟线程观测、压测与迁移](./virtual-threads-observability-migration.md)
 
 ## 并发知识地图
 

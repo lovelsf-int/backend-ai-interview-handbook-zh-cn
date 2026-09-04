@@ -13,8 +13,11 @@ source: 资深 Java / AI Agent 定制面试手册自有资料
 ## 阅读入口
 
 - [JVM 诊断、内存与 GC](./diagnostics-gc.md)
+- [生产故障定位 Runbook](./production-incident-troubleshooting.md)
 - [Java 并发与虚拟线程](../java/concurrency-virtual-threads.md)
 
 ## 回答框架
 
 不要从“调大堆”或“重启”开始。先定义现象与影响，建立时间线，定位资源与热点，控制风险，再验证根因和长期修复。
+
+生产故障涉及 JVM、容器、依赖和业务数据时，优先按[生产故障定位 Runbook](./production-incident-troubleshooting.md)建立跨层因果链；本页聚焦 JVM 原理、内存与 GC 专项。

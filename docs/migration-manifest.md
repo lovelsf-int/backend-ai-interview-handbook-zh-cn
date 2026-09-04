@@ -2,10 +2,10 @@
 title: 内容迁移清单
 description: 记录每份源资料的事实源角色、目标专题、去重策略和校准状态
 status: reviewing
-baseline: 2026-09-02 source inventory
-last_verified: 2026-09-02
+baseline: 2026-09-03 source inventory
+last_verified: 2026-09-03
 level: P7/P8
-source: 16 份自有源资料与 1 张自有架构图清单
+source: 18 份自有源资料与 1 张自有架构图清单
 ---
 
 # 内容迁移清单
@@ -32,6 +32,7 @@ source: 16 份自有源资料与 1 张自有架构图清单
 | 16 | `金余概_资深Java_AI-Agent开发_定制面试手册_v5.4_全量未答题补全版.docx` | v5.4 增量源 | `java/design-patterns-production-scenarios.md`、`system-design/pressure-interview-playbook.md` | merged |
 | 17 | `日本台湾双活订单系统架构图.png` | 自有架构图 | `system-design/overseas-payment.md` | migrated |
 | 18 | `mysql_07_08_000230.doc` | MySQL 混合版本审计源（实际为 OOXML） | `mysql/` 三篇 MySQL 8.4 深入页 | migrated |
+| 19 | `b3578300-1921-4593-afa0-074e9920360b.pdf` | 2019 Java 并发 legacy 审计源 | `java/concurrency-locks-aqs-cas.md`、`thread-pool-production-guide.md`、`jmm-volatile-threadlocal.md` | merged |
 
 ## 状态说明
 
@@ -44,8 +45,8 @@ source: 16 份自有源资料与 1 张自有架构图清单
 
 ## 本轮结果
 
-18 份来源均已完成迁移、合并或 legacy/superseded 归档。2026-09-02 的五份 Word 来源与一张自有架构图已完成增量合并；v5.4 未重复发布 v5.0 已覆盖正文，ES 旧 100 万条容量口径未进入当前项目主干，MySQL 混合版本内容统一按 8.4 官方语义校准。
+19 份来源均已完成迁移、合并或 legacy/superseded 归档。2026-09-03 新增的 2019 Java 并发资料已按现代 JDK 语义审计为三篇 P8 专题；并发总览保留 SOC 场景摘要，锁、线程池、JMM 与虚拟线程的深层机制分别以独立页面为 canonical，页面间通过链接衔接而不重复长篇正文。此前 v5.4 未重复发布 v5.0 已覆盖正文，ES 旧 100 万条容量口径未进入当前项目主干，MySQL 混合版本内容统一按 8.4 官方语义校准。
 
 ## 校准原则
 
-Kafka 以强化版为主干；Redis 默认保持 `reviewing`；Elasticsearch 容量数字必须注明工作负载；虚拟线程区分 JDK 版本事实与项目实践；支付领域先定义业务不变量，再讨论中间件和设计模式。
+Kafka 以强化版为主干；Redis 默认保持 `reviewing`；Elasticsearch 容量数字必须注明工作负载；Java 并发区分语言规范、JVM 实现细节和历史版本；虚拟线程区分 JDK 版本事实与项目实践；支付领域先定义业务不变量，再讨论中间件和设计模式。

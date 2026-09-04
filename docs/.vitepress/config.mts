@@ -173,6 +173,9 @@ export default withMermaid(defineConfig({
       '/java/': [
         { text: 'Java 专题首页', link: '/java/' },
         { text: '并发与虚拟线程', link: '/java/concurrency-virtual-threads.md' },
+        { text: '锁、CAS、AQS 与同步器', link: '/java/concurrency-locks-aqs-cas.md' },
+        { text: '线程池生产实践', link: '/java/thread-pool-production-guide.md' },
+        { text: 'JMM、volatile 与 ThreadLocal', link: '/java/jmm-volatile-threadlocal.md' },
         { text: 'JDK 21–25 虚拟线程', link: '/java/virtual-threads-jdk21-25.md' },
         { text: '虚拟线程生产模式', link: '/java/virtual-threads-production-patterns.md' },
         { text: '虚拟线程观测与迁移', link: '/java/virtual-threads-observability-migration.md' },
@@ -183,7 +186,11 @@ export default withMermaid(defineConfig({
       '/spring/': springSidebar,
       '/jvm/': [
         { text: 'JVM 专题首页', link: '/jvm/' },
-        { text: '诊断、内存与 GC', link: '/jvm/diagnostics-gc.md' }
+        { text: '诊断、内存与 GC', link: '/jvm/diagnostics-gc.md' },
+        {
+          text: '生产故障定位 Runbook',
+          link: '/jvm/production-incident-troubleshooting.md'
+        }
       ],
       '/mysql/': [
         { text: 'MySQL 专题首页', link: '/mysql/' },

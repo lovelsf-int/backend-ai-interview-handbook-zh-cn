@@ -1,6 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { existsSync, readFileSync } from 'node:fs'
+import { execFileSync } from 'node:child_process'
 
 const requiredFiles = [
   'package.json',
@@ -28,6 +29,9 @@ const incrementalSidebarRoutes = [
   '/java/virtual-threads-production-patterns.md',
   '/java/virtual-threads-observability-migration.md',
   '/java/design-patterns-production-scenarios.md',
+  '/java/concurrency-locks-aqs-cas.md',
+  '/java/thread-pool-production-guide.md',
+  '/java/jmm-volatile-threadlocal.md',
   '/mysql/innodb-write-mvcc-transactions.md',
   '/mysql/locks-deadlocks-production-runbook.md',
   '/mysql/index-explain-pagination-replication.md',
@@ -103,4 +107,14 @@ test('Mermaid diagrams are rendered by the VitePress integration', () => {
     'string'
   )
   assert.equal(typeof packageJson.devDependencies.mermaid, 'string')
+})
+
+test('JVM production troubleshooting runbook is built as a public route', () => {
+  execFileSync('npm', ['run', 'docs:build'], { stdio: 'inherit' })
+
+  assert.equal(
+    existsSync('docs/.vitepress/dist/jvm/production-incident-troubleshooting.html'),
+    true,
+    'missing compiled JVM production troubleshooting route'
+  )
 })
