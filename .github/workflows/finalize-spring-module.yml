@@ -1,0 +1,76 @@
+name: Finalize Spring interview module
+
+on:
+  push:
+    branches:
+      - feat/spring-interview-module
+    paths:
+      - scripts/finalize-spring-module.py
+      - .github/workflows/finalize-spring-module.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: finalize-spring-interview-module
+  cancel-in-progress: false
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v6
+        with:
+          ref: feat/spring-interview-module
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Integrate Spring module into site
+        run: |
+          python scripts/finalize-spring-module.py
+          rm scripts/finalize-spring-module.py
+
+      - name: Verify repository
+        run: |
+          npm run check
+          npm run docs:build
+
+      - name: Commit verified result
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -A
+          git commit -m "docs: add Spring core interview module"
+          git push origin HEAD:feat/spring-interview-module
+          git push origin HEAD:main
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/.vitepress/dist
+
+  deploy:
+    needs: finalize
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
