@@ -77,3 +77,5 @@ jobs:
       - name: Deploy GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+# Acceptance-test correction trigger: Spring index uses /spring/ and questions use Q-prefixed H4 headings.

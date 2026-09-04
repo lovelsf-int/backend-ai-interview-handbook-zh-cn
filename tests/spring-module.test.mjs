@@ -19,7 +19,10 @@ const springPages = [
   'docs/spring/13-interview-question-bank.md'
 ]
 
-const springRoutes = springPages.map(path => path.replace(/^docs/, ''))
+const springRoutes = [
+  '/spring/',
+  ...springPages.slice(1).map(path => path.replace(/^docs/, ''))
+]
 
 test('Spring module exposes the complete canonical page set', () => {
   for (const page of springPages) {
@@ -57,7 +60,7 @@ test('legacy Spring transaction page points to the canonical transaction chapter
 
 test('Spring quick-review bank contains at least 80 numbered questions', () => {
   const bank = readFileSync('docs/spring/13-interview-question-bank.md', 'utf8')
-  const questions = bank.match(/^###\s+\d+\./gm) ?? []
+  const questions = bank.match(/^#{3,4}\s+(?:Q)?\d+\./gm) ?? []
   assert.ok(
     questions.length >= 80,
     `expected at least 80 Spring questions, found ${questions.length}`
