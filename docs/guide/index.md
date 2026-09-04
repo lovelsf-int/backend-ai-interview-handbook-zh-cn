@@ -3,7 +3,7 @@ title: 使用指南
 description: 了解手册的定位、内容状态、学习方式和质量边界
 status: verified
 baseline: repository governance v1
-last_verified: 2026-09-01
+last_verified: 2026-09-04
 level: P7/P8
 source: 仓库治理规范
 ---
@@ -15,6 +15,7 @@ source: 仓库治理规范
 ## 推荐入口
 
 - [学习路线](./learning-path.md)：按目标和时间选择阅读顺序。
+- [2026-09-03 真实面试复盘与补强路线](./real-interview-review-2026-09-03.md)：基于 54 分钟真实面试暴露的问题，优先补 Spring、MySQL/线上排障、Java 并发与分布式事务。
 - [迁移清单](../migration-manifest.md)：查看源资料与目标章节的对应关系。
 
 ## 如何判断内容可信度
