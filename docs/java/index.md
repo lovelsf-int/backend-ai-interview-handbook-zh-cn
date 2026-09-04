@@ -27,6 +27,7 @@ source: 资深 Java / AI Agent 定制面试手册自有资料
 - [JDK 21–25 虚拟线程版本演进](./virtual-threads-jdk21-25.md)
 - [虚拟线程生产架构模式](./virtual-threads-production-patterns.md)
 - [虚拟线程观测、压测与迁移](./virtual-threads-observability-migration.md)
+- [2026-09-04 正式面试复盘：Java 虚拟线程与生产排障](./virtual-thread-mock-interview-review-2026-09-04.md)
 
 ## 设计模式与框架
 
