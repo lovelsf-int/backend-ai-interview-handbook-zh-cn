@@ -1,9 +1,9 @@
 ---
 title: Java 工程与场景题
-description: 面向资深后端的并发、虚拟线程、Spring 事务和服务治理专题
+description: 面向资深后端的并发、IO/NIO、虚拟线程、Spring 事务和服务治理专题
 status: reviewing
 baseline: candidate-provided project and backend source snapshot
-last_verified: 2026-09-01
+last_verified: 2026-09-04
 level: P7/P8
 source: 资深 Java / AI Agent 定制面试手册自有资料
 ---
@@ -16,15 +16,16 @@ source: 资深 Java / AI Agent 定制面试手册自有资料
 2. [synchronized、CAS、AQS 与并发工具](./concurrency-locks-aqs-cas.md)
 3. [Java 线程池生产实践](./thread-pool-production-guide.md)
 4. [JMM、volatile 与 ThreadLocal](./jmm-volatile-threadlocal.md)
-5. [JDK 21–25 虚拟线程版本演进](./virtual-threads-jdk21-25.md)
-6. [虚拟线程生产架构模式](./virtual-threads-production-patterns.md)
-7. [虚拟线程观测、压测与迁移](./virtual-threads-observability-migration.md)
-8. [Spring 核心原理与面试手册](../spring/)
-9. [Spring 事务与服务治理（兼容入口）](./spring-transactions-service-governance.md)
-10. [JVM 诊断与 GC](../jvm/diagnostics-gc.md)
-11. [MySQL 事务、锁与索引](../mysql/transactions-locks-indexes.md)
-12. [Java 设计模式的生产场景与边界](./design-patterns-production-scenarios.md)
+5. [Java IO、NIO、Reactor 与 Netty 面试手册](./io-nio-netty-interview-guide.md)
+6. [JDK 21–25 虚拟线程版本演进](./virtual-threads-jdk21-25.md)
+7. [虚拟线程生产架构模式](./virtual-threads-production-patterns.md)
+8. [虚拟线程观测、压测与迁移](./virtual-threads-observability-migration.md)
+9. [Spring 核心原理与面试手册](../spring/)
+10. [Spring 事务与服务治理（兼容入口）](./spring-transactions-service-governance.md)
+11. [JVM 诊断与 GC](../jvm/diagnostics-gc.md)
+12. [MySQL 事务、锁与索引](../mysql/transactions-locks-indexes.md)
+13. [Java 设计模式的生产场景与边界](./design-patterns-production-scenarios.md)
 
 ## 学习原则
 
-回答并发题时先区分线程承载能力与下游资源配额；回答事务题时先明确本地事务边界与外部副作用；回答排障题时给出指标、命令、时间线和验证证据。
+回答并发题时先区分线程承载能力与下游资源配额；回答 IO 题时先区分阻塞/非阻塞、同步/异步，再串起 Selector、Reactor、Netty 与零拷贝；回答事务题时先明确本地事务边界与外部副作用；回答排障题时给出指标、命令、时间线和验证证据。
