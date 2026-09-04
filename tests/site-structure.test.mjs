@@ -118,3 +118,12 @@ test('JVM production troubleshooting runbook is built as a public route', () => 
     'missing compiled JVM production troubleshooting route'
   )
 })
+
+test('desktop page outline keeps long question topics visible', () => {
+  const css = readFileSync('docs/.vitepress/theme/custom.css', 'utf8')
+
+  assert.match(css, /\.VPDocAsideOutline\s+\.outline-link/)
+  assert.match(css, /white-space:\s*normal/)
+  assert.match(css, /-webkit-line-clamp:\s*2/)
+  assert.match(css, /-webkit-box-orient:\s*vertical/)
+})
