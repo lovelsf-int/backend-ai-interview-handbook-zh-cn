@@ -168,14 +168,17 @@ export default withMermaid(defineConfig({
     sidebar: {
       '/guide/': [
         { text: '使用指南', link: '/guide/' },
-        { text: '学习路线', link: '/guide/learning-path.md' }
+        { text: '学习路线', link: '/guide/learning-path.md' },
+        { text: '真实面试复盘', link: '/guide/real-interview-review-2026-09-03.md' }
       ],
       '/java/': [
         { text: 'Java 专题首页', link: '/java/' },
+        { text: 'JDK 8–26 版本特性', link: '/java/jdk-version-evolution.md' },
         { text: '并发与虚拟线程', link: '/java/concurrency-virtual-threads.md' },
         { text: '锁、CAS、AQS 与同步器', link: '/java/concurrency-locks-aqs-cas.md' },
         { text: '线程池生产实践', link: '/java/thread-pool-production-guide.md' },
         { text: 'JMM、volatile 与 ThreadLocal', link: '/java/jmm-volatile-threadlocal.md' },
+        { text: 'IO、NIO、Reactor 与 Netty', link: '/java/io-nio-netty-interview-guide.md' },
         { text: 'JDK 21–25 虚拟线程', link: '/java/virtual-threads-jdk21-25.md' },
         { text: '虚拟线程生产模式', link: '/java/virtual-threads-production-patterns.md' },
         { text: '虚拟线程观测与迁移', link: '/java/virtual-threads-observability-migration.md' },
