@@ -49,6 +49,7 @@ const javaSidebar = [
     collapsed: false,
     items: [
       { text: 'JDK 8–26 版本演进', link: '/java/jdk-version-evolution.md' },
+      { text: '集合、Map 与泛型', link: '/java/collections-generics-interview-guide.md' },
       { text: 'IO、NIO、Reactor 与 Netty', link: '/java/io-nio-netty-interview-guide.md' }
     ]
   },
@@ -88,6 +89,7 @@ const jvmSidebar = [
     text: '内存、GC 与诊断',
     collapsed: false,
     items: [
+      { text: '类加载与对象生命周期', link: '/jvm/class-loading-object-lifecycle.md' },
       { text: '诊断、内存与 GC', link: '/jvm/diagnostics-gc.md' }
     ]
   },
@@ -176,6 +178,13 @@ const mysqlSidebar = [
     collapsed: false,
     items: [
       { text: '锁、死锁与排障', link: '/mysql/locks-deadlocks-production-runbook.md' }
+    ]
+  },
+  {
+    text: '性能与变更治理',
+    collapsed: false,
+    items: [
+      { text: '性能归因与 Online DDL', link: '/mysql/performance-schema-change-governance.md' }
     ]
   }
 ]
@@ -411,7 +420,8 @@ const systemDesignSidebar = [
     collapsed: true,
     items: [
       { text: '面试策略与评分', link: '/system-design/interview-strategy.md' },
-      { text: 'P8 项目压力面', link: '/system-design/pressure-interview-playbook.md' }
+      { text: 'P8 项目压力面', link: '/system-design/pressure-interview-playbook.md' },
+      { text: 'P7/P8 架构决策实战', link: '/system-design/p7-p8-architecture-decision-workshop.md' }
     ]
   }
 ]
@@ -436,6 +446,7 @@ export default withMermaid(defineConfig({
     nav: [
       { text: '首页', link: '/' },
       { text: '学习路线', link: '/guide/learning-path.md' },
+      { text: '面试冲刺', link: '/guide/interview-sprint-gap-map.md' },
       {
         text: '后端基础设施',
         items: [
@@ -465,6 +476,7 @@ export default withMermaid(defineConfig({
       '/guide/': [
         { text: '使用指南', link: '/guide/' },
         { text: '学习路线', link: '/guide/learning-path.md' },
+        { text: 'P7/P8 面试冲刺与缺口地图', link: '/guide/interview-sprint-gap-map.md' },
         { text: '真实面试复盘', link: '/guide/real-interview-review-2026-09-03.md' }
       ],
       '/java/': javaSidebar,

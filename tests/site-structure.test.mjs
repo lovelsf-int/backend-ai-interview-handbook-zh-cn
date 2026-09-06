@@ -23,6 +23,10 @@ const domainRoutes = [
 ]
 
 const incrementalSidebarRoutes = [
+  '/guide/interview-sprint-gap-map.md',
+  '/java/collections-generics-interview-guide.md',
+  '/jvm/class-loading-object-lifecycle.md',
+  '/mysql/performance-schema-change-governance.md',
   '/elasticsearch/17-soc-event-alert-capacity.md',
   '/elasticsearch/18-soc-pressure-interview.md',
   '/java/virtual-threads-jdk21-25.md',
@@ -117,6 +121,19 @@ test('JVM production troubleshooting runbook is built as a public route', () => 
     true,
     'missing compiled JVM production troubleshooting route'
   )
+})
+
+test('priority interview supplement pages are built as public routes', () => {
+  const compiledRoutes = [
+    'docs/.vitepress/dist/guide/interview-sprint-gap-map.html',
+    'docs/.vitepress/dist/java/collections-generics-interview-guide.html',
+    'docs/.vitepress/dist/jvm/class-loading-object-lifecycle.html',
+    'docs/.vitepress/dist/mysql/performance-schema-change-governance.html'
+  ]
+
+  for (const route of compiledRoutes) {
+    assert.equal(existsSync(route), true, `missing compiled route: ${route}`)
+  }
 })
 
 test('desktop page outline keeps long question topics visible', () => {

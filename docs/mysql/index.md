@@ -31,4 +31,10 @@ source: 资深 Java / AI Agent 定制面试手册自有资料
 
 排查时先明确事务边界和隔离级别，再看锁等待、死锁日志、慢 SQL、执行计划和应用重试。止血措施与长期索引、事务和访问顺序治理要分开说明。
 
+## 性能与变更治理
+
+- [性能归因、Online DDL 与发布治理](./performance-schema-change-governance.md)
+
+不要把性能问题等同于 SQL 语句本身。使用 Performance Schema、执行计划、锁等待、Buffer Pool、Redo、I/O 和复制指标建立证据链；大表 DDL 必须明确算法、元数据锁、发布护栏与回退路径。
+
 生产问题必须结合目标 MySQL 版本、隔离级别、表结构、数据分布、执行计划和故障模型验证。

@@ -1,6 +1,6 @@
 ---
 title: JVM 原理与生产排障
-description: 从内存、GC 到 CPU、泄漏、直接内存和虚拟线程问题定位
+description: 从类加载、对象生命周期、内存与 GC 到 CPU、泄漏、直接内存和虚拟线程问题定位
 status: reviewing
 baseline: candidate-provided project and backend source snapshot
 last_verified: 2026-09-04
@@ -12,9 +12,10 @@ source: 资深 Java / AI Agent 定制面试手册自有资料
 
 ## 内存、GC 与诊断
 
+- [类加载、对象生命周期与内存边界](./class-loading-object-lifecycle.md)
 - [JVM 诊断、内存与 GC](./diagnostics-gc.md)
 
-重点掌握运行时数据区、对象分配、GC 算法、收集器选择、日志分析、内存泄漏和直接内存问题。
+重点掌握加载、链接、初始化、运行时数据区、对象分配、GC 算法、收集器选择、日志分析、内存泄漏和直接内存问题。
 
 ## 生产故障与排障
 

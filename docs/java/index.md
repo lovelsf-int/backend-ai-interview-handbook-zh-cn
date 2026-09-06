@@ -1,6 +1,6 @@
 ---
 title: Java 工程与场景题
-description: 面向资深后端的 JDK 版本演进、并发、IO/NIO、虚拟线程、Spring 事务和服务治理专题
+description: 面向资深后端的集合、泛型、JDK 版本演进、并发、IO/NIO、虚拟线程与框架治理专题
 status: reviewing
 baseline: candidate-provided project and backend source snapshot
 last_verified: 2026-09-04
@@ -13,6 +13,7 @@ source: 资深 Java / AI Agent 定制面试手册自有资料
 ## Java 基础与版本
 
 - [JDK 8–26 版本特性与面试演进](./jdk-version-evolution.md)
+- [Java 集合、Map 与泛型高频面试](./collections-generics-interview-guide.md)
 - [Java IO、NIO、Reactor 与 Netty 面试手册](./io-nio-netty-interview-guide.md)
 
 ## 并发基础

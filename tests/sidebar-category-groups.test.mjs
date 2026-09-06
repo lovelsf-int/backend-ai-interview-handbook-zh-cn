@@ -26,7 +26,8 @@ const sidebarCategories = {
   mysqlSidebar: [
     ['事务与存储', false],
     ['索引与查询', false],
-    ['锁与故障排查', false]
+    ['锁与故障排查', false],
+    ['性能与变更治理', false]
   ],
   kafkaSidebar: [
     ['核心原理', false],
@@ -84,7 +85,9 @@ const sidebarBindings = {
 }
 
 const expectedRoutes = [
+  '/guide/interview-sprint-gap-map.md',
   '/java/jdk-version-evolution.md',
+  '/java/collections-generics-interview-guide.md',
   '/java/concurrency-virtual-threads.md',
   '/java/concurrency-locks-aqs-cas.md',
   '/java/thread-pool-production-guide.md',
@@ -96,6 +99,7 @@ const expectedRoutes = [
   '/java/design-patterns-production-scenarios.md',
   '/java/spring-transactions-service-governance.md',
   '/jvm/diagnostics-gc.md',
+  '/jvm/class-loading-object-lifecycle.md',
   '/jvm/production-incident-troubleshooting.md',
   '/spring/01-core-architecture.md',
   '/spring/02-ioc-di-container.md',
@@ -114,6 +118,7 @@ const expectedRoutes = [
   '/mysql/innodb-write-mvcc-transactions.md',
   '/mysql/index-explain-pagination-replication.md',
   '/mysql/locks-deadlocks-production-runbook.md',
+  '/mysql/performance-schema-change-governance.md',
   '/kafka/01-core-model-and-kraft.md',
   '/kafka/02-log-storage-and-performance.md',
   '/kafka/03-producer-reliability-ordering.md',
@@ -216,7 +221,12 @@ const indexCategories = {
     '源码与生产排障',
     '分类题库'
   ],
-  'docs/mysql/index.md': ['事务与存储', '索引与查询', '锁与故障排查'],
+  'docs/mysql/index.md': [
+    '事务与存储',
+    '索引与查询',
+    '锁与故障排查',
+    '性能与变更治理'
+  ],
   'docs/kafka/index.md': ['核心原理', '生产可靠性', '治理与故障排查', '题库与历史资料'],
   'docs/redis/index.md': ['核心机制', '缓存一致性', '高可用与集群', '事务与分布式', '生产排障与题库'],
   'docs/elasticsearch/index.md': [

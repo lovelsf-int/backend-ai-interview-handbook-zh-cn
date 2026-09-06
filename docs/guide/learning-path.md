@@ -3,16 +3,18 @@ title: 学习路线
 description: 面向 P7/P8 Java 与 AI Agent 岗位的分阶段复习顺序
 status: reviewing
 baseline: full migration plan v1
-last_verified: 2026-09-01
+last_verified: 2026-09-06
 level: P7/P8
 source: 12 份面试资料的结构化路线
 ---
 
 # 学习路线
 
+> 如果距离面试只有一周，直接使用 [P7/P8 面试冲刺与缺口地图](./interview-sprint-gap-map.md)，先修真实面试暴露的 P0 短板。
+
 ## 第一阶段：建立回答骨架
 
-先掌握 Java 并发、JVM 排障、Spring IoC/AOP/事务、MySQL 事务与锁、Kafka 可靠性、Redis 缓存一致性和 Elasticsearch 读写链路。目标是能够在 90 秒内给出有边界的核心回答。Spring 部分按 [核心架构与 IoC 主线](../spring/) 复习，再进入事务和生产排障。
+先掌握 Java 集合与并发、JVM 类加载与排障、Spring IoC/AOP/事务、MySQL 事务与锁、Kafka 可靠性、Redis 缓存一致性和 Elasticsearch 读写链路。目标是能够在 90 秒内给出有边界的核心回答。Java 基础先补 [集合、Map 与泛型](../java/collections-generics-interview-guide.md)，Spring 部分按 [核心架构与 IoC 主线](../spring/) 复习，再进入事务和生产排障。
 
 ## 第二阶段：进入生产工程
 
@@ -29,3 +31,7 @@ source: 12 份面试资料的结构化路线
 ## 第五阶段：模拟面试
 
 每个专题使用“结论—原理—方案—异常—指标—取舍—演进”七段式回答，连续追问至少三轮，并记录无法量化或需要补证的部分。
+
+## 第六阶段：架构决策与技术治理
+
+用 [P7/P8 架构决策实战](../system-design/p7-p8-architecture-decision-workshop.md) 练习容量、Deadline、恢复协议、质量评估、资源隔离和平台化取舍。每题完成一份架构决策记录，明确什么证据会推翻原方案。

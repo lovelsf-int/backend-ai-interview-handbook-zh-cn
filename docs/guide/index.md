@@ -15,6 +15,7 @@ source: 仓库治理规范
 ## 推荐入口
 
 - [学习路线](./learning-path.md)：按目标和时间选择阅读顺序。
+- [P7/P8 面试冲刺与缺口地图](./interview-sprint-gap-map.md)：按当前短板安排七天冲刺，并统一进入历次复盘。
 - [2026-09-03 真实面试复盘与补强路线](./real-interview-review-2026-09-03.md)：基于 54 分钟真实面试暴露的问题，优先补 Spring、MySQL/线上排障、Java 并发与分布式事务。
 - [迁移清单](../migration-manifest.md)：查看源资料与目标章节的对应关系。
 

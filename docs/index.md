@@ -4,7 +4,7 @@ title: 后端与 AI 面试手册
 description: 面向资深 Java、AI Agent、搜索与金融支付岗位的 P7/P8 中文技术手册
 status: reviewing
 baseline: site architecture v1
-last_verified: 2026-09-01
+last_verified: 2026-09-06
 level: P7/P8
 source: 自有项目经验与面试资料
 
@@ -20,8 +20,8 @@ hero:
       text: 开始学习
       link: /guide/
     - theme: alt
-      text: Spring 核心面试
-      link: /spring/
+      text: P7/P8 面试冲刺
+      link: /guide/interview-sprint-gap-map.md
     - theme: alt
       text: 查看 GitHub
       link: https://github.com/lovelsf-int/backend-ai-interview-handbook-zh-cn
