@@ -90,7 +90,8 @@ const jvmSidebar = [
     collapsed: false,
     items: [
       { text: '类加载与对象生命周期', link: '/jvm/class-loading-object-lifecycle.md' },
-      { text: '诊断、内存与 GC', link: '/jvm/diagnostics-gc.md' }
+      { text: '诊断、内存与 GC', link: '/jvm/diagnostics-gc.md' },
+      { text: '垃圾回收动态演示', link: '/jvm/gc-visualizer.md' }
     ]
   },
   {

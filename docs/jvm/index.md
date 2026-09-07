@@ -14,6 +14,7 @@ source: 资深 Java / AI Agent 定制面试手册自有资料
 
 - [类加载、对象生命周期与内存边界](./class-loading-object-lifecycle.md)
 - [JVM 诊断、内存与 GC](./diagnostics-gc.md)
+- [垃圾回收动态演示：分代、标记整理与 G1](./gc-visualizer.md)
 
 重点掌握加载、链接、初始化、运行时数据区、对象分配、GC 算法、收集器选择、日志分析、内存泄漏和直接内存问题。
 
