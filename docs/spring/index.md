@@ -3,7 +3,7 @@ title: Spring 核心原理与面试手册
 description: 从 IoC、Bean 生命周期、AOP、事务到 MVC、Boot 与生产排障的 P7/P8 面试体系
 status: reviewing
 baseline: Spring Framework core architecture and Spring Boot application model
-last_verified: 2026-09-04
+last_verified: 2026-09-08
 level: P7/P8
 source: Spring 官方参考文档、核心源码与资深 Java 面试整理
 ---
@@ -25,7 +25,7 @@ source: Spring 官方参考文档、核心源码与资深 Java 面试整理
 
 ## Boot 与应用能力
 
-1. [Spring Boot 启动与自动配置](./08-spring-boot-startup-auto-configuration.md)
+1. [Spring Boot 40 道必知问题：启动、配置与生产治理](./08-spring-boot-startup-auto-configuration.md)
 2. [注解、事件、缓存与异步](./09-annotations-events-cache-async.md)
 3. [作用域与线程安全](./10-scope-thread-safety.md)
 
@@ -37,6 +37,8 @@ source: Spring 官方参考文档、核心源码与资深 Java 面试整理
 ## 分类题库
 
 - [100 道核心面试题](./13-interview-question-bank.md)
+
+Spring Boot 章节现含 40 道标准问答及 P7/P8 追问，覆盖自动配置、配置优先级、事务异步、健康探针、优雅停机、测试回滚和 2.7/3.x/4.0 版本边界。
 
 ## 建议复习顺序
 
