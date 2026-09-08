@@ -427,6 +427,49 @@ const systemDesignSidebar = [
   }
 ]
 
+const algorithmsSidebar = [
+  { text: '算法面试首页', link: '/algorithms/' },
+  {
+    text: '基础与线性结构',
+    collapsed: false,
+    items: [
+      { text: '01 算法基础与 Java 模板', link: '/algorithms/01-foundations.md' },
+      { text: '02 数组、哈希与窗口', link: '/algorithms/02-array-hash-window.md' },
+      { text: '03 二分查找与边界', link: '/algorithms/03-binary-search.md' },
+      { text: '04 链表与快慢指针', link: '/algorithms/04-linked-list.md' },
+      { text: '05 栈、堆与 Top K', link: '/algorithms/05-stack-heap.md' }
+    ]
+  },
+  {
+    text: '树、图与搜索',
+    collapsed: false,
+    items: [
+      { text: '06 二叉树、BST 与 LCA', link: '/algorithms/06-tree.md' },
+      { text: '07 图、拓扑与并查集', link: '/algorithms/07-graph.md' },
+      { text: '08 回溯、排列与剪枝', link: '/algorithms/08-backtracking.md' }
+    ]
+  },
+  {
+    text: '贪心、DP 与设计',
+    collapsed: false,
+    items: [
+      { text: '09 贪心、区间与股票', link: '/algorithms/09-greedy-interval.md' },
+      { text: '10 动态规划与子序列', link: '/algorithms/10-dynamic-programming.md' },
+      { text: '11 零钱兑换与 dp[0]', link: '/algorithms/11-coin-change.md' },
+      { text: '12 LRU 与工程追问', link: '/algorithms/12-design-lru.md' }
+    ]
+  },
+  {
+    text: '题单、训练与进阶',
+    collapsed: false,
+    items: [
+      { text: '13 LeetCode 80 题', link: '/algorithms/13-question-bank.md' },
+      { text: '14 常见追问与训练计划', link: '/algorithms/14-interview-playbook.md' },
+      { text: '15 进阶算法与大数据', link: '/algorithms/15-advanced-patterns.md' }
+    ]
+  }
+]
+
 export default withMermaid(defineConfig({
   lang: 'zh-CN',
   title: '后端与 AI 面试手册',
@@ -448,6 +491,7 @@ export default withMermaid(defineConfig({
       { text: '首页', link: '/' },
       { text: '学习路线', link: '/guide/learning-path.md' },
       { text: '面试冲刺', link: '/guide/interview-sprint-gap-map.md' },
+      { text: '算法面试', link: '/algorithms/' },
       {
         text: '后端基础设施',
         items: [
@@ -480,6 +524,7 @@ export default withMermaid(defineConfig({
         { text: 'P7/P8 面试冲刺与缺口地图', link: '/guide/interview-sprint-gap-map.md' },
         { text: '真实面试复盘', link: '/guide/real-interview-review-2026-09-03.md' }
       ],
+      '/algorithms/': algorithmsSidebar,
       '/java/': javaSidebar,
       '/jvm/': jvmSidebar,
       '/spring/': springSidebar,

@@ -4,14 +4,14 @@ title: 后端与 AI 面试手册
 description: 面向资深 Java、AI Agent、搜索与金融支付岗位的 P7/P8 中文技术手册
 status: reviewing
 baseline: site architecture v1
-last_verified: 2026-09-06
+last_verified: 2026-09-08
 level: P7/P8
 source: 自有项目经验与面试资料
 
 hero:
   name: 后端与 AI 面试手册
   text: 从底层原理到生产架构与面试追问
-  tagline: Java · JVM · Spring · MySQL · Kafka · Redis · Elasticsearch · AI Agent · 金融支付
+  tagline: Java · JVM · Spring · MySQL · Kafka · Redis · Elasticsearch · AI Agent · 金融支付 · 算法面试
   image:
     src: /logo.svg
     alt: 后端与 AI 面试手册标志
@@ -23,6 +23,9 @@ hero:
       text: P7/P8 面试冲刺
       link: /guide/interview-sprint-gap-map.md
     - theme: alt
+      text: 算法面试与 LeetCode
+      link: /algorithms/
+    - theme: alt
       text: 查看 GitHub
       link: https://github.com/lovelsf-int/backend-ai-interview-handbook-zh-cn
 
@@ -33,4 +36,7 @@ features:
     details: RAG、工具调用、MCP、Memory、Multi-Agent、评估、安全和生产可靠性。
   - title: 金融支付与 DDD
     details: SOLID、设计模式、状态机、幂等、账务、对账、Outbox 与跨区域容灾。
+  - title: 算法面试与 LeetCode
+    details: 80 道分类训练题、36 道 Java 完整题解、20 个常见追问，覆盖核心算法与零钱兑换专项。
+    link: /algorithms/
 ---
