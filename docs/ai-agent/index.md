@@ -3,9 +3,9 @@ title: AI Agent 工程化手册
 description: 从模型基础、架构编排到 RAG、工具、记忆、评估、安全和生产项目
 status: reviewing
 baseline: AI Agent source snapshot 2026
-last_verified: 2026-09-04
+last_verified: 2026-09-09
 level: P7/P8
-source: 两份 AI Agent 自有面试资料的 canonical 合并
+source: 两份 AI Agent 自有面试资料的 canonical 合并；安全实战按官方资料增补
 ---
 
 # AI Agent 工程化手册
@@ -33,7 +33,10 @@ source: 两份 AI Agent 自有面试资料的 canonical 合并
 1. [生产工程、可靠性与成本](./09-production-reliability-cost.md)
 2. [Evaluation 与 Observability](./10-evaluation-observability.md)
 3. [Security、Guardrail 与治理](./11-security-guardrails-governance.md)
-4. [2026-09-04 正式面试复盘：LLM 平台治理与多租户稳定性](./13-mock-interview-review-2026-09-04.md)
+4. [LLM 与 Agent 安全实战：SOC 研判到受控处置](./14-llm-agent-security-practice.md)
+5. [2026-09-04 正式面试复盘：LLM 平台治理与多租户稳定性](./13-mock-interview-review-2026-09-04.md)
+
+安全专题建议先读基础题库，再读实战篇。实战篇包含提示注入、RAG 与缓存权限、审批参数绑定、MCP 凭证边界、执行隔离、UNKNOWN 对账、12 道 P7/P8 连续追问与 16 个发布前验收场景；验收场景是测试建议，不代表目标系统已经通过测试。
 
 ## 系统设计与题库
 
