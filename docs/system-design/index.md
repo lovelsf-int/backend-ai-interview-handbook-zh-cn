@@ -24,6 +24,7 @@ SOC、海外支付、全球订阅、道路运输/CBT-I 和 AI Coding 页面开�
 
 ## AI 与工程化
 
+- [AI Coding 独立模块：工作流、Java 实战与面试](../ai-coding/index.md)
 - [SOC AI Agent 智能研判平台](./soc-agent.md)
 - [Spec-driven AI Coding 生产实践](./spec-driven-ai-coding.md)
 

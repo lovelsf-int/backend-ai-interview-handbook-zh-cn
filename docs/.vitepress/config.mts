@@ -3,6 +3,21 @@ import { aiStudySidebar } from './ai-study-sidebar.mts'
 import { defineConfig } from 'vitepress'
 import { withMermaid } from 'vitepress-plugin-mermaid'
 
+const aiCodingSidebar = [
+  { text: 'AI Coding 学习路线', link: '/ai-coding/' },
+  { text: '基础与工作流', collapsed: false, items: [
+    { text: '工具选型与开发闭环', link: '/ai-coding/tools-workflow.md' },
+    { text: 'Prompt、上下文与仓库规则', link: '/ai-coding/context-spec.md' },
+    { text: 'Skills、MCP、Hooks 与多 Agent', link: '/ai-coding/skills-mcp-agents.md' }
+  ] },
+  { text: '工程实战与面试', collapsed: false, items: [
+    { text: 'Java 后端 AI 编程实战', link: '/ai-coding/java-backend-practice.md' },
+    { text: '质量、安全与团队效能', link: '/ai-coding/quality-governance.md' },
+    { text: 'P7/P8 面试题与追问', link: '/ai-coding/interview.md' },
+    { text: 'Spec-driven 项目深挖', link: '/system-design/spec-driven-ai-coding.md' }
+  ] }
+]
+
 const aiAgentSidebar = [
   { text: '系统学习与复习（32 篇）', link: '/ai-study/' },
   { text: '专题首页', link: '/ai-agent/' },
@@ -528,6 +543,7 @@ export default withMermaid(defineConfig({
       },
       { text: 'AI Agent', link: '/ai-agent/' },
       { text: 'AI 学习', link: '/ai-study/' },
+      { text: 'AI Coding', link: '/ai-coding/' },
       {
         text: '架构案例',
         items: [
@@ -556,6 +572,7 @@ export default withMermaid(defineConfig({
       '/redis/': redisSidebar,
       '/elasticsearch/': elasticsearchSidebar,
       '/ai-study/': aiStudySidebar,
+      '/ai-coding/': aiCodingSidebar,
       '/ai-agent/': aiAgentSidebar,
       '/finance-payment-ddd/': paymentSidebar,
       '/system-design/': systemDesignSidebar

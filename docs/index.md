@@ -30,6 +30,9 @@ hero:
       link: https://github.com/lovelsf-int/backend-ai-interview-handbook-zh-cn
 
 features:
+  - title: AI Coding 工程实践
+    details: 工具选型、上下文、Skills、Java 后端实战、质量验收与 P7/P8 面试追问。
+    link: /ai-coding/
   - title: 后端基础与数据系统
     details: Java、JVM、Spring、MySQL、Kafka、Redis 与 Elasticsearch 的原理、调优和故障排查。
   - title: AI Agent 工程化
