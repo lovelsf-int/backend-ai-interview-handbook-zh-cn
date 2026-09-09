@@ -401,6 +401,13 @@ const paymentSidebar = [
 const systemDesignSidebar = [
   { text: '专题首页', link: '/system-design/' },
   {
+    text: '架构质量与验收',
+    collapsed: false,
+    items: [
+      { text: '高性能、高可靠与高扩展性', link: '/system-design/project-quality-attributes.md' }
+    ]
+  },
+  {
     text: '存储与一致性',
     collapsed: false,
     items: [

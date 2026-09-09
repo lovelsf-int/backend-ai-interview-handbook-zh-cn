@@ -64,6 +64,7 @@ const sidebarCategories = {
     ['DDD 支付订阅案例', true]
   ],
   systemDesignSidebar: [
+    ['架构质量与验收', false],
     ['存储与一致性', false],
     ['AI 与工程化', false],
     ['全球化与支付', false],
