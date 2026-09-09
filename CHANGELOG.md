@@ -43,3 +43,9 @@
 - 将 12 份源资料迁移为 AI Agent、Kafka、Redis、Elasticsearch、金融支付与 DDD、Java、JVM、MySQL 和系统设计专题。
 - 增加源附件与 Pandoc `media/` 图片引用拦截，避免提交二进制源材料和失效图片链接。
 - 增加完整导航、专题侧边栏和 GitHub Pages 自动部署工作流。
+
+<!-- ai-study:start -->
+## 2026-09-09 · AI 系统学习与复习
+
+新增 JavaGuide AI 固定快照 32 篇正文、6 篇导览，96 道附加自测、32 个实践练习与 14 单元学习路线。保留既有 AI 工程手册，增补来源映射、许可证、版本校准及自动化完整性验收。
+<!-- ai-study:end -->

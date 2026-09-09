@@ -30,3 +30,9 @@
 规范基线包括 [OWASP LLM Top 10 2026](https://genai.owasp.org/resource/owasp-genai-llm-top-10-2026/)、[MCP Authorization 2026-07-28](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization) 和 Spring AI 官方工具调用文档；权限、RAG、审批、SSRF、日志和容器隔离的具体来源在章节中逐项列出。
 
 页面保持 `reviewing`。规范核验不等于目标系统的实现或安全验证完成，文中 16 个验收场景也不代表已经执行的测试结果。
+
+<!-- ai-study:start -->
+## JavaGuide AI 学习专区：2026-09-09
+
+固定收录 JavaGuide `d76264cb4e000416c4adca06770ce014bd309150` 的 32 篇正文与 6 篇导览，按 Apache-2.0 保留署名与许可证，学习卡为本站独立增补。详见 [来源与许可](docs/ai-study/sources.md) 和 [全量覆盖清单](docs/ai-study/coverage.md)。原安全实战的独立原创性质不变；本次学习副本单独标记来源。
+<!-- ai-study:end -->

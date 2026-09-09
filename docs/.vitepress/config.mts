@@ -1,7 +1,9 @@
+import { aiStudySidebar } from './ai-study-sidebar.mts'
 import { defineConfig } from 'vitepress'
 import { withMermaid } from 'vitepress-plugin-mermaid'
 
 const aiAgentSidebar = [
+  { text: '系统学习与复习（32 篇）', link: '/ai-study/' },
   { text: '专题首页', link: '/ai-agent/' },
   {
     text: '基础与编排',
@@ -533,6 +535,7 @@ export default withMermaid(defineConfig({
       '/kafka/': kafkaSidebar,
       '/redis/': redisSidebar,
       '/elasticsearch/': elasticsearchSidebar,
+      '/ai-study/': aiStudySidebar,
       '/ai-agent/': aiAgentSidebar,
       '/finance-payment-ddd/': paymentSidebar,
       '/system-design/': systemDesignSidebar
