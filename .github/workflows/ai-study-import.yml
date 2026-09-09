@@ -1,0 +1,88 @@
+name: Build AI study snapshot
+
+on:
+  push:
+    branches: [docs/ai-study-20260909]
+    paths:
+      - 'scripts/ai-study/**'
+      - 'tests/ai-study*'
+      - '.github/workflows/ai-study-import.yml'
+      - 'scripts/lib/content-validator.mjs'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ai-study-snapshot
+  cancel-in-progress: false
+
+jobs:
+  import-and-verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout isolated branch
+        uses: actions/checkout@v7
+        with:
+          ref: docs/ai-study-20260909
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Run importer regression tests
+        run: python3 -m unittest discover -s scripts/ai-study -p 'test_*.py' -v
+
+      - name: Import pinned and hash-verified source
+        run: |
+          set -o pipefail
+          python3 scripts/ai-study/import_ai.py | tee /tmp/ai-study-import.log
+          git diff --check
+          git add docs/ai-study docs/public/ai-study-manifest.json docs/public/licenses docs/.vitepress/ai-study-sidebar.mts docs/.vitepress/config.mts docs/ai-agent/index.md LICENSES THIRD_PARTY_NOTICES.md SOURCES.md CHANGELOG.md
+          git diff --cached --binary > /tmp/ai-study-first.patch
+          python3 scripts/ai-study/import_ai.py > /tmp/ai-study-repeat.log
+          git add docs/ai-study docs/public/ai-study-manifest.json docs/public/licenses docs/.vitepress/ai-study-sidebar.mts docs/.vitepress/config.mts docs/ai-agent/index.md LICENSES THIRD_PARTY_NOTICES.md SOURCES.md CHANGELOG.md
+          git diff --cached --binary > /tmp/ai-study-second.patch
+          cmp /tmp/ai-study-first.patch /tmp/ai-study-second.patch
+          echo 'Deterministic regeneration: PASS'
+
+      - name: Install site dependencies
+        run: npm ci
+
+      - name: Run all content quality gates
+        run: |
+          set -o pipefail
+          npm run check | tee /tmp/ai-study-check.log
+
+      - name: Build and verify study HTML
+        run: |
+          set -o pipefail
+          npm run docs:build | tee /tmp/ai-study-build.log
+          python3 scripts/ai-study/import_ai.py --verify-html | tee /tmp/ai-study-html.log
+
+      - name: Commit generated study pages
+        run: |
+          git diff --cached --check
+          if git diff --cached --quiet; then
+            echo 'Generated snapshot is already current.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'docs(ai-study): publish 32 full articles, 6 guides and 96 review questions'
+          git push origin HEAD:docs/ai-study-20260909
+          git rev-parse HEAD
+
+      - name: Upload validation records
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-study-validation
+          path: |
+            /tmp/ai-study-*.log
+            docs/public/ai-study-manifest.json
+          if-no-files-found: warn
+          retention-days: 14
