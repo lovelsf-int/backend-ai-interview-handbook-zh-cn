@@ -6,6 +6,7 @@ const config = readFileSync('docs/.vitepress/config.mts', 'utf8')
 
 const sidebarCategories = {
   javaSidebar: [
+    ['多线程编程实战', false],
     ['Java 基础与版本', false],
     ['并发基础', false],
     ['虚拟线程', false],

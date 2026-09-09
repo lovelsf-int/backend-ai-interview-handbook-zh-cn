@@ -49,6 +49,15 @@ const aiAgentSidebar = [
 const javaSidebar = [
   { text: 'Java 专题首页', link: '/java/' },
   {
+    text: '多线程编程实战',
+    collapsed: false,
+    items: [
+      { text: '题目与运行指南', link: '/java/thread-programming/' },
+      { text: '交替打印 ABC：四种实现', link: '/java/thread-programming/alternating-abc.md' },
+      { text: '交替打印奇偶数', link: '/java/thread-programming/odd-even.md' }
+    ]
+  },
+  {
     text: 'Java 基础与版本',
     collapsed: false,
     items: [

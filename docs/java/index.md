@@ -10,6 +10,12 @@ source: 资深 Java / AI Agent 定制面试手册自有资料
 
 # Java 工程与场景题
 
+## 多线程编程实战
+
+- [多线程手写题与运行指南](./thread-programming/)
+- [交替打印 ABC：wait/notifyAll、Condition、Semaphore、LockSupport](./thread-programming/alternating-abc.md)
+- [两个线程交替打印奇偶数：边界与退出](./thread-programming/odd-even.md)
+
 ## Java 基础与版本
 
 - [Object 常用方法与对象面试题](./object-methods-interview.md)
