@@ -20,3 +20,13 @@
 ## 事实校准
 
 技术版本、参数默认值和兼容性优先引用官方资料。无法完成实时校准时，页面必须保持 `reviewing` 并说明基线。
+
+## AI 安全实战增补：2026-09-09
+
+适用章节：[LLM 与 Agent 安全实战：SOC 研判到受控处置](docs/ai-agent/14-llm-agent-security-practice.md)。
+
+用户指定 [JavaGuide LLM/Agent 安全文章](https://javaguide.cn/ai/system-design/llm-security.html) 作为选题参考。本仓库不转载该文正文、代码和图片；SOC 执行链、动作账本、异常恢复、面试问答与验收案例按本手册场景组织，并明确设计方案与生产事实的区别。
+
+规范基线包括 [OWASP LLM Top 10 2026](https://genai.owasp.org/resource/owasp-genai-llm-top-10-2026/)、[MCP Authorization 2026-07-28](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization) 和 Spring AI 官方工具调用文档；权限、RAG、审批、SSRF、日志和容器隔离的具体来源在章节中逐项列出。
+
+页面保持 `reviewing`。规范核验不等于目标系统的实现或安全验证完成，文中 16 个验收场景也不代表已经执行的测试结果。
