@@ -29,7 +29,8 @@ const aiAgentSidebar = [
     items: [
       { text: '09 可靠性与成本', link: '/ai-agent/09-production-reliability-cost.md' },
       { text: '10 评估与可观测', link: '/ai-agent/10-evaluation-observability.md' },
-      { text: '11 安全与治理', link: '/ai-agent/11-security-guardrails-governance.md' }
+      { text: '11 安全与治理', link: '/ai-agent/11-security-guardrails-governance.md' },
+      { text: '14 LLM 与 Agent 安全实战', link: '/ai-agent/14-llm-agent-security-practice.md' }
     ]
   },
   {
