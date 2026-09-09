@@ -1,3 +1,4 @@
+import aiStudyImages from './ai-study-images.mjs'
 import { aiStudySidebar } from './ai-study-sidebar.mts'
 import { defineConfig } from 'vitepress'
 import { withMermaid } from 'vitepress-plugin-mermaid'
@@ -485,7 +486,8 @@ export default withMermaid(defineConfig({
     ['meta', { name: 'author', content: 'lovelsf-int' }]
   ],
   markdown: {
-    lineNumbers: true
+    lineNumbers: true,
+    config: (md) => { md.use(aiStudyImages) }
   },
   themeConfig: {
     logo: '/logo.svg',

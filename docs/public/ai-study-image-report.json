@@ -1,0 +1,733 @@
+{
+  "pages_checked": 38,
+  "pages_with_images": 27,
+  "inline_image_references": 187,
+  "links_retained": [],
+  "images": [
+    {
+      "url": "https://oss.javaguide.cn/github/aiguide/aiguide-overview.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/agent/ReAct-LLM.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/agent/agent-a2a.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/agent/agent-agentic-workflows.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/agent/agent-core-arch.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/agent/agent-loop-flow.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/agent/agent-memory-arch.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/agent/agent-memory-evolution.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/agent/agent-memory-lifestyle.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/agent/agent-memory-markdown-memory-boundary.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/agent/agent-memory-memory-taxonomy.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/agent/agent-memory-rag-vs-memory.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/agent/agent-memory-retrieval-optimization.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/agent/agent-multi-agent-arch.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/agent/agent-react-flow.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/agent/loop-engineering-ci-triage-loop.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/agent/loop-engineering-outer-loop.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/agent/loop-engineering-safety-boundary.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/agent/multi-agent-partial-failure-strategies.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/agent/multi-agent-static-vs-dynamic-orchestration.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/agent/multi-agent-vs-prompt-chain.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/coding/claudecode/claudecode-father-loop.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/context-engineering/calibrating-the-system-prompt.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/context-engineering/claude-code-context-compression-thinking.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/context-engineering/context-engineering-core-logic.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/context-engineering/context-engineering-eviction-strategy.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/context-engineering/context-engineering-run-time-retrieval.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/context-engineering/context-engineering-vs-context-engineering-dimension-comparison.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/context-engineering/context-engineering-vs-prompt-engineering.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/context-engineering/long-task-context-persistence-three-weapons-against-corruption.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/context-engineering/prompt-four-element-framework.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/context-engineering/prompt-injection-protection-three-layer-defense-in-depth-system.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/context-engineering/prompt-six-core-techniques.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/context-engineering/prompt-vs-context-engineering-dimension-comparison.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/context-engineering/structured-output-formats.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/context-engineering/sub-agent-task-splitting-context-isolation%20.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/context-engineering/task-decomposition.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/context-engineering/why-does-the-following-content-fail.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/context-engineering/why-the-same-agent-performs-so-differently.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/harness/anthropic-three-agent-collaborative-architecture-inspired-by-gan.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/harness/context-rot-diagram.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/harness/context-utilization-40-percent-threshold-phenomenon.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/harness/continuously-evolving-harness-error-prevention-feedback-loop.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/harness/harness-agent-equals-model-harness-arch.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/harness/harness-engineering-layers-arch.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/harness/harness-engineering-six-layer-architecture.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/harness/stripe-hybrid-state-machine-orchestration-architecture.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/llm/ai-observability-agent-span-trace.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/llm/ai-observability-context-propagation.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/llm/ai-observability-head-tail-sampling.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/llm/ai-observability-id-hierarchy.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/llm/ai-observability-signals-overview.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/llm/llm-api-engineering-retry-idempotency.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/llm/llm-api-engineering-streaming-exceptions.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/llm/llm-api-engineering-streaming-protocols.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/llm/llm-context-window.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/llm/llm-evaluation-eval-harness-flow.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/llm/llm-evaluation-three-grader-collaboration.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/llm/llm-gateway-evolution-path.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/llm/llm-gateway-overview.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/llm/llm-gateway-request-lifecycle.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/llm/llm-gateway-routing-decision.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/llm/llm-gateway-token-budget-lifecycle.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/llm/llm-security-mcp-token-boundaries.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/llm/llm-security-prompt-injection-types.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/llm/llm-security-request-trust-boundaries.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/llm/llm-security-safe-tool-execution-chain.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/llm/llm-temperature-params.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/llm/llm-token-process.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/llm/structured-output-function-calling-function-calling-pipeline.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/llm/structured-output-function-calling-three-layer-constraint.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/llm/structured-output-function-calling-tool-call-security.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/rag/graphrag-build-process.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/rag/graphrag-core-concept.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/rag/graphrag-knowledge-relationship-explainer.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/rag/graphrag-query-routing.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/rag/graphrag-simplified-architecture-diagram.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/rag/graphrag-vector-rag-limitation.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/rag/graphrag-vs-rag.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/rag/mysql9-vector-cannot-be-used-as-any-type-of-key.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/rag/rag-2-embedding-map-text-to-semantic-space.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/rag/rag-2-evolution-stages.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/rag/rag-document-processing-build-enterprise-document-processing-pipeline-from-scratch.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/rag/rag-document-processing-chunking-strategy.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/rag/rag-document-processing-hierarchical-verification-strategy.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/rag/rag-document-processing-overall-link.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/rag/rag-document-processing-semantic-loss.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/rag/rag-document-processing-structure-loss.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/rag/rag-embedding-vector-retrieval.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/rag/rag-hnsw-architecture.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/rag/rag-index-and-retrieval-explainer.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/rag/rag-llm-challenges.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/rag/rag-rag-engineering-link.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/rag/rag-rag-vs-search-engine.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/rag/rag-simplified-architecture-diagram.jpeg",
+      "status": 200,
+      "content_type": "image/jpeg",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/rag/rag-vector-index-algorithms-Bjze1jhj.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/rag/rag-why-need-vector-store.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/skills/agent-skills-progressive-disclosure.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/skills/agent-skills-routing-flow.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/skills/agent-skills-workflow-design.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/skills/keep-skill-md-content-under-500-lines-for-best-performance.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/skills/mcp-call-seq.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/skills/mcp-fc-agent-layer.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/skills/mcp-four-layer-architecture.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/skills/mcp-simple-diagram.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/skills/mcp-transport-decision.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/skills/skill-agent-execution-link.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/skills/skill-prompt-function-calling-mcp-comparison.webp",
+      "status": 200,
+      "content_type": "image/webp",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/skills/skills-agent-execution-link.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/skills/skills-progressive-disclosure-three-layer-model.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/skills/skills-progressive-disclosure.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/skills/skills-router.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/skills/skillssh.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/skills/superpowers-skills.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/workflow/abstraction-comparison.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/workflow/graph-core-elements.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/workflow/loop-mechanism.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/workflow/traditional-vs-ai-workflow.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/ai/workflow/workflow-graph-loop-relation.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "url": "https://oss.javaguide.cn/github/javaguide/system-design/distributed-system/api-gateway-overview.png",
+      "status": 200,
+      "content_type": "image/png",
+      "ok": true
+    }
+  ],
+  "external_images_copied": false,
+  "unique_images": 120,
+  "http_ok": 120,
+  "http_failed": 0,
+  "note": "HTTP checks are a snapshot, not a guarantee of future availability or every browser network."
+}

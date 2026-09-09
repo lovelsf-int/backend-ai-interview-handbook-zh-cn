@@ -1,3 +1,4 @@
+import './ai-study-images.css'
 import DefaultTheme from 'vitepress/theme'
 import { defineComponent, h } from 'vue'
 import { useRoute } from 'vitepress'

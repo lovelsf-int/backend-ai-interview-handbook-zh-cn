@@ -255,7 +255,7 @@ def support_pages(data: dict, manifest: list) -> None:
     intro += '**本次固定快照：32/32 篇正文、6/6 篇原始导览。** 每篇正文前有独立学习卡：速记、链路、易错点、基础/P7/P8 三层自测和实践任务；答案默认折叠。\n\n'
     intro += '[从学习路线开始](./learning-path.md) · [闭卷复习工作台](./review.md) · [38 页覆盖清单](./coverage.md) · [版本校准](./version-notes.md) · [来源与许可证](./sources.md)\n\n'
     intro += '原有 [AI Agent 工程手册](/ai-agent/) 与面试复盘完整保留。这里用来系统学习，原手册用来做生产深挖；各篇学习卡已连到对应工程章节。\n\n'
-    intro += '::: warning 阅读边界\n正文是 JavaGuide 固定提交的许可学习副本，不是对所有技术细节逐项认证。原文的“当前”、版本、价格、性能数字和第一人称项目经历均属于其写作上下文；不要当作自己的经历或现行默认值。源文中的外部图只保留原图链接，Mermaid 图表源码保留。\n:::\n\n'
+    intro += '::: warning 阅读边界\n正文是 JavaGuide 固定提交的许可学习副本，不是对所有技术细节逐项认证。原文的“当前”、版本、价格、性能数字和第一人称项目经历均属于其写作上下文；不要当作自己的经历或现行默认值。源文中的外部图在正文内引用展示，并保留查看原图入口，Mermaid 图表源码保留。\n:::\n\n'
     for group, label in GROUPS:
         subset = [c for c in cards if posixpath.dirname(c['file']) == group]
         intro += f'## {label}\n\n'
@@ -302,7 +302,7 @@ def support_pages(data: dict, manifest: list) -> None:
     coverage += '| 类型 | 原文 | 本站 | 收录与复习 |\n| --- | --- | --- | --- |\n'
     for item in manifest:
         coverage += f'| {"正文" if item["kind"] == "article" else "导览"} | [{item["source_file"]}]({item["source_url"]}) | [{item["title"]}](./java-guide/{item["target"]}) | {"正文已收录；3 道附加自测；逐段技术审核未完成" if item["kind"] == "article" else "导览正文已收录；不计入 32 篇"} |\n'
-    coverage += '\n## 可复查数据\n\n[机器可读来源清单](/ai-study-manifest.json) 保存每个源 blob、原始字节数、输出摘要和代码块数量。图片只保留原图链接；源站 include 片段未展开；VuePress 容器与链接已适配。\n'
+    coverage += '\n## 可复查数据\n\n[机器可读来源清单](/ai-study-manifest.json) 保存每个源 blob、原始字节数、输出摘要和代码块数量。图片在正文内引用展示并保留原图链接，未复制图片文件；源站 include 片段未展开；VuePress 容器与链接已适配。\n'
     write(OUT / 'coverage.md', coverage)
     versions = fm('版本校准与阅读边界', '区分上游写作基线、官方更新与本站审核状态') + '# 版本校准与阅读边界\n\n'
     versions += '## MCP 的两版流程不要混用\n\n上游 MCP 正文以 2025-11-25 revision 为基线，本文保留该历史叙述用于学习。2026-09-09 核验的官方 2026-07-28 文档使用无状态请求元数据与 `server/discover`，并将 sampling 标为弃用。旧版初始化、能力协商等描述不能直接拼进新版请求示例。\n\n'
@@ -314,7 +314,7 @@ def support_pages(data: dict, manifest: list) -> None:
     sources = fm('来源、许可与修改说明', 'JavaGuide Apache-2.0 正文归属、固定提交与学习增补说明') + '# 来源、许可与修改说明\n\n'
     sources += f'## JavaGuide 来源\n\n正文与六篇导览来自 [Snailclimb/JavaGuide](https://github.com/Snailclimb/JavaGuide/tree/{PIN}/docs/ai)，固定提交 `{PIN}`。原作者及贡献者归属保留为 JavaGuide / Guide 与对应贡献者；逐页提供原文和固定源码链接。\n\n'
     sources += '[Apache License 2.0 全文](/licenses/javaguide-apache-2.0.txt) 随网站分发；仓库 `LICENSES/JavaGuide-Apache-2.0.txt` 保留相同全文，`THIRD_PARTY_NOTICES.md` 记录归属与修改。该许可说明只针对相应第三方内容，不把整个本站或其他资料一律改成该许可证。\n\n'
-    sources += '## 本次修改\n\n新增学习卡、自测、实践任务、学习路线和工程章节关联；补充来源 Front Matter，适配 VitePress 标题、容器和链接。原文正文不是摘要替代。外部托管图片没有批量复制或作为自有图发布，改为可点击原图链接；源文中的 Mermaid 源码保留。公开站点 include 片段未展开。少量附件引用回到其原文页，避免把外部附件变成本站主阅读入口。\n\n'
+    sources += '## 本次修改\n\n新增学习卡、自测、实践任务、学习路线和工程章节关联；补充来源 Front Matter，适配 VitePress 标题、容器和链接。原文正文不是摘要替代。外部托管图片没有批量复制或作为自有图发布，在正文内直接引用展示，同时保留可点击原图链接；源文中的 Mermaid 源码保留。公开站点 include 片段未展开。少量附件引用回到其原文页，避免把外部附件变成本站主阅读入口。\n\n'
     sources += '## 官方与论文延伸\n\n以下用于边界核对与进一步学习，不表示所有上游段落都完成了官方交叉核验。\n\n'
     for title, url in REFS.values(): sources += f'- [{title}]({url})\n'
     sources += '\n## 维护方式\n\n本次是固定版本收录，不是自动追踪上游的后台订阅。需要更新时修改固定来源清单、审阅新旧差异、重新测试后发布。生成目录中的手工改动应先合并回整理数据或记录为补丁，不能未经比较直接覆盖。\n'
@@ -398,7 +398,7 @@ def build() -> None:
         header += f'# {title}\n\n'
         header += f'> 来源：JavaGuide / Guide 与原贡献者。[原文]({source}) · [固定源码](https://github.com/Snailclimb/JavaGuide/blob/{PIN}/docs/ai/{c["file"]}) · [Apache-2.0 与修改说明](/ai-study/sources.md)。本站于 2026-09-09 增加学习卡并适配排版、链接与媒体引用。\n\n'
         header += '[学习首页](/ai-study/) · [闭卷复习](/ai-study/review.md) · [版本校准](/ai-study/version-notes.md)\n\n'
-        header += '::: warning 固定快照，不等于现行规范认证\n正文版本、数字和第一人称案例保留其写作上下文。代码示例未逐一运行，外部图片请点原图链接查看；正文中的原站 include 片段未展开。个人学习与复习时请区分原作者案例、本站设计练习和自己的真实经历。\n:::\n\n'
+        header += '::: warning 固定快照，不等于现行规范认证\n正文版本、数字和第一人称案例保留其写作上下文。代码示例未逐一运行，外部图片直接显示在正文内，仍可通过原图入口查看细节；正文中的原站 include 片段未展开。个人学习与复习时请区分原作者案例、本站设计练习和自己的真实经历。\n:::\n\n'
         if c['kind']=='article': header += card_text(c)
         output = header + '## JavaGuide 正文学习 {#source-body}\n\n' + transformed
         target = OUT / 'java-guide' / dest(c['file'])
@@ -408,7 +408,7 @@ def build() -> None:
         print(f'IMPORTED {c["kind"]}: {c["file"]} ({len(raw)} source bytes)')
     write(ROOT / 'LICENSES/JavaGuide-Apache-2.0.txt', license_data.decode())
     write(ROOT / 'docs/public/licenses/javaguide-apache-2.0.txt', license_data.decode())
-    notices = '# Third-party notices\n\n## JavaGuide AI study snapshot\n\nSource: Snailclimb/JavaGuide, commit ' + PIN + '.\n\nOriginal attribution: JavaGuide / Guide and the original contributors.\nLicense: Apache License, Version 2.0. Full copy: LICENSES/JavaGuide-Apache-2.0.txt.\n\nModified 2026-09-09 for learning: metadata, navigation, formatting and link adaptation, independent study cards, self-tests and exercises. External images are linked rather than copied. Original source examples are educational materials, not independently verified production code. No endorsement by upstream authors is implied.\n'
+    notices = '# Third-party notices\n\n## JavaGuide AI study snapshot\n\nSource: Snailclimb/JavaGuide, commit ' + PIN + '.\n\nOriginal attribution: JavaGuide / Guide and the original contributors.\nLicense: Apache License, Version 2.0. Full copy: LICENSES/JavaGuide-Apache-2.0.txt.\n\nModified 2026-09-09 for learning: metadata, navigation, formatting and link adaptation, independent study cards, self-tests and exercises. External images are displayed inline from their original hosts with source links, not copied. Original source examples are educational materials, not independently verified production code. No endorsement by upstream authors is implied.\n'
     if notice:
         write(ROOT / 'LICENSES/JavaGuide-NOTICE.txt', notice.decode())
         notices += '\n## Upstream NOTICE\n\n' + notice.decode()
@@ -419,7 +419,7 @@ def build() -> None:
         write(path, notices)
     support_pages(data, manifest)
     integrate(data)
-    write(ROOT / 'docs/public/ai-study-manifest.json', json.dumps({'source_commit':PIN,'date':data['date'],'articles':32,'guides':6,'unique_extra_questions':96,'exercises':32,'external_images':'linked_not_copied','pages':manifest},ensure_ascii=False,indent=2))
+    write(ROOT / 'docs/public/ai-study-manifest.json', json.dumps({'source_commit':PIN,'date':data['date'],'articles':32,'guides':6,'unique_extra_questions':96,'exercises':32,'external_images':'inline_remote_not_copied','pages':manifest},ensure_ascii=False,indent=2))
     verify()
 
 def verify(html_only: bool = False) -> None:

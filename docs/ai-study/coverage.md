@@ -55,4 +55,4 @@ source: "JavaGuide Apache-2.0 许可正文；本手册独立学习卡"
 
 ## 可复查数据
 
-[机器可读来源清单](/ai-study-manifest.json) 保存每个源 blob、原始字节数、输出摘要和代码块数量。图片只保留原图链接；源站 include 片段未展开；VuePress 容器与链接已适配。
+[机器可读来源清单](/ai-study-manifest.json) 保存每个源 blob、原始字节数、输出摘要和代码块数量。图片在正文内引用展示并保留原图链接，未复制图片文件；源站 include 片段未展开；VuePress 容器与链接已适配。
