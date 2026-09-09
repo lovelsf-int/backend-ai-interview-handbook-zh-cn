@@ -12,6 +12,7 @@ source: 资深 Java / AI Agent 定制面试手册自有资料
 
 ## Java 基础与版本
 
+- [Object 常用方法与对象面试题](./object-methods-interview.md)
 - [JDK 8–26 版本特性与面试演进](./jdk-version-evolution.md)
 - [Java 集合、Map 与泛型高频面试](./collections-generics-interview-guide.md)
 - [Java IO、NIO、Reactor 与 Netty 面试手册](./io-nio-netty-interview-guide.md)

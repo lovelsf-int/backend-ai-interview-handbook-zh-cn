@@ -53,6 +53,7 @@ const javaSidebar = [
     collapsed: false,
     items: [
       { text: 'JDK 8–26 版本演进', link: '/java/jdk-version-evolution.md' },
+      { text: 'Object 常用方法与面试题', link: '/java/object-methods-interview.md' },
       { text: '集合、Map 与泛型', link: '/java/collections-generics-interview-guide.md' },
       { text: 'IO、NIO、Reactor 与 Netty', link: '/java/io-nio-netty-interview-guide.md' }
     ]
