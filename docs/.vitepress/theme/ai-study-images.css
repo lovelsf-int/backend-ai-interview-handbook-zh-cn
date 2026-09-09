@@ -1,0 +1,31 @@
+/* Imported study illustrations: proportional sizing, readable source captions. */
+.vp-doc .ai-study-figure {
+  display: block;
+  max-width: 100%;
+  margin: 20px 0;
+}
+.vp-doc .ai-study-image-link {
+  display: block;
+  max-width: 100%;
+  text-decoration: none;
+}
+.vp-doc .ai-study-image {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 6px;
+  background: #fff;
+}
+.vp-doc .ai-study-image-caption {
+  display: block;
+  margin-top: 8px;
+  color: var(--vp-c-text-2);
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 640px) {
+  .vp-doc .ai-study-figure { margin: 16px 0; }
+}

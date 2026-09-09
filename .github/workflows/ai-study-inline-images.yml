@@ -1,0 +1,93 @@
+name: Verify AI study inline images
+
+on:
+  push:
+    branches: [fix/ai-study-inline-images-20260909]
+    paths:
+      - 'docs/.vitepress/ai-study-images.mjs'
+      - 'docs/.vitepress/theme/ai-study-images.css'
+      - 'scripts/ai-study/check_inline_images.py'
+      - 'tests/ai-study-images.test.mjs'
+      - '.github/workflows/ai-study-inline-images.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ai-study-inline-images
+  cancel-in-progress: false
+
+jobs:
+  verify-images:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: fix/ai-study-inline-images-20260909
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+      - name: Test image renderer
+        run: node --test tests/ai-study-images.test.mjs
+      - name: Integrate renderer and update generated reading notices
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          config = Path('docs/.vitepress/config.mts')
+          text = config.read_text()
+          imp = "import aiStudyImages from './ai-study-images.mjs'\n"
+          if imp not in text:
+              text = imp + text
+          if 'md.use(aiStudyImages)' not in text:
+              old = '  markdown: {\n    lineNumbers: true\n  },'
+              assert old in text, 'Markdown integration point changed'
+              text = text.replace(old, '  markdown: {\n    lineNumbers: true,\n    config: (md) => { md.use(aiStudyImages) }\n  },', 1)
+          config.write_text(text)
+          theme = Path('docs/.vitepress/theme/index.ts')
+          text = theme.read_text()
+          imp = "import './ai-study-images.css'\n"
+          if imp not in text:
+              text = imp + text
+          theme.write_text(text)
+          script = Path('scripts/ai-study/import_ai.py')
+          text = script.read_text()
+          changes = {
+              '源文中的外部图只保留原图链接': '源文中的外部图在正文内引用展示，并保留查看原图入口',
+              '图片只保留原图链接': '图片在正文内引用展示并保留原图链接，未复制图片文件',
+              '改为可点击原图链接': '在正文内直接引用展示，同时保留可点击原图链接',
+              '外部图片请点原图链接查看': '外部图片直接显示在正文内，仍可通过原图入口查看细节',
+              'External images are linked rather than copied.': 'External images are displayed inline from their original hosts with source links, not copied.',
+              "'external_images':'linked_not_copied'": "'external_images':'inline_remote_not_copied'"
+          }
+          for old, new in changes.items():
+              assert old in text or new in text, 'Reading notice changed: ' + old
+              text = text.replace(old, new)
+          script.write_text(text)
+          PY
+          python3 scripts/ai-study/import_ai.py
+          python3 -m unittest discover -s scripts/ai-study -p 'test_*.py' -v
+      - name: Install existing locked dependencies
+        run: npm ci
+      - name: Run complete site checks
+        run: npm run check
+      - name: Build and verify all study pages and image sources
+        run: |
+          npm run docs:build
+          python3 scripts/ai-study/import_ai.py --verify-html
+          python3 scripts/ai-study/check_inline_images.py --check-http
+      - name: Commit verified integration and reading notices
+        run: |
+          git add docs/.vitepress/config.mts docs/.vitepress/theme/index.ts scripts/ai-study/import_ai.py docs/ai-study docs/public/ai-study-manifest.json docs/public/ai-study-image-report.json THIRD_PARTY_NOTICES.md
+          git diff --cached --check
+          if git diff --cached --quiet; then
+            echo 'Inline image integration is already current.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'docs(ai-study): enable inline illustrations and verify image coverage'
+          git push origin HEAD:fix/ai-study-inline-images-20260909
+          git rev-parse HEAD
