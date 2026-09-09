@@ -510,6 +510,7 @@ export default withMermaid(defineConfig({
         ]
       },
       { text: 'AI Agent', link: '/ai-agent/' },
+      { text: 'AI 学习', link: '/ai-study/' },
       {
         text: '架构案例',
         items: [
