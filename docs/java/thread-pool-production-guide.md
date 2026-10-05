@@ -16,15 +16,11 @@ source: 2019 并发面试资料，经 Java SE 25 官方 API 与 OpenJDK 实现�
 
 ## 90 秒面试回答
 
-> `ThreadPoolExecutor` 的价值不是单纯复用线程，而是同时控制线程、排队、过载和生命周期。
-> `execute` 时，运行 Worker 少于 `corePoolSize` 就先建核心 Worker；否则先尝试入队；入队成功后必须复查池状态；队列满时再尝试建非核心 Worker，超过 `maximumPoolSize` 或池已关闭才拒绝。
->
-> 生产配置必须把线程数、队列容量、拒绝策略、超时和业务降级一起设计。无界队列会让
-> `maximumPoolSize` 基本失效并把过载变成长排队和 OOM；无界线程则把过载变成上下文切换和内存耗尽。
-> 容量从到达率、服务时间、CPU/下游上限和排队 SLO 推导，再压测校准。
->
-> JDK 21–25 的虚拟线程适合高并发阻塞 I/O，但不是用一个固定大小“虚拟线程池”替换所有平台线程池。
-> CPU 任务仍需有界平台线程池，下游容量改由 Semaphore、连接池和 Rate Limiter 表达。
+- **控制什么**：`ThreadPoolExecutor` 同时控制线程、排队、过载和生命周期，价值不只是复用线程。
+- **执行路径**：运行 Worker 少于 `corePoolSize` 时先建核心 Worker；否则尝试入队，成功后必须复查池状态。队列满时再尝试建非核心 Worker，超过 `maximumPoolSize` 或池已关闭则拒绝。
+- **过载边界**：线程数、队列容量、拒绝策略、超时和业务降级要一起设计。无界队列使 `maximumPoolSize` 基本失效，带来长排队与 OOM；无界线程带来上下文切换与内存耗尽。
+- **容量依据**：从到达率、服务时间、CPU/下游上限和排队 SLO 推导，再压测校准。
+- **虚拟线程**：JDK 21–25 的虚拟线程适合高并发阻塞 I/O，不能用固定大小的“虚拟线程池”替换所有平台线程池。CPU 任务仍用有界平台线程池；下游容量由 Semaphore、连接池和 Rate Limiter 表达。
 
 ## ThreadPoolExecutor 的状态与 Worker
 
@@ -87,6 +83,9 @@ flowchart TD
 
 `allowCoreThreadTimeOut(boolean)` 不是构造参数，而是创建后的运行时策略。启用后，核心 Worker 也可按非零 Keep-Alive 回收；是否启用要权衡低流量资源占用与冷启动延迟。
 
+<details>
+<summary>展开有界线程池配置示例</summary>
+
 一个显式、有界、可观测的起点：
 
 ```java
@@ -105,6 +104,8 @@ ThreadPoolExecutor executor = new ThreadPoolExecutor(
     factory,
     new ThreadPoolExecutor.AbortPolicy());
 ```
+
+</details>
 
 这些数字只是示例，不能复制到生产。还要配置任务超时、取消、业务级降级和指标。
 
@@ -205,6 +206,9 @@ $$
 
 平台线程池会复用线程，所以 `ThreadLocal`、MDC、租户和安全上下文若不清理，会泄漏到下一任务。提交时捕获、执行前安装、`finally` 恢复旧值：
 
+<details>
+<summary>展开上下文传播与恢复示例</summary>
+
 ```java
 Runnable wrap(Runnable task, String traceId) {
     return () -> {
@@ -223,9 +227,14 @@ Runnable wrap(Runnable task, String traceId) {
 }
 ```
 
+</details>
+
 不要只 `remove` 当前值后假设没有嵌套调用；通用装饰器应保存并恢复原上下文。框架提供的 TaskDecorator/Context Propagation 应优先于自制不完整拷贝。
 
 ## 优雅停机
+
+<details>
+<summary>展开线程池停机代码</summary>
 
 ```java
 executor.shutdown();
@@ -242,6 +251,8 @@ try {
     Thread.currentThread().interrupt();
 }
 ```
+
+</details>
 
 真正的停机协议还包括：
 
@@ -293,23 +304,48 @@ try {
 
 ### 为什么无界队列会让 maximumPoolSize 失效
 
+<details>
+<summary>展开追问答案</summary>
+
 达到核心线程数后，执行器优先 `offer` 入队。无界队列几乎不会满，因此不会进入“入队失败后创建非核心 Worker”的分支，Worker 数通常停在核心数。
+
+</details>
 
 ### CallerRunsPolicy 为什么可能制造事故
 
+<details>
+<summary>展开追问答案</summary>
+
 它在提交线程中执行任务。若提交者是 Netty EventLoop、Kafka Poll 线程、调度线程或持锁线程，会阻塞关键控制流，造成连接停顿、Rebalance、调度漂移或锁持有时间暴涨。
+
+</details>
 
 ### 为什么队列长度不是一个充分告警
 
+<details>
+<summary>展开追问答案</summary>
+
 同样 100 个任务，单任务 1ms 和 10s 完全不同。要看队首等待时间、到达/完成速率、任务耗时分位数、剩余 Deadline 和下游 Pending。
+
+</details>
 
 ### 为什么 submit 的异常可能丢失
 
+<details>
+<summary>展开追问答案</summary>
+
 `submit` 把异常存入 Future。调用方不执行 `get`，又没有任务边界日志或统一 Future 检查时，Worker 不会像裸 `execute` 那样把异常直接交给 UncaughtExceptionHandler。
+
+</details>
 
 ### 怎样证明线程池大小合理
 
+<details>
+<summary>展开追问答案</summary>
+
 给出约束模型、真实到达/服务时间分布、队列等待 SLO、下游上限和压测曲线；再展示饱和点、拒绝/降级行为、故障注入和回滚条件。只报一个公式或固定线程数不算证据。
+
+</details>
 
 ## 官方资料
 

@@ -6,68 +6,68 @@ const config = readFileSync('docs/.vitepress/config.mts', 'utf8')
 
 const sidebarCategories = {
   javaSidebar: [
-    ['多线程编程实战', false],
-    ['Java 基础与版本', false],
-    ['并发基础', false],
-    ['虚拟线程', false],
+    ['多线程编程实战', true],
+    ['Java 基础与版本', true],
+    ['并发基础', true],
+    ['虚拟线程', true],
     ['设计模式与框架', true]
   ],
   jvmSidebar: [
-    ['内存、GC 与诊断', false],
-    ['生产故障与排障', false],
+    ['内存、GC 与诊断', true],
+    ['生产故障与排障', true],
     ['关联专题', true]
   ],
   springSidebar: [
-    ['核心容器与 Bean', false],
-    ['AOP、事务与 Web', false],
-    ['Boot 与应用能力', false],
-    ['源码与生产排障', false],
+    ['核心容器与 Bean', true],
+    ['AOP、事务与 Web', true],
+    ['Boot 与应用能力', true],
+    ['源码与生产排障', true],
     ['分类题库', true]
   ],
   mysqlSidebar: [
-    ['事务与存储', false],
-    ['索引与查询', false],
-    ['锁与故障排查', false],
-    ['性能与变更治理', false]
+    ['事务与存储', true],
+    ['索引与查询', true],
+    ['锁与故障排查', true],
+    ['性能与变更治理', true]
   ],
   kafkaSidebar: [
-    ['核心原理', false],
-    ['生产可靠性', false],
-    ['治理与故障排查', false],
+    ['核心原理', true],
+    ['生产可靠性', true],
+    ['治理与故障排查', true],
     ['题库与历史资料', true]
   ],
   redisSidebar: [
-    ['核心机制', false],
-    ['缓存一致性', false],
-    ['高可用与集群', false],
-    ['事务与分布式', false],
+    ['核心机制', true],
+    ['缓存一致性', true],
+    ['高可用与集群', true],
+    ['事务与分布式', true],
     ['生产排障与题库', true]
   ],
   elasticsearchSidebar: [
-    ['核心原理与答题框架', false],
-    ['写入、查询与建模', false],
-    ['分片、容量与调优', false],
-    ['治理、恢复与命令', false],
+    ['核心原理与答题框架', true],
+    ['写入、查询与建模', true],
+    ['分片、容量与调优', true],
+    ['治理、恢复与命令', true],
     ['案例、题库与复盘', true]
   ],
   aiAgentSidebar: [
-    ['基础与编排', false],
-    ['RAG、记忆与多智能体', false],
-    ['生产可靠性与治理', false],
+    ['基础与编排', true],
+    ['RAG、记忆与多智能体', true],
+    ['生产可靠性与治理', true],
     ['系统设计与题库', true]
   ],
   paymentSidebar: [
-    ['DDD 与设计基础', false],
-    ['一致性、状态机与账务', false],
-    ['安全、容量与实现', false],
+    ['DDD 与设计基础', true],
+    ['一致性、状态机与账务', true],
+    ['安全、容量与实现', true],
     ['系统设计与题库', true],
     ['DDD 支付订阅案例', true]
   ],
   systemDesignSidebar: [
-    ['架构质量与验收', false],
-    ['存储与一致性', false],
-    ['AI 与工程化', false],
-    ['全球化与支付', false],
+    ['架构质量与验收', true],
+    ['存储与一致性', true],
+    ['AI 与工程化', true],
+    ['全球化与支付', true],
     ['行业项目案例', true],
     ['面试训练', true]
   ]

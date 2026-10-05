@@ -36,11 +36,19 @@ source: Java 官方 API、语言规范与本站原创场景推演
 
 **标准回答：** 对引用，`==` 判断是否指向同一个对象；Object 默认 equals 也是引用相等。业务类可以重写 equals 表达值相等，但要保持自反、对称、传递、一致，以及非空对象不等于 null。
 
+<details>
+<summary>展开追问：equals 重载与重写</summary>
+
 **追问与答案：** `equals(MyType other)` 是重载，不是重写 `equals(Object)`。用 `@Override` 让编译器帮助发现签名写错，避免直接调用看起来正确、放进集合后却按另一套方法比较。
+
+</details>
 
 ## Q2：为什么重写 equals 时通常必须重写 hashCode？
 
 **标准回答：** 相等对象必须有相同哈希值；哈希相同不保证对象相等。否则 HashMap 可能把逻辑相等的键放到不同位置，使查询和去重失效。相关字段在一次执行中未改变时，hashCode 应保持一致，不要求跨进程相同。
+
+<details>
+<summary>展开值对象示例与可变键追问</summary>
 
 以下是面向 SOC 的原创值对象示例，用租户和告警号共同表达身份；示例采用 Java 17+ record 语法。
 
@@ -64,27 +72,47 @@ class Demo {
 
 更深问题见 [集合、Map 与泛型](./collections-generics-interview-guide.md)：哈希分桶只帮助寻找候选，相等判断才决定键是否等价。
 
+</details>
+
 ## Q3：toString 输出的是内存地址吗？
 
 **标准回答：** 不是。Object 默认格式由运行时类名、`@` 和 hashCode 的无符号十六进制形式组成，不应把它当物理地址；子类可完全重写输出。
 
+<details>
+<summary>展开追问：日志中的 toString</summary>
+
 **追问与答案：** 在 SOC 告警对象上自动生成包含全部字段的 toString 有什么问题？可能将 Token、邮件正文和个人信息写进日志，循环引用也可能导致递归。工程上只输出必要标识和脱敏摘要；不要在 toString 中发起数据库或远程请求。
+
+</details>
 
 ## Q4：getClass 和 instanceof 有什么区别？
 
 **标准回答：** getClass 返回对象的运行时 Class；instanceof 判断对象是否兼容某个类型。一个子类实例可以同时满足父类与接口的 instanceof 判断，但运行时类只有对应的那个 Class。
 
+<details>
+<summary>展开追问：equals 中的类型判断</summary>
+
 **追问与答案：** equals 应该用 getClass 还是 instanceof？取决于相等语义。继承层次若增加值字段，要防止父子对象比较破坏对称性或传递性；代理对象又可能使严格类型比较与业务预期不同。对明确的值对象，可选 final 类或 record 缩小设计边界；不把一种判断方式视为所有实体的通用答案。
+
+</details>
 
 ## Q5：clone 是深拷贝吗？
 
 **标准回答：** Object.clone 默认按字段复制，引用字段仍指向原对象，是浅拷贝。调用其实现通常要求实现 Cloneable，否则抛 CloneNotSupportedException；Cloneable 是标记接口，本身没有声明 clone 方法。见 [Cloneable API](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Cloneable.html) 与前面的 Object API。
 
+<details>
+<summary>展开追问：共享引用与复制范围</summary>
+
 **追问与答案：** 复制一条告警后修改副本的 List，为什么原告警也变了？两份对象仍共用同一个可变 List。复制 List 只隔离容器，List 内元素若可变，还要决定是否继续复制。优先用明确的复制构造器、工厂方法或不可变模型表达复制范围；深拷贝不是无条件复制一切，连接、锁与文件句柄尤其不能照搬。
+
+</details>
 
 ## Q6：wait 为什么要在 synchronized 中调用？
 
 **标准回答：** 调用者必须拥有目标对象的监视器，否则抛 IllegalMonitorStateException。wait 释放的是该对象的监视器，不释放线程持有的其他对象锁；结束等待后需重新取得该监视器才能继续。规范见 [JLS 17.2](https://docs.oracle.com/javase/specs/jls/se25/html/jls-17.html#jls-17.2)。
+
+<details>
+<summary>展开条件等待示例与 while 追问</summary>
 
 下面是一次性结果等待器，用于说明条件检查，不是完整生产任务框架：
 
@@ -116,23 +144,40 @@ final class DecisionSlot {
 
 **追问与答案：** 为什么是 while，不是 if？线程可能虚假唤醒，或者重新取得锁时条件已经改变。通知不是业务条件成立的保证，必须再次检查。本例也通过同一把锁保护结果与 ready 的可见性；中断向上传递，不吞异常后继续假装成功。
 
+</details>
+
 ## Q7：notify 后对方会立即执行吗？
 
 **标准回答：** 不会立即交出锁。notify 选择一个等待线程，notifyAll 通知全部，但被通知线程仍要竞争该监视器；不保证选择顺序或公平性。若没有等待者，通知不会变成供未来消费的一张“票”。规范见 [JLS 通知语义](https://docs.oracle.com/javase/specs/jls/se25/html/jls-17.html#jls-17.2.2)。
 
+<details>
+<summary>展开追问：先通知、后等待</summary>
+
 **追问与答案：** 如何避免先通知、后等待造成挂起？保存真实条件，并在同一锁下先检查条件再决定等待。上例先 complete 后 await 会直接返回，正确性来自 ready，而非记住了一次 notifyAll。多种条件共用等待集合时要防止 notify 唤醒不满足条件的线程；业务开发常用 BlockingQueue、CountDownLatch 或 CompletableFuture 表达需求。
+
+</details>
 
 ## Q8：wait 与 sleep 有什么区别？
 
 **标准回答：** wait 是 Object 的等待机制，会释放对应监视器；sleep 是 Thread 的静态方法，让当前线程暂停，不释放已持有的监视器。sleep 不是线程间可见性协议，定时等待到期也不保证立刻得到 CPU。见 [JLS 17.3](https://docs.oracle.com/javase/specs/jls/se25/html/jls-17.html#jls-17.3)。
 
+<details>
+<summary>展开追问：总超时与中断</summary>
+
 **追问与答案：** wait(1000) 能否作为总计一秒的循环等待？每次循环重新等待一秒可能把总等待拉长。应计算总截止时间与剩余预算，或使用带超时的并发工具；还应处理取消与中断，避免调用方离开后后台任务继续占资源。
+
+</details>
 
 ## Q9：finalize 能用来关闭连接吗？
 
 **标准回答：** 不应依赖它。执行时机不可控，不能保证在需要时运行；finalization 在 JDK 18 被标记为待移除弃用机制。用 AutoCloseable 与 try-with-resources 明确释放资源；Cleaner 也不能替代及时 close。见 [JEP 421](https://openjdk.org/jeps/421)。
 
+<details>
+<summary>展开追问：final、finally 与 finalize</summary>
+
 **追问与答案：** final、finally、finalize 是一回事吗？不是。final 限制赋值、重写或继承；finally 是异常控制结构；finalize 是历史终结回调。资源释放应属于业务生命周期，不是等 GC 替业务做收尾。
+
+</details>
 
 ## 面试表达与复习顺序
 

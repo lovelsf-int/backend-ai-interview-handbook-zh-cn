@@ -7,27 +7,193 @@
   --vp-home-hero-name-background: linear-gradient(120deg, #3451b2 15%, #8e4ec6 85%);
   --vp-font-family-base: Inter, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
   --vp-font-family-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  --vp-layout-max-width: 1480px;
+  --vp-sidebar-width: 256px;
+  --vp-code-color: #405987;
+  --vp-code-bg: rgba(64, 89, 135, 0.055);
+  --vp-code-block-bg: #f6f8fa;
 }
 
-.VPDoc h1 {
-  letter-spacing: -0.025em;
+.dark {
+  --vp-c-brand-1: #9eb5f2;
+  --vp-c-brand-2: #7897dd;
+  --vp-c-brand-3: #5574ba;
+  --vp-c-brand-soft: rgba(158, 181, 242, 0.12);
+  --vp-code-color: #b6c9ee;
+  --vp-code-bg: rgba(182, 201, 238, 0.09);
+  --vp-code-block-bg: #20232a;
 }
 
-.VPDoc h2 {
+/* Keep a comfortable line length even when the window is wide. */
+.VPDoc.has-aside .container .content .content-container,
+.VPDoc:not(.has-aside) .container .content .content-container {
+  max-width: 800px;
+}
+
+.VPDoc .vp-doc {
+  font-size: 17px;
+  line-height: 1.85;
+  overflow-wrap: break-word;
+}
+
+.VPDoc .vp-doc p,
+.VPDoc .vp-doc li {
+  line-height: inherit;
+}
+
+.VPDoc .vp-doc p {
+  margin: 1.15em 0;
+}
+
+.VPDoc .vp-doc ul,
+.VPDoc .vp-doc ol {
+  padding-left: 1.45em;
+  margin: 1.1em 0;
+}
+
+.VPDoc .vp-doc li + li {
+  margin-top: 0.6em;
+}
+
+.VPDoc .vp-doc li > p {
+  margin: 0.5em 0;
+}
+
+.VPDoc .vp-doc h1 {
+  margin-bottom: 1.1em;
+  font-size: 30px;
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+.VPDoc .vp-doc h2 {
   border-top: 0;
-  margin-top: 2.4rem;
+  border-bottom: 1px solid var(--vp-c-divider);
+  margin: 2.6em 0 1em;
+  padding: 0 0 0.45em;
+  font-size: 24px;
+  line-height: 1.5;
+  letter-spacing: 0;
 }
 
-.VPDoc table {
-  display: table;
+.VPDoc .vp-doc h3 {
+  margin: 2em 0 0.8em;
+  font-size: 20px;
+  line-height: 1.55;
+}
+
+.VPDoc .vp-doc h4 {
+  margin: 1.7em 0 0.7em;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.VPDoc .vp-doc strong {
+  color: var(--vp-c-text-1);
+  font-weight: 650;
+}
+
+.VPDoc .vp-doc a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+/* Quotes support the text without turning long answers into a solid color slab. */
+.VPDoc .vp-doc blockquote {
+  margin: 1.5em 0;
+  padding: 0.3em 1.2em;
+  border-left: 3px solid var(--vp-c-brand-2);
+  background: var(--vp-c-bg-soft);
+  border-radius: 0 6px 6px 0;
+  color: var(--vp-c-text-1);
+}
+
+.VPDoc .vp-doc blockquote p {
+  font-size: inherit;
+}
+
+.VPDoc .vp-doc :not(pre) > code {
+  padding: 0.12em 0.3em;
+  font-size: 0.88em;
+  font-weight: 400;
+  border-radius: 4px;
+}
+
+/* Tables scroll within the article instead of stretching a narrow viewport. */
+.VPDoc .vp-doc table {
+  display: block;
   width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 1.5em 0;
+  font-size: 15px;
+  line-height: 1.7;
 }
 
-.VPDoc blockquote {
-  border-left-color: var(--vp-c-brand-2);
-  background: var(--vp-c-brand-soft);
-  border-radius: 0 8px 8px 0;
-  padding: 0.75rem 1rem;
+.VPDoc .vp-doc th,
+.VPDoc .vp-doc td {
+  min-width: 110px;
+  padding: 12px 16px;
+  vertical-align: top;
+}
+
+.VPDoc .vp-doc th {
+  background: var(--vp-c-bg-soft);
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.VPDoc .vp-doc td code {
+  overflow-wrap: anywhere;
+}
+
+.VPDoc .vp-doc div[class*='language-'] {
+  margin: 1.5em 0;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+}
+
+.VPDoc .vp-doc div[class*='language-'] code {
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.VPDoc .vp-doc details {
+  margin: 1.3em 0;
+  padding: 0.8em 1em;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 6px;
+  background: var(--vp-c-bg);
+}
+
+.VPDoc .vp-doc summary {
+  cursor: pointer;
+  color: var(--vp-c-brand-1);
+  font-size: 15px;
+  font-weight: 550;
+  line-height: 1.7;
+}
+
+.VPDoc .vp-doc summary:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.VPDoc .vp-doc details[open] > summary {
+  margin-bottom: 1em;
+}
+
+.VPDoc .vp-doc details > :last-child {
+  margin-bottom: 0.3em;
+}
+
+.VPSidebarItem .text {
+  line-height: 1.65;
+}
+
+.VPDocAsideOutline .content {
+  border-left-color: var(--vp-c-divider);
 }
 
 .VPHome .VPHero .text {
@@ -52,4 +218,58 @@
 .VPDocAsideOutline .outline-link:focus-visible {
   display: block;
   overflow: visible;
+}
+
+/* The full subject navigation needs more room than VitePress's default breakpoint. */
+@media (min-width: 768px) and (max-width: 1439px) {
+  .VPNav .VPNavBar .VPNavBarMenu,
+  .VPNav .VPNavBar .VPNavBarExtra,
+  .VPNav .VPNavBar .VPNavBarAppearance,
+  .VPNav .VPNavBar .VPNavBarSocialLinks {
+    display: none;
+  }
+
+  .VPNav .VPNavBar .VPNavBarHamburger {
+    display: flex;
+  }
+
+  .Layout .VPNav .VPNavScreen {
+    display: block;
+  }
+}
+
+@media (max-width: 767px) {
+  .VPDoc .vp-doc {
+    font-size: 16px;
+    line-height: 1.85;
+  }
+
+  .VPDoc .vp-doc h1 {
+    font-size: 26px;
+  }
+
+  .VPDoc .vp-doc h2 {
+    font-size: 22px;
+    margin-top: 2.2em;
+  }
+
+  .VPDoc .vp-doc h3 {
+    font-size: 19px;
+  }
+
+  .VPDoc .vp-doc div[class*='language-'] {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .VPDoc .vp-doc th,
+  .VPDoc .vp-doc td {
+    padding: 10px 12px;
+  }
+}
+
+@media print {
+  .VPDoc .vp-doc table {
+    overflow: visible;
+  }
 }
