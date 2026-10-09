@@ -8,13 +8,15 @@
     "lint:md": "markdownlint-cli2 \"**/*.md\" \"#node_modules\" \"#docs/.vitepress/dist\"",
     "validate:content": "node scripts/validate-content.mjs docs",
     "check": "npm run test && npm run lint:md && npm run validate:content",
-    "docs:dev": "vitepress docs",
+    "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "vitepress preview docs",
+    "test:layout": "node scripts/verify-reading-layout.mjs"
   },
   "devDependencies": {
     "markdownlint-cli2": "^0.23.2",
     "mermaid": "^11.17.2",
+    "playwright": "^1.64.0",
     "vitepress": "^1.6.4",
     "vitepress-plugin-mermaid": "^2.0.17"
   }

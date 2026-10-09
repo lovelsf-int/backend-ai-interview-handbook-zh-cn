@@ -3,7 +3,7 @@ title: 领域事件、Outbox、Inbox 与补偿
 description: 可靠事件、跨聚合一致性、消费幂等、Saga 和对账兜底
 status: reviewing
 baseline: finance and payment source snapshot
-last_verified: 2026-09-01
+last_verified: 2026-10-09
 level: P7/P8
 source: 金融支付 canonical 第 4、6 章的事件专题
 ---
@@ -65,7 +65,24 @@ Relay 通过轮询或 CDC 发布。发布成功后标记或删除记录；删除
 
     UNIQUE (consumer_name, event_id)
 
-首次插入者执行副作用；冲突者直接返回。对于账务，最好再使用 `business_type + business_id` 唯一约束作为第二道业务防线。
+若业务副作用也是这个本地数据库内的修改，Inbox 插入、业务唯一键、业务变更与处理完成标记必须同事务提交；重复事件确认已完成后返回已有结果。对于账务，使用 `business_type + business_id` 唯一约束作为第二道业务防线。
+
+调用外部发货/权益服务不在 Inbox 事务内。本地先插入去重记录再远程调用，可能在中间崩溃后永远跳过未完成发货；反过来先调用再标记，又可能在 ACK 丢失后重复发放。因此本地记录必须区分处理中与完成，目标端还要持久保存稳定 fulfillment_key、请求指纹和结果，在其原子业务边界内保证同键只发放一次。若目标端还有更外层副作用，这个约束必须继续延伸到实际执行端。
+
+<a id="fulfillment-crash-windows"></a>
+
+### 发货恢复的四个窗口
+
+支付成功与发货 Outbox 同事务提交；Relay 和消费者可至少一次重试。发货键例如 merchant_id + order_id + item_id + entitlement_type，必须覆盖实际业务作用域；同键不同参数拒绝执行。仅认领本地“发货资格”不保证跨系统效果唯一。
+
+| 崩溃/重放窗口 | 恢复与验收 |
+| --- | --- |
+| 已认领、尚未调用下游 | 持久任务保持未完成；恢复 Worker 使用原 fulfillment_key 继续，不能因 Inbox 已存在就当成完成 |
+| 下游已发放、ACK 丢失 | 标记 UNKNOWN；按原键查询或由目标端保证同键重试返回已有结果，不再次发放 |
+| 回调、查询、对账或 MQ 重放 | 支付迁移与 Outbox 业务键去重；下游权益键再去重，最终只有一份有效权益 |
+| 跨区接管、旧 Worker 仍运行 | 隔离旧写者并校验代次；新旧请求仍携同一全局业务键，目标端持久唯一性不能只存在于区域本地缓存 |
+
+去重记录保留期必须覆盖消息重放、对账、人工补发和灾备接管窗口；长期有效权益可由业务唯一记录承担长期防重。目标端既无持久幂等又无可靠查证能力时，UNKNOWN 转人工或限制自动发放，不能声称端到端 exactly once。
 
 Outbox 与 Inbox 的业务效果一次性
 

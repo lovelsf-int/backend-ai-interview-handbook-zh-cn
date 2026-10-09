@@ -25,7 +25,9 @@ source: 两份 Redis 自有资料的面试与总结内容
 ## 必须纠正的说法
 
 - “Redis 完全单线程”缺少版本和执行路径边界。
-- “事务或 Lua 出错会自动回滚”不成立。
-- “Redis 锁设置过期时间就绝对安全”不成立。
+- 事务或 Lua 的执行隔离不等于错误回滚，且不能用脚本绕过跨节点事务边界，见 [事务、Lua 与 Functions](./09-transactions-lua-functions.md)。
+- 锁租期与看门狗不代替资源端条件校验，普通 `RLock` 不自动提供 fencing，见 [分布式锁与 Fencing Token](./10-redisson-fencing-token.md)。
 - “某种内部编码永远不变”不成立。
-- “使用 Sentinel/Cluster 就自动获得强一致”不成立。
+- Sentinel/Cluster 不自动提供强一致；quorum、授权多数与副本优先级是不同概念，见 [主从复制与 Sentinel](./07-replication-sentinel.md)。
+- Cache-Aside 与延迟双删不能证明严格一致，见 [缓存一致性](./05-cache-consistency.md)。
+- 混合 AOF 的基线与增量属于 AOF 恢复链，不是任意 RDB/AOF 拼接，见 [持久化与恢复](./04-rdb-aof-recovery.md)。

@@ -118,7 +118,7 @@ max.poll.interval.ms=300000
 acks=all
 enable.idempotence=true
 
-事务代码必须包含 initTransactions()、beginTransaction()、sendOffsetsToTransaction()、commitTransaction()，异常时调用 abortTransaction()。
+Kafka-in/Kafka-out 事务需要初始化、开启事务、发送输出与消费位点、提交；明确可中止错误才 abort，提交超时应按结果未知处理。成功中止后要恢复本地消费位置才能重放。完整路径统一见 [EOS 事务异常与恢复](./06-delivery-semantics-exactly-once.md#_7-4-consume-transform-produce-的正确-eos-流程)。
 
 ### A.4 Broker/Topic 高可靠讨论基线
 

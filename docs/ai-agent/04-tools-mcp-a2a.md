@@ -2,8 +2,8 @@
 title: Tool Calling、MCP 与 A2A
 description: 工具 Schema、权限、沙箱、MCP、A2A 与互操作
 status: reviewing
-baseline: AI Agent source snapshot 2026
-last_verified: 2026-09-01
+baseline: MCP 2025-11-25 and 2026-07-28; AI Agent source snapshot 2026
+last_verified: 2026-10-09
 level: P7/P8
 source: AI Agent P7/P8 完整面试手册（自有资料）
 ---
@@ -242,14 +242,14 @@ source: AI Agent P7/P8 完整面试手册（自有资料）
 
 - Server 可以向 Client 暴露 Tools、Resources 和 Prompts；Tools 供模型执行动作，Resources 提供可读取上下文，Prompts 提供可发现的模板化交互。
 
-- Client 与 Server 在初始化时协商能力，协议还覆盖进度、取消、错误等通用机制；较新的规范也支持 Elicitation 等客户端能力。
+- 生命周期必须按规范版本回答：2025-11-25 使用初始化握手；2026-07-28 改为逐请求携带版本和客户端能力元数据。进度、取消和 Elicitation 等机制也必须按对应版本实现，见下方版本表。
 
 - MCP 解决发现、描述和通信标准化，不自动解决业务权限、数据可信、工具安全和执行审计。
 
 - 生产使用时要固定或协商规范版本，并验证 Server 身份、能力与 Schema。
 
 <blockquote>
-<p><strong>版本/实践提示：</strong>版本提示：本手册以 2026-07-28 MCP 规范为参考基线。</p>
+<p><strong>版本/实践提示：</strong>当前参考基线为 2026-07-28；旧 SDK 常见的 2025-11-25 生命周期单独保留，不能把旧握手与新传输规则混用。</p>
 </blockquote>
 
 <blockquote>
@@ -270,6 +270,24 @@ source: AI Agent P7/P8 完整面试手册（自有资料）
 
 **追问 3｜MCP 能否直接解决权限问题？
 参考答案｜**不能。MCP 规范化了能力发现和通信，但授权、用户同意、凭证管理、最小权限、沙箱和审计仍需 Host、Server 及下游系统共同实现。
+
+### MCP 版本与生命周期边界 {#mcp-version-lifecycle}
+
+| 机制 | 2025-11-25 | 2026-07-28 |
+|---|---|---|
+| 初始化 | `initialize` 请求/响应协商版本与能力，然后发送 `notifications/initialized` | 移除这组握手；请求 `_meta` 携带协议版本与客户端能力 |
+| 能力发现 | 初始化响应携带服务端能力 | 服务端必须实现 `server/discover`，客户端可选调用，并非每次请求前的必经步骤 |
+| HTTP 会话 | 服务端可在初始化时分配 `Mcp-Session-Id`，启用后客户端按规范回传 | 移除协议级 Session 与 `Mcp-Session-Id` |
+| SSE | 支持请求响应流；服务端可实现事件 ID 与 `Last-Event-ID` 恢复 | 仍可用 SSE 返回请求结果/进度；移除独立 GET 流，不支持 `Last-Event-ID` 续流 |
+| 变更订阅 | 旧版订阅与服务端通知机制 | 通过 `subscriptions/listen` 的 POST 响应流接收选定变更通知 |
+
+来源分别为 [2025-11-25 生命周期](https://modelcontextprotocol.io/specification/2025-11-25/basic/lifecycle)、[旧版传输](https://modelcontextprotocol.io/specification/2025-11-25/basic/transports)、[2026-07-28 变更说明](https://modelcontextprotocol.io/specification/2026-07-28/changelog)及[新版 Streamable HTTP](https://modelcontextprotocol.io/specification/2026-07-28/basic/transports/streamable-http)。2026-07-28 的 HTTP 请求还必须满足对应元数据 Header 要求，例如 `MCP-Protocol-Version` 与请求体版本一致；仅更改 SDK 中的版本字符串不算完成迁移。
+
+**旧客户端接新版服务端：**只支持旧协议的客户端不能自行“向前协商”。仅支持新版的 HTTP 服务端会拒绝缺少必需 Header 的旧初始化请求；STDIO 则以 JSON-RPC 错误拒绝旧 `initialize`，具体错误码取决于实现。需要升级客户端，或由双版本服务端分别实现两套语义，不能收到任意错误就重试旧握手。[官方兼容矩阵](https://modelcontextprotocol.io/specification/2026-07-28/basic/versioning)
+
+**没有协议 Session，业务任务仍可有状态：**任务状态放业务存储，跨调用通过服务端签发的业务 Handle（普通工具参数）关联，并逐次验证身份、权限、有效期和幂等性。协议版本/能力元数据、业务任务 ID、授权凭证是不同概念，Handle 不能代替授权。长任务扩展也要确认双方支持，不能假定所有新版 MCP Server 都具备。
+
+核验日期：2026-10-09；本节是规范核对，未执行所有 SDK 组合的互操作测试。
 
 ## Q037｜MCP 与普通 Function Calling 有什么区别？
 
@@ -446,7 +464,7 @@ source: AI Agent P7/P8 完整面试手册（自有资料）
 高频追问与参考答案
 
 **追问 1｜SSE 断线后如何续传？
-参考答案｜**每个流事件带单调 event_id/sequence，服务端保存有限重放缓冲或持久化任务事件。客户端重连时携带 Last-Event-ID，从最后确认位置续传；超出保留期则读取任务快照并重新订阅。
+参考答案｜**先确定协议与版本。自建业务 SSE 可以约定事件 ID、重放缓冲、Last-Event-ID 和快照恢复；MCP 2025-11-25 的流恢复是可选实现，MCP 2026-07-28 不支持 Last-Event-ID 续流，断开请求响应 SSE 会作为该请求的取消信号。新版应按业务任务/幂等契约核对状态，再决定是否重新请求；取消信号不证明外部副作用已撤销。A2A 则核对其版本的任务查询/重新订阅约定。详见 [MCP 生命周期边界](#mcp-version-lifecycle)，不能把通用 SSE 设计当成所有协议的保证。
 
 **追问 2｜取消请求一定能撤销副作用吗？
 参考答案｜**不一定。取消只能阻止尚未开始或支持协作取消的工作，已经完成的付款、发信等副作用不会自动撤销；系统必须返回取消边界，并对已执行动作做对账或补偿。
@@ -454,4 +472,4 @@ source: AI Agent P7/P8 完整面试手册（自有资料）
 **追问 3｜远端 Agent 返回未知 Artifact 类型怎么办？
 参考答案｜**先依据媒体类型和版本协商判断是否有兼容处理器；未知类型应作为不透明引用保存、请求兼容格式或明确拒绝，不能把未知内容直接执行或强行解析。
 
-[<u>↩ 返回内容导航</u>](#如何使用这份手册)
+[<u>↩ 返回内容导航</u>](./index.md)

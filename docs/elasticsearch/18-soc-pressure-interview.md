@@ -3,7 +3,7 @@ title: SOC Elasticsearch P8 压力面试
 description: 搜索、热点、Merge、Bulk、生命周期、AI 结果一致性与 Hybrid Search 连续追问
 status: reviewing
 baseline: Elasticsearch 8.x/9.x and candidate project snapshot
-last_verified: 2026-09-02
+last_verified: 2026-10-09
 level: P7/P8
 source: 自有 SOC 项目材料与 Elastic 官方文档
 ---
@@ -107,7 +107,7 @@ for (BulkItemResult item : response.items()) {
 
 生产实现还要满足：
 
-- `event_id` 保证重试幂等；
+- 稳定业务键只在已定义的索引/路由范围内去重，跨 Rollover 需额外策略，见 [稳定 ID 与 Rollover](./17-soc-event-alert-capacity.md#rollover-idempotency)；
 - 退避增加随机抖动，避免所有 Worker 同时重试；
 - 队列有容量上限，满时向 Kafka 消费端施加背压；
 - Mapping 冲突等不可重试错误直接 DLQ；
@@ -163,14 +163,9 @@ Elastic 的 [Rejected requests](https://www.elastic.co/docs/troubleshoot/elastic
 
 Mapping、Analyzer 或主分片数不能原地安全修改时：
 
-1. 新建版本化 Index Template 和目标索引/Data Stream；
-2. 从 Kafka 事实流或源索引 Reindex 历史数据；
-3. 增量追平写入并记录高水位；
-4. 校验文档数、业务抽样、聚合、Checksum 和查询差异；
-5. Alias 原子切换；
-6. 保留旧索引回滚窗口，再按变更流程删除。
+以 [Reindex 的完整切换与回滚时序](./12-reindex-consistency.md#rebuild-cutover-rollback) 为准：预建目标和版本契约，把全量快照与日志起点关联，追平所有分区的连续高水位，排空在途写入并验证后切 Alias。只有旧索引已补齐切换后的新增、更新、删除，且旧 Schema 兼容，才允许无损切回。
 
-如果业务代码同时双写新旧索引，必须明确部分成功、重试和幂等设计；优先使用可重放的 CDC/Kafka 事实流，降低应用双写耦合。
+Alias 原子发布不等于整条迁移具有事务性；要检查逐 Action 错误和最终指向。业务双写的部分成功也要处理，优先采用可重放事实流。Data Stream 的追加限制与普通索引投影不同，不能复用同一更新方案。
 
 ## DB 与 ES 的事实边界
 

@@ -9,6 +9,8 @@
   --vp-font-family-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
   --vp-layout-max-width: 1480px;
   --vp-sidebar-width: 256px;
+  --vp-sidebar-bg-color: var(--vp-c-bg);
+  --handbook-reading-width: 760px;
   --vp-code-color: #405987;
   --vp-code-bg: rgba(64, 89, 135, 0.055);
   --vp-code-block-bg: #f6f8fa;
@@ -27,7 +29,7 @@
 /* Keep a comfortable line length even when the window is wide. */
 .VPDoc.has-aside .container .content .content-container,
 .VPDoc:not(.has-aside) .container .content .content-container {
-  max-width: 800px;
+  max-width: var(--handbook-reading-width);
 }
 
 .VPDoc .vp-doc {
@@ -188,12 +190,61 @@
   margin-bottom: 0.3em;
 }
 
-.VPSidebarItem .text {
+/* Keep category navigation quiet; only the current article gets a filled row. */
+.VPSidebar {
+  border-right: 1px solid var(--vp-c-divider);
+  scrollbar-width: thin;
+}
+
+.VPSidebar .VPSidebarItem > .item {
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.VPSidebar .VPSidebarItem.level-0 {
+  padding-bottom: 16px;
+}
+
+.VPSidebar .VPSidebarItem.collapsed.level-0 {
+  padding-bottom: 8px;
+}
+
+.VPSidebar .VPSidebarItem .text {
   line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.VPSidebar .VPSidebarItem.is-link:not(.is-active) > .item:hover {
+  background: var(--vp-c-bg-soft);
+}
+
+.VPSidebar .VPSidebarItem.is-active > .item {
+  background: var(--vp-c-brand-soft);
+  box-shadow: inset 3px 0 0 var(--vp-c-brand-1);
+}
+
+.VPSidebar .item:focus-visible,
+.VPSidebar .link:focus-visible,
+.VPSidebar .caret:focus-visible,
+.VPDocAsideOutline .outline-link:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 2px;
+  border-radius: 3px;
 }
 
 .VPDocAsideOutline .content {
   border-left-color: var(--vp-c-divider);
+}
+
+.VPDocAsideOutline .outline-title {
+  margin-bottom: 6px;
+  color: var(--vp-c-text-1);
+}
+
+.VPDocAsideOutline .outline-link.active {
+  color: var(--vp-c-brand-1);
+  font-weight: 600;
 }
 
 .VPHome .VPHero .text {
@@ -218,6 +269,18 @@
 .VPDocAsideOutline .outline-link:focus-visible {
   display: block;
   overflow: visible;
+}
+
+/* Preserve the native sidebar drawer and chapter menu on smaller screens. */
+@media (max-width: 959px) {
+  .VPSidebar .VPSidebarItem > .item {
+    min-height: 44px;
+  }
+
+  .VPSidebar .VPSidebarItem .caret {
+    width: 44px;
+    height: 44px;
+  }
 }
 
 /* The full subject navigation needs more room than VitePress's default breakpoint. */

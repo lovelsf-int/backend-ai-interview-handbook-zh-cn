@@ -3,7 +3,7 @@ title: 支付状态机与 UNKNOWN
 description: 显式状态转换、同步/回调竞争、未知结果和安全恢复顺序
 status: reviewing
 baseline: finance and payment source snapshot
-last_verified: 2026-09-01
+last_verified: 2026-10-09
 level: P7/P8
 source: 金融支付 canonical 第 4、6、10 章的状态专题
 ---
@@ -53,6 +53,45 @@ source: 金融支付 canonical 第 4、6、10 章的状态专题
 - 同一事件重复到达是否无副作用；
 - 状态迁移是否与领域事件在同一事务提交；
 - 是否记录迁移前后状态、原因、操作者和版本。
+
+<a id="payment-fulfillment-refund"></a>
+
+## 分开建模：支付尝试、履约与退款
+
+下面是状态契约示例，具体名称和渠道事件映射需按项目确认。PaymentAttempt 记录一次渠道尝试的资金事实，Fulfillment 记录发货/权益结果，Refund 记录独立退款请求。支付 APPROVED 后发货失败、退款成功，都不把原 Attempt 改回支付失败；订单上的“已退款”等展示状态由这些事实汇总。
+
+所有表的迁移都需要：可信事件及金额/币种/交易归属校验 → 事件去重 → expected_version 与合法前态条件更新 → 首次有效迁移与 Outbox 同一事务提交。并发更新失败要重读，区分重复与冲突；只有状态真的变化才创建对应业务事件。示例不把 QUERY、RETRY、RECONCILE 这些恢复动作当作持久业务状态。
+
+### PaymentAttempt：一次渠道尝试
+
+| 前态 → 后态 | 触发事件 | 守卫与终态保护 | 同事务事件 |
+| --- | --- | --- | --- |
+| CREATED → SENT | 已持久化发送意图，开始发送 | 固定 provider_request_id；发送状态不证明渠道已收到 | 请求发送意图/审计 |
+| SENT → PENDING / UNKNOWN | 渠道受理 / 响应超时 | 超时不能写 DECLINED；保持原请求号 | 查询恢复任务 |
+| SENT / PENDING / UNKNOWN → APPROVED / DECLINED | 已验签响应、回调、权威查询或对账证据 | 校验交易号、金额与币种；APPROVED 不被普通失败覆盖；冲突另存待核查 | PaymentApproved / PaymentDeclined |
+
+本地订单关闭不等于渠道尝试 DECLINED。关闭后确认扣款成功，仍记录 APPROVED，并单独决定履约、退款或人工处理；不能因为旧订单已关闭而丢弃资金事实。退款、撤销和拒付是后续资金事件，不用旧失败消息覆盖原成功记录。
+
+### Fulfillment：一次业务权益发放
+
+| 前态 → 后态 | 触发事件 | 守卫与终态保护 | 同事务事件 |
+| --- | --- | --- | --- |
+| 不存在 → PENDING | PaymentApproved 事件 | 支付事实已确认；稳定 fulfillment_key 唯一 | 待发放意图 |
+| PENDING → GRANTING | Worker 认领 | 本地版本/租约校验只保护认领；不能替代目标端幂等 | 发放尝试记录 |
+| GRANTING → GRANTED / UNKNOWN / RETRYABLE | 目标端成功 / 响应丢失 / 确认未执行 | GRANTED 不被迟到超时回退；UNKNOWN 先按原键查证，RETRYABLE 才按策略重试 | FulfillmentGranted / 恢复任务 |
+| UNKNOWN / RETRYABLE → GRANTED / MANUAL_REVIEW | 查证或同键重试 / 无法查证 | 目标端持久业务唯一性仍生效；无法证明是否发放时不换键盲发 | 完成或人工差错事件 |
+
+若权益发放就是消费者本地数据库写入，唯一键、权益变更和消费完成标记可以共用事务；若调用另一服务，目标服务必须持久保存同一业务键与结果，并在其事务边界内防止重复发放。回收权益属于独立补偿，已发放事实保留。
+
+### Refund：一次独立退款请求
+
+| 前态 → 后态 | 触发事件 | 守卫与终态保护 | 同事务事件 |
+| --- | --- | --- | --- |
+| 不存在 → CREATED | 合法退款请求 | 原支付已确认；固定 refund_request_id；原币种校验与可退额度认领需原子化 | 退款发送意图 |
+| CREATED → SENT → PENDING / UNKNOWN | 发起渠道退款、受理或超时 | 请求幂等；超时保留原请求号，不能释放已认领额度再发新请求 | 恢复查询任务 |
+| SENT / PENDING / UNKNOWN → SUCCEEDED / FAILED | 权威退款响应、回调、查询或对账 | 仅确定失败才释放对应额度；SUCCEEDED 不被旧失败回退；部分退款累计不超过可退金额 | RefundSucceeded / RefundFailed |
+
+跨服务恢复窗口与幂等作用域统一见 [Outbox、Inbox 与发货恢复](./08-events-outbox-inbox.md#fulfillment-crash-windows)。
 
 ## UNKNOWN：支付系统的分水岭
 
