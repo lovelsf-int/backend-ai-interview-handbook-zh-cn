@@ -36,26 +36,35 @@ source: 两份 Redis 自有资料的持久化内容合并
 
 **刷盘策略**
 
-always：每条命令强制刷盘，零丢失、性能极差
+`always`：每批追加写入后执行 fsync，再向客户端确认，耐久性更强、刷盘开销更大；仍依赖存储正确实现持久化，不能承诺所有故障下零丢失。
 
-everysec：每秒刷盘，最多丢1秒数据（生产主流）
+`everysec`：通常每秒 fsync，常见故障窗口约一秒；磁盘阻塞、刷盘配置与故障类型会影响实际窗口，不是无条件的一秒上限。
 
-no：交由系统刷盘，不可控、丢失数据多
+`no`：由操作系统决定刷盘时机，通常有更大的数据丢失窗口。
 
 **AOF 重写机制**
 
 合并冗余命令、删除无效命令，压缩AOF文件体积，避免日志无限膨胀。
 
-### 4.3 混合持久化（Redis4.0+ 生产推荐）
+<a id="_4-3-混合持久化-redis4-0-生产推荐"></a>
 
-结合RDB+AOF优势：**定时RDB快照 + 快照间AOF增量日志**
+### 4.3 混合持久化（Redis 4.0+）
 
-重启优先加载RDB快照，再回放增量AOF日志
+启用 `aof-use-rdb-preamble` 后，AOF 重写可用 **RDB 格式的基线 + 后续 AOF 增量**。它属于 AOF 的组织方式，不是将独立的定时 `dump.rdb` 与任意 AOF 拼接恢复。
 
-恢复速度快、数据丢失极少
+- Redis 4.x–6.x：同一 AOF 文件前部可为 RDB，后部追加命令日志。
+- Redis 7.0+：多段 AOF，由 manifest 管理一个基线文件与增量文件；基线可为 RDB 或 AOF 格式。
+- 常规启动同时启用 RDB/AOF 时，优先从 AOF 恢复；混合格式先加载 AOF 基线，再按顺序回放其增量。
 
-生产环境最优持久化方案
+混合格式改善体积与恢复速度，耐久性仍取决于 AOF 刷盘和存储。应按恢复演练、可接受丢失窗口与资源成本选型。
 
 ### 4.4 机器掉电数据丢失分析
 
-取决于AOF刷盘策略：everysec模式最多丢失1秒数据；always模式基本不丢数据，但性能损耗大。
+先确认哪些写入已向客户端成功确认、采用何种刷盘策略，以及磁盘是否可靠完成 fsync；不能把 `everysec` 或 `always` 当成跨所有故障类型的零丢失保证。刷盘边界见 [AOF 日志持久化](#_4-2-aof-日志持久化)。
+
+## 版本与来源
+
+本轮定向校准：2026-10-09，仅核对 AOF 刷盘和混合格式边界。
+
+- [Redis persistence](https://redis.io/docs/latest/operate/oss_and_stack/management/persistence/)
+- [Redis 7.2 配置：aof-use-rdb-preamble](https://github.com/redis/redis/blob/7.2/redis.conf)

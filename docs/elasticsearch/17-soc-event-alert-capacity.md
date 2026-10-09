@@ -3,7 +3,7 @@ title: SOC 事件、告警分层与容量设计
 description: 800～900 万 Event 与 Alert、150GB Primary 的数据边界、分片推导和双流水线设计
 status: reviewing
 baseline: Elasticsearch 8.x/9.x and candidate project snapshot
-last_verified: 2026-09-02
+last_verified: 2026-10-09
 level: P7/P8
 source: 自有 SOC 项目材料与 Elastic 官方文档
 ---
@@ -19,7 +19,7 @@ source: 自有 SOC 项目材料与 Elastic 官方文档
 
 ## 先给结论
 
-1. 800～900 万是进入 SOC 链路的 **Event 与 Alert 业务记录总量**，不是 800～900 万条高危告警。
+1. 800～900 万是进入 SOC 链路的 **Event 与 Alert 业务记录总量**，不是 800～900 万条高危告警，也不表示这些记录全部进入大模型；模型实际研判量须按筛选、聚合后的任务口径另行核验。
 2. 150GB 是相关 Data Stream 每日新增 **Primary Store 的合计**。配置一个副本后，同口径物理存储起点约为 300GB/日。
 3. Raw、Normalized、Alert、AI Result 会形成多个 ES 文档，所以 ES 文档数可能大于业务记录数。
 4. 分片必须按每个 Data Stream 的数据量、写入峰值、查询模式和恢复目标分别计算，不能把 150GB 机械除成全局固定分片数。
@@ -98,14 +98,14 @@ $$
 - 快照仓库容量；
 - 数据增长与突发流量余量。
 
-如果热层保留 7 天，仅主副本数据基线约为 2.1TB。再考虑 30% 的工程余量，节点可用磁盘规划不能低于约 2.73TB；实际还要按节点数、分配规则和水位验证，而不是只做集群总量除法。
+如果热层保留 7 天，仅主副本数据基线约为 2.1TB。以数据量为分母额外增加 30% 容量，得到 `2.1 × 1.3 = 2.73TB`；若要求总磁盘始终有 30% 空闲，则应按 `2.1 / 0.7 = 3.0TB` 计算。两种余量定义不同，实际还要按节点数、分配规则、临时放大和水位验证，而不是只做集群总量除法。
 
 ### 单条大小只能做合理性检查
 
 假设用 850 万条作为中位数：
 
 - 按十进制单位，`150GB / 850万 ≈ 17.6KB`；
-- 按二进制单位，`150GiB / 850万 ≈ 18.9KiB`。
+- 按二进制单位，`150GiB / 850万 = 150 × 1024² / 8500000 ≈ 18.50KiB`。
 
 这不是原始 Event 的平均 Payload，因为 Primary Store 已包含 `_source`、倒排索引、Doc Values、Stored Fields、编码和压缩，而且一条业务记录可能派生多个文档。它只能帮助发现口径错误，例如把 150GB 误说成某一个 Raw 流或某一个分片。
 
@@ -188,11 +188,32 @@ ES 两次写入不存在跨索引 ACID 事务。正确目标不是让 Raw 和 No
 
 1. Kafka 保留可重放的原始事实；
 2. 两条流水线使用不同 Consumer Group，各自消费完整事件流；
-3. 使用稳定 `event_id` 和 `tenant_id` 做幂等写入；
+3. 使用包含租户与来源域的稳定业务键，并明确去重范围；稳定 `_id` 不能单独保证跨 Rollover 幂等，见下节；
 4. 失败进入可观测的重试或 DLQ；
 5. 对账任务能发现 Raw 有而 Normalized 无的缺口并重放。
 
 同一个 Consumer Group 会在实例间分摊消息，不会把每条消息广播给 Raw 与 Normalize 两条业务流水线。用于 Fan-out 时，两个业务消费者必须使用不同 Group ID。
+
+### 稳定 ID 与 Rollover 的幂等边界 {#rollover-idempotency}
+
+同一具体索引、同一路由规则下，稳定 `_id` 能让重复 `index` 覆盖同一文档，或让重复 `create` 返回 409；它不是整个 Data Stream 的全局唯一约束。若自定义 Routing，还必须保证同一业务键始终落在同一路由，不能只检查 `_id`。
+
+对本页普通日志 Data Stream，可以构造以下反例：
+
+1. 事件在当前 Write Index 写入成功，但 ACK 丢失；
+2. Rollover 产生新的 Write Index；
+3. 同一事件经 Data Stream 名称重试，在新索引中创建成功；
+4. 查询覆盖两个 Backing Index 时可读到两份记录，而非必然得到 409。
+
+这是由 [Data Stream 写索引与 Rollover 规则](https://www.elastic.co/docs/manage-data/data-store/data-streams)和 [`_id` 的索引内身份范围](https://www.elastic.co/docs/reference/elasticsearch/mapping-reference/mapping-id-field)推导的工程边界，不是本文已经执行过的故障实验。TSDS 的时间范围路由另有规则，不能把本例直接当成所有 Data Stream 类型的行为；换成 Write Alias + Rollover 也不会自动获得跨索引唯一性。
+
+按业务选择一项明确策略：
+
+- **确定性普通索引分桶：**用不可变事件时间与受控分桶规则定位同一普通索引，再用租户/来源/事件 ID 去重。明确迟到窗口、索引保留期和迁移规则，不能用每次重试时的当前日期重新选桶。
+- **可靠去重账本：**记录业务键、处理状态和最终目标，协调重试与结果对账。先标记“已处理”再写 ES 会丢失，先写 ES 再标记会有重复窗口；账本必须覆盖这两个失败路径，不能拿一次 Redis `SETNX` 代替端到端证明。
+- **接受并治理重复：**存储允许至少一次追加，但取证、计数、聚合和告警触发都基于稳定业务键收敛；仅 UI 隐藏重复不足以修正统计。
+
+去重保留期至少覆盖最大故障、迟到与获准重放窗口；Kafka 可回放 7 天而去重仅保留 1 天时，必须另行处理旧数据重放。409 也不能一律当成功：应区分同键同内容的重复、键冲突和版本冲突，并留下核对依据。
 
 ### Logstash 多 Pipeline 示例
 
@@ -207,7 +228,9 @@ ES 两次写入不存在跨索引 ACID 事务。正确目标不是让 Raw 和 No
   queue.type: persisted
 ```
 
-Raw Pipeline 只做信封校验，不改写原始载荷：
+以下是**普通租户共享流**的示意：Raw 写入 `logs-soc.raw-shared`，Normalized 写入 `logs-soc.normalized-shared`。显式关闭自动路由，避免输入中的 `data_stream.*` 决定目标流。前提是可信接入层已鉴权并校验字符串信封：`tenant_id` 不可由外部请求任意冒用，`event_id` 在租户内包含来源域且唯一；两者均不含分隔符 `:`，组合 ID 不超过 ES 限制。不满足该约定时应使用规范化编码/摘要后的业务键。
+
+Raw Pipeline 只校验信封并同步受控路由元数据，不改写原始载荷；原始载荷应放在独立字段中：
 
 ```ruby
 input {
@@ -229,11 +252,15 @@ output {
     kafka { topic_id => "soc-events-invalid-v1" codec => json }
   } else {
     elasticsearch {
+      ecs_compatibility => "v8"
       data_stream => true
+      data_stream_auto_routing => false
+      data_stream_sync_fields => true
+      action => "create"
       data_stream_type => "logs"
       data_stream_dataset => "soc.raw"
-      data_stream_namespace => "%{[tenant_id]}"
-      document_id => "%{[event_id]}"
+      data_stream_namespace => "shared"
+      document_id => "%{[tenant_id]}:%{[event_id]}"
     }
   }
 }
@@ -251,6 +278,9 @@ input {
 }
 
 filter {
+  if ![event_id] or ![tenant_id] {
+    mutate { add_tag => ["invalid_envelope"] }
+  }
   mutate {
     add_field => {
       "[event][id]" => "%{[event_id]}"
@@ -261,21 +291,50 @@ filter {
 }
 
 output {
-  if "_dateparsefailure" in [tags] {
+  if "invalid_envelope" in [tags] or "_dateparsefailure" in [tags] {
     kafka { topic_id => "soc-normalize-dlq-v3" codec => json }
   } else {
     elasticsearch {
+      ecs_compatibility => "v8"
       data_stream => true
+      data_stream_auto_routing => false
+      data_stream_sync_fields => true
+      action => "create"
       data_stream_type => "logs"
       data_stream_dataset => "soc.normalized"
-      data_stream_namespace => "%{[tenant_id]}"
-      document_id => "%{[event_id]}"
+      data_stream_namespace => "shared"
+      document_id => "%{[tenant_id]}:%{[event_id]}"
     }
   }
 }
 ```
 
-生产上还要补齐认证、TLS、Schema 校验、敏感字段处理、重试上限、DLQ 保留期和 Pipeline 指标。配置只是解释职责边界，不能代替压测。
+这两个示例只展示分流和索引内 ID 作用域，不实现跨 Rollover 去重。生产上还要补齐认证、TLS、Schema 校验、敏感字段处理、重试治理、DLQ 保留期和 Pipeline 指标，并预建匹配的 ECS/Data Stream 模板。按[当前插件重试规则](https://www.elastic.co/docs/reference/logstash/plugins/plugins-outputs-elasticsearch#retry-policy)，409 会记录警告并丢弃，不会替业务核对“同键同内容”；需结合原始事实保留、冲突告警与对账处理。HTTP 级失败与 Item 级失败的重试策略也不同，不能假定插件已实现前文全部治理。配置未在 Logstash 集群执行，不能代替版本锁定、配置测试与压测。
+
+### 独立租户流：受控映射而非任意插值
+
+确有隔离收益的大租户才使用独立流。最简单的做法是为专用 Pipeline 配置固定 Namespace。需要单 Pipeline 动态分流时，先清理不可信 `data_stream`，再由已验证的租户身份和服务端白名单生成字段，例如以下过滤片段：
+
+```ruby
+filter {
+  mutate { remove_field => ["[data_stream]"] }
+  if [tenant_id] == "tenant_a" {
+    mutate {
+      replace => {
+        "[data_stream][type]" => "logs"
+        "[data_stream][dataset]" => "soc.raw"
+        "[data_stream][namespace]" => "dedicated_a"
+      }
+    }
+  } else {
+    mutate { add_tag => ["unapproved_stream_route"] }
+  }
+}
+```
+
+仅对白名单成功分支启用 `data_stream_auto_routing => true`；`unapproved_stream_route` 必须送隔离队列，不能再进入 ES 输出。上例固定值是已校验的 Namespace，实际映射需遵守命名规则并控制流数量，不能直接接受事件携带的目标流。
+
+[插件文档](https://www.elastic.co/docs/reference/logstash/plugins/plugins-outputs-elasticsearch#data_stream_auto_routing)规定：自动路由默认开启，事件 `data_stream.*` 优先于静态配置。核对[插件实现 `data_stream_name`](https://github.com/logstash-plugins/logstash-output-elasticsearch/blob/main/lib/logstash/outputs/elasticsearch/data_stream_support.rb)可见 Namespace 取事件字段或配置原值，并未对配置值执行 `event.sprintf`；因此不要把 `data_stream_namespace` 写成普通 `index` 参数的动态插值形式。此结论来自 2026-10-09 文档/源码核对，部署时仍须核验实际插件版本。
 
 ## 大租户与热点
 

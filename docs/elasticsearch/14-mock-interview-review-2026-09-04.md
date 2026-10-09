@@ -269,9 +269,9 @@ SOC 告警可以构造稳定文档 ID，例如：
 sourceSystem + tenantId + eventId
 ```
 
-重复消费时再次 index/upsert 同一 `_id`，避免生成重复文档。
+重复消费时，只有稳定落在同一具体普通索引、同一路由的 `index/upsert` 才能复用该 `_id`；Data Stream 使用追加 `create`，且 Rollover 后可能在新 Backing Index 产生重复。完整方案见 [稳定 ID 与 Rollover 的幂等边界](./17-soc-event-alert-capacity.md#rollover-idempotency)。
 
-如果业务存在版本顺序，还需要进一步考虑 external version / seq_no、状态机或业务版本控制，不能只靠 `_id`。
+若有更新乱序，还必须执行同源版本比较。外部源版本与 ES `_seq_no` 的并发控制不是一回事，详见 [Reindex 版本与删除边界](./12-reindex-consistency.md)。
 
 ---
 
@@ -424,7 +424,7 @@ ES 恢复
    ↓
 渐进恢复消费
    ↓
-ES _id 幂等抵御重复消费
+按索引/路由去重；跨 rollover 使用已验证的业务去重策略
 ```
 
 同时 Kafka retention 必须覆盖最大预计故障窗口并留足安全余量，否则“Kafka 缓冲”只是口号。
@@ -446,7 +446,7 @@ ES _id 幂等抵御重复消费
 
 ## 12. 60 秒面试标准回答：Kafka → ES 写入事故
 
-> 我们 Kafka 到 Elasticsearch 的链路不会依赖 JVM 内存队列无限吸收流量，而是把 Kafka 本身作为持久化缓冲。正常情况下 Consumer 批量 poll，通过有界的 Bulk Worker 写 ES；只有 ES item 成功，或者不可重试的数据已经可靠进入 DLQ 后，才推进对应的安全提交水位。遇到 429，我会认为 ES 已经产生背压，采用指数退避加 jitter，同时降低 Bulk 并发，并在 in-flight 达到阈值后 pause 对应 partition，让 lag 留在 Kafka，而不是把 Worker 堆到 OOM。ES 恢复以后渐进恢复消费，避免瞬时 backlog 再次把 ES 打挂。整个链路采用 at-least-once，所以 ES 文档使用稳定业务 ID 保证幂等。mapping error 这类不可重试错误不参与无限 retry，而是进入 DLQ，修复 schema 后再 replay。
+> 我们 Kafka 到 Elasticsearch 的链路不会依赖 JVM 内存队列无限吸收流量，而是把 Kafka 本身作为持久化缓冲。正常情况下 Consumer 批量 poll，通过有界的 Bulk Worker 写 ES；只有 ES item 成功，或者不可重试的数据已经可靠进入 DLQ 后，才推进对应的安全提交水位。遇到 429，我会认为 ES 已经产生背压，采用指数退避加 jitter，同时降低 Bulk 并发，并在 in-flight 达到阈值后 pause 对应 partition，让 lag 留在 Kafka，而不是把 Worker 堆到 OOM。ES 恢复以后渐进恢复消费，避免瞬时 backlog 再次把 ES 打挂。整个链路采用 at-least-once，稳定业务 ID 只在既定索引/路由范围内去重，跨 rollover 的重复由单独的去重策略处理。mapping error 这类不可重试错误不参与无限 retry，而是进入 DLQ，修复 schema 后再 replay。
 
 这段回答建议做到可以直接口述。
 

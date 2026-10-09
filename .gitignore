@@ -5,3 +5,8 @@ docs/.vitepress/dist/
 docs/.vitepress/.temp/
 .DS_Store
 *.log
+
+# Local verification artifacts
+/artifacts/
+/.vitepress/
+__pycache__/

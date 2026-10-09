@@ -1,0 +1,47 @@
+name: Verify curated reading cleanup
+
+on:
+  push:
+    branches:
+      - docs/curated-reading-fact-corrections
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install dependencies
+        run: npm ci
+      - name: Verify content, examples and navigation
+        run: npm run check
+      - name: Build static reading site
+        run: npm run docs:build
+      - name: Install browser and Chinese fonts
+        run: |
+          npx playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk
+      - name: Check desktop and mobile reading layouts
+        run: |
+          npm run docs:preview -- --host 127.0.0.1 --port 4173 > /tmp/reading-preview.log 2>&1 &
+          npm run test:layout
+      - name: Save clean viewport screenshots and results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reading-layout-review
+          path: artifacts/reading-layout/
+          if-no-files-found: warn
+          retention-days: 7

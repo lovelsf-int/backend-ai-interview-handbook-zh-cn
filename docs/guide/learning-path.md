@@ -1,37 +1,55 @@
 ---
-title: 学习路线
-description: 面向 P7/P8 Java 与 AI Agent 岗位的分阶段复习顺序
+title: 学习路线：先诊断，再跳读
+description: 用三个问题选一条短路线，按薄弱点回到主入口
 status: reviewing
-baseline: full migration plan v1
-last_verified: 2026-09-06
+baseline: curated reading map 2026-10-09
+last_verified: 2026-10-09
 level: P7/P8
-source: 12 份面试资料的结构化路线
+source: 现有专题、项目资料与阅读去重审计
 ---
 
-# 学习路线
+# 学习路线：先诊断，再跳读 {#学习路线}
 
-> 如果距离面试只有一周，直接使用 [P7/P8 面试冲刺与缺口地图](./interview-sprint-gap-map.md)，先修真实面试暴露的 P0 短板。
+## 先做诊断
+
+对今天的主题闭卷回答：①机制如何工作？②在哪个失败窗口不成立？③用什么观测或实验证明？三问都能说清，就跳过原理正文，直接去[练习](./practice.md)或[项目](./projects.md)。
+
+历史面试复盘只能提示候选弱点，不能替代今天的自测。下面三条路线选一条，不要求全走。
+
+## 今天只选一条短路线
+
+| 目标 | 第一篇 | 卡住了再读 | 结束条件 |
+|---|---|---|---|
+| Java 后端基础表达 | [集合与泛型](../java/collections-generics-interview-guide.md) | [Spring 事务](../spring/06-transaction-principles.md)或[MySQL MVCC](../mysql/innodb-write-mvcc-transactions.md)，只选答不出的 | 90 秒回答 + 一个失效反例 |
+| AI / SOC 工程 | [RAG 主线](../ai-agent/05-rag-knowledge-engineering.md) | [执行与恢复](../ai-agent/06-planning-execution-recovery.md) | 画出召回、权限、重排链路，并解释超时后的状态 |
+| 支付 / 系统设计 | [状态机与 UNKNOWN](../finance-payment-ddd/06-state-machine-unknown.md) | [Outbox/Inbox](../finance-payment-ddd/08-events-outbox-inbox.md) | 区分支付与履约，推演成功但 ACK 丢失 |
+
+零基础看不懂 AI 术语时，再选 [AI 学习路线](../ai-study/learning-path.md)的对应单元补课；它不是每个人都必须额外完成的前置任务。
 
 ## 第一阶段：建立回答骨架
 
-先掌握 Java 集合与并发、JVM 类加载与排障、Spring IoC/AOP/事务、MySQL 事务与锁、Kafka 可靠性、Redis 缓存一致性和 Elasticsearch 读写链路。目标是能够在 90 秒内给出有边界的核心回答。Java 基础先补 [集合、Map 与泛型](../java/collections-generics-interview-guide.md)，Spring 部分按 [核心架构与 IoC 主线](../spring/) 复习，再进入事务和生产排障。
+只补诊断失败的一个知识点，在[知识主入口](./topic-map.md)找到唯一主读；已经会的跳过，不重刷整专题。
 
 ## 第二阶段：进入生产工程
 
-学习幂等、Outbox/Inbox、状态机、容量规划、监控、降级、重试与补偿。每个结论都要能回答“失败会怎样”和“如何证明有效”。
+给刚学的知识补一个失败窗口：重复消息、超时、主从切换或迟到旧写入。先解释不变量，再选机制。
 
 ## 第三阶段：AI Agent 工程化
 
-按照架构编排、Prompt/Context、Tool/MCP、RAG、Memory、Multi-Agent、评估、安全和可靠性的顺序学习。模型决策与确定性工程约束要分层描述。
+选择 AI 岗位时继续上面的 AI 短路线；已有经验可直接做[安全验收场景](../ai-agent/14-llm-agent-security-practice.md)。
 
 ## 第四阶段：项目连续追问
 
-重点准备 SOC 智能研判、全球订阅、海外支付和道路运输平台。回答时明确个人职责、真实数据、关键取舍、事故路径和下一步优化。
+在[项目案例](./projects.md)只选一个代表项目。通用原理链接回主入口，不另背一套长答案；未核验指标留空或明确标注。
 
 ## 第五阶段：模拟面试
 
-每个专题使用“结论—原理—方案—异常—指标—取舍—演进”七段式回答，连续追问至少三轮，并记录无法量化或需要补证的部分。
+去[练习与复盘](./practice.md)。错题记录只留自己的原回答、错因、修正依据、下次验证，不抄整章。
 
 ## 第六阶段：架构决策与技术治理
 
-用 [P7/P8 架构决策实战](../system-design/p7-p8-architecture-decision-workshop.md) 练习容量、Deadline、恢复协议、质量评估、资源隔离和平台化取舍。每题完成一份架构决策记录，明确什么证据会推翻原方案。
+只有需要架构决策深度时，选 [P7/P8 架构决策实战](../system-design/p7-p8-architecture-decision-workshop.md)的一题，写出至少一个被拒方案及推翻当前方案的证据。
+
+## 距离面试只有一周
+
+[七天冲刺模板](./interview-sprint-gap-map.md)按当前诊断结果取舍；不是新增必读清单。每天保留一次口述和一次反例推演即可。

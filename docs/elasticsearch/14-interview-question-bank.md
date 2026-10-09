@@ -369,7 +369,7 @@ source: Elasticsearch 深度原理、生产调优与面试题自有资料
 
 关键词：一致性
 
-答案：DB 是事实源，ES 异步最终一致。用 CDC/Kafka、幂等 \_id、版本号防乱序、失败重试、DLQ、定期全量/抽样校验和补偿修复。
+答案：DB 是事实源，ES 异步最终一致。CDC/Kafka 保留可重放事实，消费者执行版本条件写入、连续 checkpoint、删除同步与对账；普通 version 字段不会自动防乱序，DLQ 也不是同步完成。详见 [数据一致性策略](./12-reindex-consistency.md)。
 
 #### Q59. 为什么不建议业务代码双写 DB 和 ES？
 
@@ -381,7 +381,7 @@ source: Elasticsearch 深度原理、生产调优与面试题自有资料
 
 关键词：reindex
 
-答案：创建新索引 v2，设置新 mapping；全量 reindex；增量同步；校验；通过 alias 原子切换读写；保留旧索引用于回滚。
+答案：新建 v2；建立快照与 CDC 的无缺口起点，按源版本处理更新和删除；追平连续高水位并排空在途写入、校验后切 Alias。回滚前旧索引也要补齐切换后的状态，详见 [完整时序与回滚门槛](./12-reindex-consistency.md#rebuild-cutover-rollback)。
 
 #### Q61. 如何选择 nested？
 
@@ -827,7 +827,7 @@ source: Elasticsearch 深度原理、生产调优与面试题自有资料
 
 关键词：reindex
 
-答案：新索引导入，源索引继续服务；增量同步追平；灰度验证；alias 原子切换；失败回滚 alias。
+答案：旧索引提供读服务，新索引按快照/CDC 契约重建；追平后设置切换屏障、灰度验证并核查 Alias 结果。切回旧索引必须先证明它已补齐新状态，不能仅“保留旧索引”。与 Q60 共用 [Reindex 标准流程](./12-reindex-consistency.md#rebuild-cutover-rollback)。
 
 #### Q135. reindex 性能怎么优化？
 
@@ -923,7 +923,7 @@ source: Elasticsearch 深度原理、生产调优与面试题自有资料
 
 关键词：版本控制
 
-答案：可用外部版本控制 CDC 事件顺序，旧版本事件写入被拒绝，防止乱序覆盖。具体实现要结合 ES 版本和客户端。
+答案：普通 `_source.version` 不会自动控制写入。要让全量与 CDC 共享单调源版本，并显式使用外部版本或等价条件写入；同时处理同版本冲突和删除防复活。详见 [版本字段必须参与条件写入](./12-reindex-consistency.md#版本字段必须参与条件写入)。
 
 ### 14.4 加分扩展题
 
@@ -1015,7 +1015,7 @@ source: Elasticsearch 深度原理、生产调优与面试题自有资料
 
 关键词：系统设计
 
-答案：DB 为事实源，CDC-\>Kafka-\>Indexer-\>ES；订单 ID 幂等；按时间/租户拆索引；tenant/user 权限 filter；PIT+search_after 导出；alias 重建；定期校验补偿。
+答案：DB 为事实源，CDC-\>Kafka-\>Indexer-\>ES；带租户域的订单键在固定索引/路由内去重（[滚动边界](./17-soc-event-alert-capacity.md#rollover-idempotency)）；按时间/租户拆索引；tenant/user 权限 filter；PIT+search_after 导出；alias 重建；定期校验补偿。
 
 #### Q166. 设计 ELK 日志平台，你怎么讲？
 

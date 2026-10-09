@@ -19,7 +19,7 @@ const aiCodingSidebar = [
 ]
 
 const aiAgentSidebar = [
-  { text: '系统学习与复习（32 篇）', link: '/ai-study/' },
+  { text: '按需补基础与自测', link: '/ai-study/' },
   { text: '专题首页', link: '/ai-agent/' },
   {
     text: '基础与编排',
@@ -526,7 +526,7 @@ export default withMermaid(defineConfig({
     siteTitle: '后端与 AI 面试手册',
     nav: [
       { text: '首页', link: '/' },
-      { text: '学习路线', link: '/guide/learning-path.md' },
+      { text: '先读这一页', link: '/guide/' },
       { text: '面试冲刺', link: '/guide/interview-sprint-gap-map.md' },
       { text: '算法面试', link: '/algorithms/' },
       {
@@ -558,7 +558,11 @@ export default withMermaid(defineConfig({
     ],
     sidebar: {
       '/guide/': [
-        { text: '使用指南', link: '/guide/' },
+        { text: '先读这一页', link: '/guide/' },
+        { text: '知识主入口', link: '/guide/topic-map.md' },
+        { text: '项目案例与证据', link: '/guide/projects.md' },
+        { text: '练习与复盘', link: '/guide/practice.md' },
+        { text: '历史与来源', link: '/guide/archive.md' },
         { text: '学习路线', link: '/guide/learning-path.md' },
         { text: 'P7/P8 面试冲刺与缺口地图', link: '/guide/interview-sprint-gap-map.md' },
         { text: '真实面试复盘', link: '/guide/real-interview-review-2026-09-03.md' }

@@ -64,17 +64,35 @@ Kafka 事务提供：
 
 ### 7.4 Consume-Transform-Produce 的正确 EOS 流程
 
-**\[text\]
-**initTransactions()
+以下为“一次 poll 的输入由一个事务处理”的成功路径示意；异常处理见下文，不能统一 catch 后 abort。
+
+```text
+initTransactions()
 循环：
-poll()
-beginTransaction()
-处理输入并 send() 输出记录
-sendOffsetsToTransaction(nextOffsets, consumer.groupMetadata())
-commitTransaction()
-异常：
-abortTransaction()
-按异常类型重试、退出或人工处理
+  records = poll()
+  保存各分区本批输入起点 batchStartOffsets
+  beginTransaction()
+  处理本批全部输入，并 send() 输出记录
+  sendOffsetsToTransaction(nextOffsets, consumer.groupMetadata())
+  commitTransaction()
+```
+
+`nextOffsets` 是各分区已完成输入之后的下一消费位置，不能越过尚未处理的记录。
+
+#### 提交失败要区分结果未知、可中止与致命错误
+
+按 Kafka Java Client 4.1 API 口径：
+
+- `commitTransaction()` 等待超时或被中断，并不证明提交失败，Broker 可能已经提交。可在同一 Producer 上重试同一 `commitTransaction()`；若不再重试则关闭 Producer，不能切换成 `abortTransaction()` 或立即重放输入。
+- 明确的可中止错误（例如 `sendOffsetsToTransaction()` 抛出 `CommitFailedException`）才走 `abortTransaction()`。中止本身超时/被中断时，只能重试同一中止操作或关闭 Producer，不能在结果未知时继续新事务。
+- `ProducerFencedException` 等致命错误应停止使用并关闭该 Producer，不能继续发送或依赖一次 abort 修复；按具体异常和客户端版本恢复。
+- 关闭后恢复时，先通过正确的 `transactional.id` 和 `initTransactions()` 完成前一事务的收尾，再依据已提交消费位点恢复，不能把未知提交当作确定失败。
+
+#### 中止后必须恢复消费位置
+
+`poll()` 已推进 Consumer 的本地 position；成功 `abortTransaction()` 不会让它自动回退。若要在同一 Consumer 重放，须将仍归自己所有的相关分区 `seek()` 回 `batchStartOffsets`（或按明确恢复策略回到已提交位点）后再 poll。发生 Rebalance 时按新的 assignment 和已提交位点恢复，不要对已失去的分区继续处理或 seek。
+
+若遗漏回退，下一批可能越过被中止的输入，之后再提交更靠后的 offset，造成业务漏处理。重试同一提交与中止后重新处理，是两条不同路径。
 
 关键点：
 
@@ -84,7 +102,7 @@ abortTransaction()
 
 - 输出记录和下一消费位点属于同一事务。
 
-- 下游 Consumer 设置 isolation.level=read_committed。
+- 读取事务 Topic 的输入和下游 Consumer 均设置 `isolation.level=read_committed`。
 
 - transactional.id 必须在并行实例间唯一且重启后稳定。
 
@@ -160,3 +178,10 @@ Kafka 事务不能自动把 MySQL、Redis、Elasticsearch 或 HTTP 调用纳入�
 - Kafka 事务适合 Kafka-in/Kafka-out 原子处理；MySQL、Redis、Elasticsearch 等外部副作用仍需业务幂等、Outbox/Inbox 或同库事务边界。
 - Kafka Streams 当前配置口径必须按版本核对，旧资料中的 `exactly_once` 仅作为历史说明；主干采用 `exactly_once_v2` 的校准方向。
 - 未提供压测条件的固定性能损耗比例不进入主干。
+
+## 版本与来源
+
+本轮定向校准：2026-10-09，仅核对事务异常与消费位置恢复。不同客户端版本应复核各方法的异常契约。
+
+- [Kafka 4.1 KafkaProducer：commitTransaction / abortTransaction](https://kafka.apache.org/41/javadoc/org/apache/kafka/clients/producer/KafkaProducer.html)
+- [Kafka 4.1 KafkaConsumer：position / committed / seek](https://kafka.apache.org/41/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html)

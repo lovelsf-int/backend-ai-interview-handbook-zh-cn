@@ -34,11 +34,11 @@ Redis Cluster 共 **16384个哈希槽**，Key通过 CRC16(key)%16384 分配槽�
 
 ### 9.4 集群核心问题
 
-不支持跨槽事务、不支持跨槽MGET批量操作
+跨槽事务和单次跨槽 `MGET` 不受支持；Lua/锁也不能将跨节点写入变成原子事务，见 [事务与脚本同槽边界](./09-transactions-lua-functions.md#_10-5-redis-cluster-的同槽边界)。
 
 HashTag可强制Key落到同一槽，实现批量操作与事务
 
-存在集群脑裂风险，依靠min-replicas-to-write降级防护
+存在网络分区和已确认写丢失风险；`min-replicas-to-write` 配合 `min-replicas-max-lag` 只能限制部分风险窗口，不能保证逐条同步或消除脑裂。详见 [写入限制边界](./07-replication-sentinel.md#min-replicas-的保护边界)。
 
 ### 9.5 一致性哈希 vs Redis哈希槽
 

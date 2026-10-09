@@ -1,20 +1,20 @@
 ---
 title: P7/P8 面试冲刺与能力缺口地图
 description: 根据现有手册覆盖度和真实面试复盘生成的优先级、七天冲刺路线与上场检查单
-status: verified
-baseline: 2026-09-06 repository coverage audit and interview reviews
-last_verified: 2026-09-06
+status: reviewing
+baseline: 2026-10-09 navigation audit; historical interview evidence dated 2026-09
+last_verified: 2026-10-09
 level: P7/P8
 source: 本站内容覆盖度审计、真实面试复盘与正式模拟面试复盘
 ---
 
 # P7/P8 面试冲刺与能力缺口地图
 
-> 当前最优策略不是继续平均扩充题库，而是先补 Java/JVM/MySQL 基础表达，再把已经较强的 ES、RAG、Agent、Kafka 和支付能力练成稳定的项目主线。
+> 这是一份历史复盘驱动的冲刺模板，不是对当前能力的重新测评。先做[今日诊断](./learning-path.md)，只保留答不稳的项；已有知识覆盖与个人证据是否齐全要分开看。
 
 ## 当前能力地图
 
-| 领域 | 当前覆盖 | 面试判断 | 下一步动作 |
+| 领域 | 当前覆盖 | 历史复盘提示（需重新自测） | 下一步动作 |
 |---|---|---|---|
 | Elasticsearch / SOC | 原理、写入、查询、分片、容量、故障、压力面较完整 | 强项，但项目数字必须统一口径 | 练 3 分钟主线和三轮容量追问 |
 | RAG / Agent | RAG、Tool、MCP、规划恢复、评估、安全较完整 | 强项，注意从概念收敛到指标和状态机 | 固定检索链路、失败分类和权限边界 |
@@ -23,8 +23,8 @@ source: 本站内容覆盖度审计、真实面试复盘与正式模拟面试复
 | Java 基础 | 并发、IO、虚拟线程较强，集合和泛型原先偏薄 | P0 短板 | 先补集合选型、HashMap、泛型擦除 |
 | JVM | 生产排障有内容，类加载和对象生命周期原先偏薄 | P0 短板 | 串起加载、链接、初始化、分配、回收 |
 | MySQL | 事务、MVCC、索引、锁已覆盖，变更治理与全局性能归因偏薄 | P0 短板 | 练执行计划漂移、资源瓶颈和 Online DDL |
-| 分布式系统 / 网络 / Linux | 分散在案例和故障手册中，尚未形成独立专题 | P1 缺口 | 后续补 RPC、注册发现、限流、网络与 OS |
-| 算法与手写代码 | 尚无独立模块 | P1 缺口 | 单独训练 DP、链表、树、滑窗和并发手写 |
+| 分布式系统 / 网络 / Linux | [IO/Netty](../java/io-nio-netty-interview-guide.md)、[服务治理](../java/spring-transactions-service-governance.md)、故障手册与跨仓库案例已有覆盖 | 按题自测，不以分散存放判定缺失 | 只补当前不能解释的机制与故障证据 |
+| 算法与手写代码 | 已有[算法模块](../algorithms/)与[并发手写](../java/thread-programming/) | 以运行和边界用例验收 | 按薄弱点练 DP、链表、树、滑窗和并发 |
 
 ## P0：上场前必须补齐
 

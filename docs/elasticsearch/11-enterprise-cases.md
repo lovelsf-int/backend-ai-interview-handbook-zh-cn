@@ -36,12 +36,12 @@ source: Elasticsearch 深度原理、生产调优与面试题自有资料
 
 | **设计点** | **推荐方案**                                               |
 |------------|------------------------------------------------------------|
-| 索引拆分   | 按业务域 + 时间周期拆分，例如 order-2026.07 或 data stream |
-| 主键       | 使用订单 ID 作为 \_id，保证幂等覆盖                        |
+| 索引拆分   | 当前订单状态用普通索引；按业务域/不可变时间分桶须固定更新目标，Data Stream 更适合订单追加事件 |
+| 主键       | 带租户域的订单键作为 `_id`；仅在固定索引/路由内覆盖，跨滚动边界见 [稳定 ID](./17-soc-event-alert-capacity.md#rollover-idempotency) |
 | 路由       | 按 tenant_id 或 buyer_id 评估，避免热点                    |
 | 一致性     | DB 为准；ES 异步最终一致；提供补偿重放和定时校验           |
 | 权限       | tenant_id、org_id、user_scope 放 filter，不在前端拼接      |
-| 重建       | 新索引 order_v4，双写/回放，alias 原子切换                 |
+| 重建       | 新索引 order_v4，快照/增量/屏障/校验后切换，按 [完整回滚条件](./12-reindex-consistency.md#rebuild-cutover-rollback) 执行 |
 
 ### 11.2 商品搜索系统
 
