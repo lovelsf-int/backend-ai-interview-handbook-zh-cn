@@ -3,7 +3,7 @@ title: 金融支付与 DDD 架构手册
 description: 从支付不变量、账务与一致性到系统设计和订阅案例
 status: reviewing
 baseline: finance and payment source snapshot
-last_verified: 2026-09-04
+last_verified: 2026-10-14
 level: P7/P8
 source: 三份金融支付与 DDD 自有资料的主题合并
 ---
@@ -11,6 +11,16 @@ source: 三份金融支付与 DDD 自有资料的主题合并
 # 金融支付与 DDD 架构手册
 
 > 正确性优先：先定义业务不变量、失败状态和账务事实，再选择中间件、模式与部署拓扑。
+
+## 海外游戏 SDK 支付订阅
+
+[支付订阅专题入口](./store-subscriptions/index.md) 聚焦 Apple／Google 商店订阅，按问题阅读：
+
+1. [表结构与流水关系](./store-subscriptions/data-model.md)
+2. [恢复购买与交易查询](./store-subscriptions/restore-purchases.md)
+3. [生命周期与事务一致性](./store-subscriptions/lifecycle-consistency.md)
+4. [补偿与跨区可靠性](./store-subscriptions/reliability.md)
+5. [40 道面试题与参考回答](./store-subscriptions/interview.md)
 
 ## DDD 与设计基础
 

@@ -3,7 +3,7 @@ title: 项目案例：只讲有证据的经历
 description: 把项目事实与通用知识分开，选择一个代表项目深入
 status: reviewing
 baseline: curated reading map 2026-10-09
-last_verified: 2026-10-09
+last_verified: 2026-10-14
 level: P7/P8
 source: 现有专题、项目资料与阅读去重审计
 ---
@@ -15,7 +15,7 @@ source: 现有专题、项目资料与阅读去重审计
 | 项目 | 主入口 | 只在对应追问时打开 |
 |---|---|---|
 | SOC 智能研判 | [SOC Agent](../system-design/soc-agent.md) | [当前容量口径](../elasticsearch/17-soc-event-alert-capacity.md)；[压力面](../elasticsearch/18-soc-pressure-interview.md) |
-| 海外游戏支付 | [海外支付](../system-design/overseas-payment.md) | [全球订阅与跨区容灾](../system-design/global-subscription.md) |
+| 海外游戏支付订阅 | [支付订阅专题](../finance-payment-ddd/store-subscriptions/index.md) | [海外支付背景](../system-design/overseas-payment.md)；[全球订阅与跨区容灾](../system-design/global-subscription.md) |
 | 订阅领域建模 | [支付与 DDD](../finance-payment-ddd/index.md) | [订阅案例的边界划分](../finance-payment-ddd/subscription-case/01-bounded-contexts.md) |
 | 道路运输 | [运输安全平台](../system-design/transport-safety.md) | 按正文中的业务流程追问 |
 | AI Coding | [Spec-driven 实践](../system-design/spec-driven-ai-coding.md) | [AI Coding 质量治理](../ai-coding/quality-governance.md) |

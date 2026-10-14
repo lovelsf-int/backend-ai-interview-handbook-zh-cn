@@ -360,6 +360,18 @@ const elasticsearchSidebar = [
 const paymentSidebar = [
   { text: '专题首页', link: '/finance-payment-ddd/' },
   {
+    text: '海外游戏 SDK 支付订阅',
+    collapsed: false,
+    items: [
+      { text: '专题入口与项目口径', link: '/finance-payment-ddd/store-subscriptions/' },
+      { text: '表结构与流水关系', link: '/finance-payment-ddd/store-subscriptions/data-model.md' },
+      { text: '恢复购买与交易查询', link: '/finance-payment-ddd/store-subscriptions/restore-purchases.md' },
+      { text: '生命周期与事务一致性', link: '/finance-payment-ddd/store-subscriptions/lifecycle-consistency.md' },
+      { text: '补偿与跨区可靠性', link: '/finance-payment-ddd/store-subscriptions/reliability.md' },
+      { text: '40 道面试题与参考回答', link: '/finance-payment-ddd/store-subscriptions/interview.md' }
+    ]
+  },
+  {
     text: 'DDD 与设计基础',
     collapsed: true,
     items: [
@@ -561,6 +573,7 @@ export default withMermaid(defineConfig({
         { text: '先读这一页', link: '/guide/' },
         { text: '知识主入口', link: '/guide/topic-map.md' },
         { text: '项目案例与证据', link: '/guide/projects.md' },
+        { text: '支付订阅专题', link: '/finance-payment-ddd/store-subscriptions/' },
         { text: '练习与复盘', link: '/guide/practice.md' },
         { text: '历史与来源', link: '/guide/archive.md' },
         { text: '学习路线', link: '/guide/learning-path.md' },

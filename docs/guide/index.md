@@ -3,7 +3,7 @@ title: 使用指南：先读这一页
 description: 先诊断再选一条路线，区分知识、项目、练习和历史资料
 status: reviewing
 baseline: curated reading map 2026-10-09
-last_verified: 2026-10-09
+last_verified: 2026-10-14
 level: P7/P8
 source: 现有专题、项目资料与阅读去重审计
 ---
@@ -19,6 +19,8 @@ source: 现有专题、项目资料与阅读去重审计
 3. **准备讲自己的项目**：[项目案例](./projects.md)，查业务约束、个人职责和真实证据。
 4. **检验会不会**：[练习与复盘](./practice.md)，先答题，错了再回主入口。
 5. **查旧说法或材料来源**：[历史与来源](./archive.md)，不放进日常必读队列。
+
+准备海外游戏 SDK 支付项目时，直接进入 [支付订阅专题](../finance-payment-ddd/store-subscriptions/index.md)：表结构 → 恢复购买 → 生命周期与一致性 → 补偿与跨区容灾 → 40 道面试题。
 
 ## 如何判断内容可信度
 

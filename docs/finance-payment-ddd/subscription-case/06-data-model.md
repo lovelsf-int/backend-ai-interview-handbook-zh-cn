@@ -10,6 +10,8 @@ source: 两份 DDD 支付订阅系统自有资料的结构合并与 Mermaid 重�
 
 # 订阅支付核心数据模型
 
+本页是通用支付领域 ER 概览。Apple／Google 商店订阅的账户映射、逐期流水、恢复购买及可执行的 MySQL 表定义，见 [支付订阅表结构与流水关系](../store-subscriptions/data-model.md)。
+
 ## 核心实体关系
 
 ```mermaid
