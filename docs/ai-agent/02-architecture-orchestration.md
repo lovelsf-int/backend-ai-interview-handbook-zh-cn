@@ -10,6 +10,10 @@ source: AI Agent P7/P8 完整面试手册（自有资料）
 
 # Agent 架构与编排模式
 
+::: tip 先沿项目理解，再做专项题
+先读 [传统 SOC 如何演进到 Agent](./soc-agent-evolution.md) 和 [七层职责与完整执行过程](./soc-agent-layers.md)，看清这些模式在项目里分别负责哪一段，再回本页接受架构追问。
+:::
+
 > 来源模块：模块二。本页保留完整标准答案、P7/P8 判断线和连续追问。
 
 **从单循环到可恢复、可治理的 Agent Runtime**

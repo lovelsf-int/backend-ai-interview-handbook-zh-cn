@@ -10,6 +10,10 @@ source: AI Agent P7/P8 完整面试手册（自有资料）
 
 # 系统设计与项目深挖
 
+::: tip SOC 项目的连续阅读入口
+从 [传统范式](./soc-agent-evolution.md) → [Agent 七层](./soc-agent-layers.md) → [子 Agent](./soc-agent-subagents.md) → [评估闭环](./soc-agent-evaluation.md) 顺序阅读，再回本页进行系统设计与项目追问。
+:::
+
 > 来源模块：模块十二。本页保留完整标准答案、P7/P8 判断线和连续追问。
 
 **面试官最终要确认：你能否把 Agent 做成一个真实业务系统**

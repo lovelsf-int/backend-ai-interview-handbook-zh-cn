@@ -19,8 +19,18 @@ const aiCodingSidebar = [
 ]
 
 const aiAgentSidebar = [
+  { text: 'Agent 项目主线', link: '/ai-agent/' },
+  {
+    text: '先看 SOC：从范式到落地',
+    collapsed: false,
+    items: [
+      { text: '① 传统 SOC → Agent', link: '/ai-agent/soc-agent-evolution.md' },
+      { text: '② 七层职责与执行过程', link: '/ai-agent/soc-agent-layers.md' },
+      { text: '③ 子 Agent 分工与协作', link: '/ai-agent/soc-agent-subagents.md' },
+      { text: '④ 分层评估与上线闭环', link: '/ai-agent/soc-agent-evaluation.md' }
+    ]
+  },
   { text: '按需补基础与自测', link: '/ai-study/' },
-  { text: '专题首页', link: '/ai-agent/' },
   {
     text: '基础与编排',
     collapsed: true,

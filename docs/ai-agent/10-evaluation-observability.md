@@ -10,6 +10,10 @@ source: AI Agent P7/P8 完整面试手册（自有资料）
 
 # Evaluation 与 Observability
 
+::: tip 先看一套可执行的 SOC 评估方案
+[SOC 分层评估与上线闭环](./soc-agent-evaluation.md) 提供样本结构、各层指标、分母定义、单/多 Agent 对照与发布门槛。理解完整流程后，再用本页题库深挖。
+:::
+
 > 来源模块：模块十。本页保留完整标准答案、P7/P8 判断线和连续追问。
 
 **没有评估闭环，就无法知道 Agent 是真的变好，还是更会解释错误**
